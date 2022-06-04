@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sass starter project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=Fira+Code:wght@300;400;637&family=Flow+Circular&family=Inter:wght@271;900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+      integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="https://use.typekit.net/mtw8akb.css" />
+
+    <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+
+    <script type="module">
+      import tailwindcssTypography from "https://cdn.skypack.dev/@tailwindcss/typography";
+      import tailwindcssForms from "https://cdn.skypack.dev/@tailwindcss/forms";
+
+      window.tailwindConfig = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter var", "sans-serif"],
+              mono: ["Input Mono", "Space Mono", "Fira Code", "monospace"],
+            },
+            fontSize: {
+              "2xs": ["0.625rem", "0.875rem"],
+            },
+            colors: {
+              brand: {
+                DEFAULT: "#002894",
+                50: "#f2f4fa",
+                100: "#e6eaf4",
+                200: "#bfc9e4",
+                300: "#99a9d4",
+                400: "#4d69b4",
+                500: "#002894",
+                600: "#002485",
+                700: "#001e6f",
+                800: "#001859",
+                900: "#001449",
+              },
+              primary: {
+                DEFAULT: "#314B6F",
+                50: "#f5f6f8",
+                100: "#eaedf1",
+                200: "#ccd2db",
+                300: "#adb7c5",
+                400: "#6f819a",
+                500: "#314B6F",
+                600: "#2c4464",
+                700: "#253853",
+                800: "#1d2d43",
+                900: "#182536",
+              },
+              // Secondary, Neutral
+              secondary: {
+                DEFAULT: "#64748B",
+                50: "#F8FAFC",
+                100: "#F1F5F9",
+                200: "#E2E8F0",
+                300: "#CBD5E1",
+                400: "#94A3B8",
+                500: "#64748B",
+                600: "#475569",
+                700: "#334155",
+                800: "#1E293B",
+                900: "#0F172A",
+              },
+              accent: {
+                DEFAULT: "#ee7d1e",
+                50: "#fef9f4",
+                100: "#fdf2e9",
+                200: "#fbdfc7",
+                300: "#f8cba5",
+                400: "#f3a462",
+                500: "#ee7d1e",
+                600: "#d6711b",
+                700: "#b35e17",
+                800: "#8f4b12",
+                900: "#753d0f",
+              },
+            },
+          },
+        },
+        plugins: [tailwindcssTypography, tailwindcssForms],
+      };
+
+      window.tailwindCSS.refresh();
+    </script>
+
+    <script type="tailwind-config">
+      window.tailwindConfig
+    </script>
+
+    <link rel="stylesheet" href="scss/main.scss" media="all" />
+    <link rel="stylesheet" href="scss/print.scss" media="print" />
+    <style>
+
+      h1 {
+        overflow: hidden;
+        height: 0;
+        padding-top: 56.25%;
+        background: url(https://cominex.net/assets/img/front-of-risk.jpg);
+      }
+      .aspect-ratio-box {
+        height: 0;
+        overflow: hidden;
+        padding-top: 591.44px / 1127.34px * 100%;
+        background: white;
+        position: relative;
+      }
+      .aspect-ratio-box-inside {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .flexbox-centering {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.viewport-sizing {
+  font-size: 5vw;
+}
+    </style>
+  </head>
+
+  <body class="font-mono">
+    <div class="buddy">
+      <div class="buddy__ratio" style="padding-top: 56.25%;"></div>
+      <div id="buddy_background" class="buddy__inner" style="background-color: rgb(250, 255, 127);"></div>
+      <div id="buddy_face" class="buddy__face" style="background-position: 100% 0px;"></div>
+    </div>
+
+    <section class="px-8 mt-8 max-w-screen-md">
+      <h1 class="aspect-ratio-box border border-primary-600">
+        <div class="aspect-ratio-box-inside">
+          <div class="flexbox-centering">
+            <div class="viewport-sizing">
+                Happy Birthday
+            </div>
+          </div>
+        </div>
+      </h1>
+    </section>
+
+    <section class="px-8 mt-8">
+      <figure>
+        <!-- contain cover fill none scale-down -->
+        <img class="w-full" style="max-width: 900px; object-fit: cover; aspect-ratio: 16 / 9" src="https://cominex.net/assets/img/front-of-risk.jpg" alt="Front of Risk" />
+      </figure>
+    </section>
+
+    <section class="px-8 mt-8">
+      <button class="button open-button">open modal</button>
+      <button class="button print-button">print</button>
+    </section>
+
+    <section class="px-8 mt-8">
+      <h1>Modals the <em>easy</em> way</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Impedit alias
+        dicta quibusdam cumque ipsa ipsum reiciendis animi, officia provident
+        veniam quis delectus minima earum suscipit ea, beatae vitae ipsam nemo.
+      </p>
+      <p>
+        Alias, architecto sapiente nostrum id, sed explicabo numquam aspernatur
+        ratione qui <s>excepturi repellat porro culpa</s> molestiae? Culpa
+        dolorem commodi cupiditate, eos deleniti similique repellendus nam velit
+        natus a soluta et.
+      </p>
+      <p>
+        Fugiat ratione impedit officiis? Eligendi sapiente culpa tenetur esse
+        quo reiciendis illum vero nisi ullam consequatur illo molestiae, nihil
+        eaque. Esse asperiores tenetur natus! Quo asperiores molestias sed
+        assumenda alias.
+      </p>
+
+      <blockquote>
+        There is <del>nothing</del> <ins>no code</ins> either good or bad, but
+        <del>thinking</del> <ins>running it</ins> makes it so.
+      </blockquote>
+
+      <p>
+        Sequi quo animi, nostrum laboriosam veritatis consequatur. Eos cumque
+        unde porro explicabo provident, possimus alias magni pariatur quis
+        consequuntur voluptatum? Debitis necessitatibus facilis fugiat
+        repudiandae nobis neque nam, vel odio?
+      </p>
+
+      <form>
+        <fieldset>
+          <legend>Your address</legend>
+          <label for="street">Street</label>
+          <input type="text" id="street" />
+
+          <label for="town">Town or city</label>
+          <input type="text" id="town" />
+
+          <label for="county">County</label>
+          <input type="text" id="county" />
+
+          <label for="postcode">Postcode</label>
+          <input type="text" id="postcode" />
+        </fieldset>
+      </form>
+    </section>
+
+    <section class="mt-8 px-8">
+      <div
+        style="width: 350px"
+        class="flex gap-4 bg-white py-3 px-8 pb-6 rounded border border-purple-900"
+      >
+        <div class="flex flex-col items-center justify-center">
+          <span class="uppercase text-sm font-light">Month</span>
+          <span
+            class="mt-1 font-bold text-primary-500 bg-primary-100 py-1 px-8"
+          >
+            3
+          </span>
+        </div>
+        <div class="flex flex-col items-center justify-center">
+          <span class="uppercase text-sm font-light">Day</span>
+          <span
+            class="mt-1 font-bold text-primary-500 bg-primary-100 py-1 px-8"
+          >
+            11
+          </span>
+        </div>
+        <div class="flex flex-col items-center justify-center">
+          <span class="uppercase text-sm font-light">Year</span>
+          <span
+            class="mt-1 font-bold text-primary-500 bg-primary-100 py-1 px-8"
+          >
+            2022
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-8 mx-8">
+      <table class="table-fixed" style="width: 350px">
+        <tr>
+          <th class="w-1/2 text-center border border-primary-600 px-2 py-1">
+            Account Number
+          </th>
+          <td class="w-1/2 text-center border border-primary-600 px-2 py-1">
+            12341234
+          </td>
+        </tr>
+        <tr>
+          <th class="w-1/2 text-center border border-primary-600 px-2 py-1">
+            Statement Date
+          </th>
+          <td class="w-1/2 text-center border border-primary-600 px-2 py-1">
+            03/13/2022
+          </td>
+        </tr>
+        <tr>
+          <th class="w-1/2 text-center border border-primary-600 px-2 py-1">
+            Due Date
+          </th>
+          <td class="w-1/2 text-center border border-primary-600 px-2 py-1">
+            03/13/2022
+          </td>
+        </tr>
+        <tr>
+          <th class="w-1/2 text-center border border-primary-600 px-2 py-1">
+            Amount Due
+          </th>
+          <td class="w-1/2 text-center border border-primary-600 px-2 py-1">
+            417.46
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="px-8 mt-8">
+      <div class="box-shadow-content">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea amet sint
+          illo iste incidunt cum tempore est veniam ad reprehenderit sit
+          suscipit beatae, doloremque officiis iure delectus. Velit, pariatur
+          placeat!
+        </p>
+      </div>
+    </section>
+
+    <section class="px-8 mt-8">
+      <div class="column-content">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad
+          molestias nulla. Quasi libero eius numquam repellendus vero ab harum
+          minus ipsam, est impedit minima?
+        </p>
+        <p style="color: orange">
+          Fugiat sequi mollitia alias animi, quo consequatur maiores nulla
+          tenetur vitae accusamus, temporibus eos. Vel quos labore hic expedita
+          cupiditate non earum odit veniam repudiandae!
+        </p>
+        <p>
+          Fugit natus libero consectetur nemo suscipit deleniti voluptatum
+          pariatur vel obcaecati! Accusantium earum, saepe, molestias eum atque
+          ipsam perferendis ab quo, deserunt et sunt placeat!
+        </p>
+        <p>
+          Excepturi iusto commodi sequi assumenda placeat laudantium ad,
+          corrupti facere pariatur laboriosam soluta aliquid perferendis eius
+          molestias, cumque amet autem ullam tempore quae unde magnam.
+        </p>
+      </div>
+    </section>
+
+    <section class="mt-8 px-8">
+      <div class="content">
+        <h2 class="so-many-shadows">This is fun</h2>
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+        <p>
+          Lorem ipsum dolor
+          <a class="fancy-link" href="#"
+            >sit amet consectetur adipisicing elit. Impedit repudiandae
+            assumenda beatae</a
+          >, quo iure quaerat voluptate placeat. A eius cum, rem aspernatur ipsa
+          illum. Commodi ullam cupiditate aliquid ducimus consequatur.
+        </p>
+      </div>
+    </section>
+
+    <!--
+      <form class="form" method="dialog">
+        <label>Your name <input type="text"></label>
+        <label>Your email <input type="email"></label>
+
+        <button class="button" type="submit">submit form</button>
+      </form>
+    -->
+
+    <section class="mt-8 px-8">
+      <div class="outline-content">
+        <p class="outline">Why didn't I know about this sooner?</p>
+      </div>
+      <div class="box-shadow-filter-content">
+        <img
+          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/308367/kp-logo.png"
+          alt=""
+          class="logo box-shadow"
+        />
+        <img
+          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/308367/kp-logo.png"
+          alt=""
+          class="logo filter"
+        />
+      </div>
+      <div class="form-field-content">
+        <div class="input-field">
+          <input type="text" placeholder="Enter your first name" id="fname" />
+          <label for="fname">First name</label>
+        </div>
+        <div class="input-field">
+          <input type="text" placeholder="Enter your last name" id="lname" />
+          <label for="lname">Last name</label>
+        </div>
+      </div>
+    </section>
+
+    <dialog class="modal" id="modal">
+      <h2>An interesting title</h2>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum esse
+        nisi, laboriosam illum temporibus ipsam?
+      </p>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, quo.
+      </p>
+
+      <button class="button close-button">close modal</button>
+
+      <form class="form" method="dialog">
+        <label>Your name <input type="text" /></label>
+        <label>Your email <input type="email" /></label>
+
+        <button class="button" type="submit">submit form</button>
+      </form>
+    </dialog>
+
+    <script>
+      const modal = document.querySelector("#modal");
+      const openModal = document.querySelector(".open-button");
+      const closeModal = document.querySelector(".close-button");
+      const printButton = document.querySelector(".print-button");
+
+      openModal.addEventListener("click", () => {
+        modal.showModal();
+      });
+
+      closeModal.addEventListener("click", () => {
+        modal.close();
+      });
+
+      printButton.addEventListener("click", () => {
+        window.print();
+      });
+    </script>
+  </body>
+</html>

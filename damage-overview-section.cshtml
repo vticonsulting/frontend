@@ -1,0 +1,107 @@
+@model Exemplar.Web.Areas.PropertyInspection.Models.ReportViewModels.SectionViewModels.DamageOverviewSection
+@using Exemplar.Web.Areas.PropertyInspection.Models
+
+<div id="DamageContainer">
+  <div class="TableLabel"> Summary Page </div>
+
+  <table class="TableData" id="Damage" cellspacing="0">
+    <tr>
+      <th>Elevation/Direction</th>
+
+      @if (@Model.ReportType != ReportType.DirectInspectionCAStateAutoAssociation)
+      {
+        <th>Hail Damage + </th>
+      }
+
+      <th>Wind Damage</th>
+
+      @if (!string.IsNullOrEmpty(@Model.StormDamageType))
+      {
+        @if (@Model.StormDamageType.Contains("Other"))
+        {
+          <th>Other Damage: @Model.StormDamageTypeOther</th>
+        }
+        else
+        {
+          <th>Other Damage</th>
+        }
+      }
+      else
+      {
+        <th>Other Damage</th>
+      }
+
+      @if (@Model.ReportType == ReportType.DirectInspectionCAStateAutoAssociation || @Model.ReportType ==
+      ReportType.DirectInspectionShingles || @Model.ReportType == ReportType.LadderAssistOther &&
+      Model.BrittlenessTestPerformed == "Yes")
+      {
+        <th>Repairability Assessment</th>
+      }
+
+    </tr>
+    <tr>
+      <td>Front Elevation/@Model.FrontDamageDirection</td>
+      @if (@Model.ReportType != ReportType.DirectInspectionCAStateAutoAssociation)
+      {
+        <td>@Model.FrontHailDamageLf</td>
+      }
+
+      <td>@Model.FrontWindDamageLf</td>
+      <td>@Model.FrontOtherDamageLf</td>
+      @if (@Model.ReportType == ReportType.DirectInspectionCAStateAutoAssociation || @Model.ReportType ==
+      ReportType.DirectInspectionShingles || @Model.ReportType == ReportType.LadderAssistOther &&
+      Model.BrittlenessTestPerformed == "Yes")
+      {
+        <td>@Model.FrontBrittlenessResult</td>
+      }
+    </tr>
+    <tr>
+      <td>Back Elevation/@Model.BackDamageDirection</td>
+      @if (@Model.ReportType != ReportType.DirectInspectionCAStateAutoAssociation)
+      {
+        <td>@Model.BackHailDamageLf</td>
+      }
+
+      <td>@Model.BackWindDamageLf</td>
+      <td>@Model.BackOtherDamageLf</td>
+      @if (@Model.ReportType == ReportType.DirectInspectionCAStateAutoAssociation || @Model.ReportType ==
+      ReportType.DirectInspectionShingles || @Model.ReportType == ReportType.LadderAssistOther &&
+      Model.BrittlenessTestPerformed == "Yes")
+      {
+        <td>@Model.BackBrittlenessResult</td>
+      }
+    </tr>
+    <tr>
+      <td>Left Elevation/@Model.LeftDamageDirection</td>
+      @if (@Model.ReportType != ReportType.DirectInspectionCAStateAutoAssociation)
+      {
+        <td>@Model.LeftHailDamageLf</td>
+      }
+
+      <td>@Model.LeftWindDamageLf</td>
+      <td>@Model.LeftOtherDamageLf</td>
+      @if (@Model.ReportType == ReportType.DirectInspectionCAStateAutoAssociation || @Model.ReportType ==
+      ReportType.DirectInspectionShingles || @Model.ReportType == ReportType.LadderAssistOther &&
+      Model.BrittlenessTestPerformed == "Yes")
+      {
+        <td>@Model.LeftBrittlenessResult</td>
+      }
+    </tr>
+    <tr>
+      <td>Right Elevation/@Model.RightDamageDirection</td>
+      @if (@Model.ReportType != ReportType.DirectInspectionCAStateAutoAssociation)
+      {
+        <td>@Model.RightHailDamageLf</td>
+      }
+
+      <td>@Model.RightWindDamageLf</td>
+      <td>@Model.RightOtherDamageLf</td>
+      @if (@Model.ReportType == ReportType.DirectInspectionCAStateAutoAssociation || @Model.ReportType ==
+      ReportType.DirectInspectionShingles || @Model.ReportType == ReportType.LadderAssistOther &&
+      Model.BrittlenessTestPerformed == "Yes")
+      {
+        <td>@Model.RightBrittlenessResult</td>
+      }
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,1812 @@
+@using Exemplar.Dto.PropertyInspectionForm
+@model Exemplar.Dto.PropertyInspectionForm.AllStateVirtualReportDto
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var Model = ViewData["Model"] as AllStateVirtualReportDto;
+}
+<style type="text/css">
+    #AsReportContainer {
+        font-family: Calibri !important;
+        font-Size: 14px;
+        color: black;
+        font-weight: 400;
+        padding: 10px;
+    }
+
+    #AsClaimInfo, #AsRoofAge, #AsBrittleness, #AsClaimInfo, #AsBrittlenessTwo, #AsHail, #AsHailTwo, #AsRoofDetails, #AsRoofDetailsTwo, #AiNonWind, #AiNonWindTwo, #AsInstallErrors, #AsInstallErrorsTwo, #AsRoomDamage, #AsStormRelated, #AsOutBuilding, #AsOverflow {
+        width: 100%
+    }
+
+    table#AsBrittleness tr td,
+    table#AsBrittlenessTwo tr td,
+    table#AsRoofAge tr td,
+    table#AsHail tr td,
+    table#AsHailTwo tr td,
+    table#AiNonWind tr td,
+    table#AiNonWindTwo tr td,
+    table#AsRoofDetails tr td,
+    table#AsRoofDetailsTwo tr td,
+    table#AsInstallErrors tr td,
+    table#AsInstallErrorsTwo tr td,
+    table#AsRoomDamage tr td,
+    table#AsStormRelated tr td,
+    table#AsOverflow tr td,
+    table#AsOutBuilding tr td {
+        text-align: left;
+        padding-left: 5px;
+    }
+
+    table#AsClaimInfo tr:nth-child(n+3):nth-child(-n+8) td:first-child,
+    table#AsRoofAge tr:nth-child(n+1):nth-child(-n+2) td,
+    table#AsRoofAge tr:nth-child(9) td,
+    table#AsBrittleness tr:first-child td,
+    table#AsBrittlenessTwo tr:first-child td,
+    table#AsHail tr:first-child td,
+    table#AsHail tr:nth-child(2) td,
+    table#AsHailTwo tr:first-child td,
+    table#AsHailTwo tr:nth-child(2) td,
+    table#AiNonWind tr:nth-child(n+1):nth-child(-n+3) td,
+    table#AiNonWindTwo tr:nth-child(n+1):nth-child(-n+2) td,
+    table#AsInstallErrors tr:first-child td:first-child,
+    table#AsInstallErrors tr:nth-child(n+5):nth-child(-n+6) td:first-child,
+    table#AsInstallErrorsTwo tr:first-child td:first-child,
+    table#AsInstallErrorsTwo tr:nth-child(n+5):nth-child(-n+6) td:first-child,
+    table#AsOutBuilding tr:first-child td:first-child,
+    table#AsStormRelated tr:nth-child(n+1):nth-child(-n+2),
+    table#AsRoofDetails tr:nth-child(n+1):nth-child(-n+2),
+    table#AsRoofDetailsTwo tr:nth-child(n+1):nth-child(-n+2),
+    table#AsClaimInfo tr:nth-child(n+3):nth-child(-n+9) td:nth-child(2),
+    table#AsOutBuilding tr:nth-child(n+1):nth-child(-n+3) td,
+    table#AsOutBuilding tr:nth-child(10) td,
+    table#AsOverflow tr td,
+    table#AsClaimInfo tr td {
+        font-weight: 600;
+    }
+
+    .Slopes td:nth-child(2), .Slopes td:nth-child(4) {
+        font-weight: 400;
+        width: 25%;
+    }
+
+    table#AsClaimInfo span {
+        font-weight: 400;
+    }
+
+    table#AsHail tr:nth-child(n+4):nth-child(n-7) td:nth-child(n+2):nth-child(n-5),
+    table#AiNonWind tr:nth-child(n+3):nth-child(n-17) td:nth-child(n+2):nth-child(n-4),
+    table#AsRoofDetails tr:nth-child(2) td,
+    table#AsRoofDetails tr:nth-child(n+3):nth-child(-n+13) td:nth-child(n+2):nth-child(-n+4),
+    table#AsRoofDetails tr:nth-child(n+3):nth-child(-n+13) td:nth-child(n+6):nth-child(-n+9),
+    table#AsRoofDetailsTwo tr:nth-child(n+3):nth-child(-n+13) td:nth-child(n+2):nth-child(-n+4),
+    table#AsRoofDetailsTwo tr:nth-child(n+3):nth-child(-n+13) td:nth-child(n+6):nth-child(-n+9),
+    table#AsInstallErrors tr:nth-child(n+2):nth-child(-n+4) td:first-child,
+    table#AsInstallErrors tr:nth-child(n+2) td:nth-child(3),
+    table#AsInstallErrorsTwo tr:nth-child(n+2):nth-child(-n+4) td:first-child,
+    table#AsInstallErrorsTwo tr:nth-child(n+2) td:nth-child(3),
+    table#AsStormRelated tr:nth-child(2) td:nth-child(n+2):nth-child(-n+5),
+    table#AsStormRelated tr:nth-child(n+3):nth-child(-n+16) td:nth-child(n+2):nth-child(-n+5),
+    table#AsRoomDamage tr:nth-child(2) td:nth-child(n+2):nth-child(-n+5),
+    table#AiNonWindTwo tr:nth-child(n+2):nth-child(n-3) td:nth-child(n+2):nth-child(-n+7) {
+        text-align: center;
+    }
+
+    table#AiNonWind tr:first-child td:first-child,
+    table#AsInstallErrors tr:nth-child(6) td:first-child {
+        color: black;
+    }
+
+    table#AsRoofDetails tr:nth-child(2) td:first-child,
+    table#AsRoofDetails tr:nth-child(2) td:nth-child(5) {
+        width: 15%;
+    }
+
+    table#AsRoofDetails tr:nth-child(2) td:nth-child(n+2):nth-child(-n+4),
+    table#AsRoofDetails tr:nth-child(2) td:nth-child(n+6):nth-child(-n+9) {
+        width: 6%;
+    }
+
+    table#AsStormRelated tr:nth-child(2) td:first-child {
+        text-align: right;
+    }
+
+    .AsDivider {
+        background-color: darkseagreen;
+        width: 100%;
+        height: 3px
+    }
+
+    table#AsClaimInfo tr:first-child {
+        background-color: darkseagreen;
+        text-align: center;
+    }
+</style>
+<div id="AsReportContainer" style="font-size:small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+
+    <table id="AsClaimInfo" border="1">
+        <tr>
+            <td colspan="2">
+                Vendor Virtual Inspection Form
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center">
+                Please complete for all virtual inspections involving losses with reported damage to the roof or exterior of the home.
+                <br />Submit form and invoice <strong>within 24 hours</strong> of inspection. Note: Form must be completed in full (i.e., do not skip items).
+            </td>
+        </tr>
+        <tr>
+            <td style="width:50%">1. Claim Number: <span>@Model.ClaimNumber</span> </td>
+            <td style="width:50%">2. Insured Name: <span>@Model.InsuredName</span></td>
+        </tr>
+        <tr>
+            <td style="width:50%">3. Date of Inspection: <span>@(Model.InspectionDate != null ? Model.InspectionDate : string.Empty)</span> </td>
+            <td style="width:50%">4. Time of Inspection:  <span>@Model.InspectionTime</span></td>
+        </tr>
+        <tr>
+            <td style="width:50%">5: Service Provider: <span>Hancock Claims Consultants</span></td>
+            <td style="width:50%">6: SP Rep Name: <span>@Model.ServiceProviderName</span></td>
+        </tr>
+        <tr>
+            <td style="width:50%">7: Adjuster Name: <span>@Model.Adjuster</span></td>
+            <td style="width:50%">8: Was the virtual collaboration successful? <span>@Model.CollaborationSuccessfull</span></td>
+        </tr>
+        <tr>
+            <td style="width:50%">9: Was process explained to the customer? <span>@Model.RoleExplained</span> </td>
+            <td style="width:50%">10: Did Service Provider arrive on time? <span>@Model.LaOnTime</span></td>
+        </tr>
+        <tr>
+            <td colspan="2">11. Check all who were on the roof during Inspection: </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="checkbox" disabled checked /> Ladder Assist
+                &nbsp;&nbsp; <input type="checkbox" disabled @(Model.ContractorPresentOnRoof == "Yes" ? "checked" : String.Empty) /> Contractor
+                &nbsp;&nbsp;<input type="checkbox" disabled  @(Model.PublicAdjusterPresent == "Yes" ? "checked" : String.Empty) /> Public Adjuster
+                &nbsp;&nbsp;<input type="checkbox" disabled /> Other
+            </td>
+        </tr>
+    </table>
+
+    <div class="AsDivider"></div>
+
+    <table id="AsRoofAge" border="1">
+        <tr>
+            <td>
+                12. Approximate age of roof: <span>@Model.RoofAgeYears</span>
+            </td>
+            <td>
+                13. # of Stories: <span>@Model.Stories</span>
+            </td>
+            <td colspan="2">
+                14. # of Layers: <span>@Model.LayerQty</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="width:50%">
+                15. Roof Material Type:
+            </td>
+            <td colspan="2" style="width:50%">
+                16. Collateral Evidence
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input @(Model.RoofMaterial == "20 Year Comp." ? "checked" : String.Empty) type="checkbox" /> 20-Yr 3-Tab
+            </td>
+            <td>
+                <input type="checkbox" disabled /> High Grade Laminate
+            </td>
+            <td>
+                <input type="checkbox" disabled @(Model.LandscapeDamaged == "Yes" ? "checked" : String.Empty) /> Trees, flowers, shrubs
+            </td>
+            <td>
+                <input type="checkbox" disabled @(Model.AwningDamaged == "Yes" ? "checked" : String.Empty) /> Awnings, patio covers
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="checkbox" disabled @(Model.RoofMaterial == "25 Year Comp." ? "checked" : String.Empty) /> 25-Yr 3-Tab
+            </td>
+            <td>
+                <input type="checkbox" disabled /> Premium Laminate
+            </td>
+            <td>
+                <input type="checkbox" disabled @(Model.PatioFurnitureDamaged == "Yes" ? "checked" : String.Empty) /> Patio furniture
+            </td>
+            <td>
+                <input type="checkbox" disabled @(Model.GuttersDamage == "Yes" ? "checked" : String.Empty) /> Gutters
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="checkbox" disabled /> Laminate
+            </td>
+            <td>
+                <input type="checkbox" disabled /> Deluxe Laminate
+            </td>
+            <td>
+                <input type="checkbox" disabled @(Model.RefrigerationCoilsDamaged == "Yes" ? "checked" : String.Empty) /> Refrigeration Coils
+            </td>
+            <td>
+                <input type="checkbox" disabled @(Model.SpatterMarks == "Yes" ? "checked" : String.Empty) /> Oxidation removed
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input @(Model.RoofMaterial == "Wood" ? "checked" : String.Empty) type="checkbox" /> Wood
+            </td>
+            <td>
+                <input @(Model.RoofMaterial == "Rolled" ? "checked" : String.Empty) type="checkbox" /> Rolled
+            </td>
+            <td>
+                <input type="checkbox" disabled @(Model.FenceDeckDamaged == "Yes" ? "checked" : String.Empty) /> Fences or decks
+            </td>
+            <td>
+                <input type="checkbox" disabled @(Model.FlashingVentsDamaged == "Yes" ? "checked" : String.Empty) /> Roof vents, flashing
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input @(Model.RoofMaterial == "Metal" ? "checked" : String.Empty) type="checkbox" /> Metal
+            </td>
+            <td>
+                <input @(Model.RoofMaterial == "Mod Bit" ? "checked" : String.Empty) type="checkbox" /> Mod Bit
+            </td>
+            <td>
+                <input type="checkbox" disabled @(Model.WindowScreenDamaged == "Yes" ? "checked" : String.Empty) /> Window Screens
+            </td>
+            <td>
+                <input type="checkbox" disabled @(Model.OutBuildingDamage == "Yes" ? "checked" : String.Empty) /> Outbuilding, sheds
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                @if (@Model.RoofMaterial != "20 Year Comp." && @Model.RoofMaterial != "25 Year Comp."
+                          && @Model.RoofMaterial != "Wood" && @Model.RoofMaterial != "Rolled" && @Model.RoofMaterial != "Mod Bit"
+                          && @Model.RoofMaterial != "Metal")
+                {
+                    <input type="checkbox" disabled checked /> <text>Other: </text> @Model.RoofMaterial
+                }
+            </td>
+
+            <td>
+                <input type="checkbox" disabled @(Model.NeighborhoodDamaged == "Yes" ? "checked" : String.Empty) /> Neighborhood
+            </td>
+            <td>
+                <input type="checkbox" disabled @(Model.SkylightsQty != "0" ? "checked" : String.Empty) /> Skylights
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                Depth of eaves:  @Model.SoffitDepthLf
+            </td>
+        </tr>
+    </table>
+
+    <div class="AsDivider"></div>
+
+    <table id="AsBrittleness" style="width:100%" border="1">
+        <tr>
+            <td colspan="4">
+                18. Did adjuster request a Repairability Assessment? <input type="checkbox" disabled @(Model.BrittlenessTestRequested == "Yes" ? "checked" : String.Empty) /> Yes <input type="checkbox" disabled @(Model.BrittlenessTestRequested == "No" ? "checked" : String.Empty) /> No
+            </td>
+        </tr>
+        <tr class="Slopes">
+            <td style="width:25%">
+                Front Slope
+            </td>
+            <td>
+                Result: @Model.BrittlenessTestPassFront
+            </td>
+            <td style="width:25%">
+                Left Slope
+            </td>
+            <td>
+                Result: @Model.BrittlenessTestPassLeft
+            </td>
+        </tr>
+
+        <tr class="Slopes">
+            <td>
+                Back Slope
+            </td>
+            <td>
+                Result: @Model.BrittlenessTestPassBack
+            </td>
+            <td>
+                Right Slope
+            </td>
+            <td>
+                Result: @Model.BrittlenessTestPassRight
+            </td>
+        </tr>
+    </table>
+
+    <table id="AsHail" border="1">
+        <tr>
+            <td colspan="5">
+                19. Evidence of Hail and Wind
+            </td>
+        </tr>
+
+        <tr>
+            <td>&nbsp;</td>
+            <td style="text-align:center">Front Slope</td>
+            <td style="text-align:center">Left Slope</td>
+            <td style="text-align:center">Back Slope</td>
+            <td style="text-align:center">Right Slope</td>
+        </tr>
+        <tr>
+            <td>
+                Potential Hail Damage
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                Size of Test Square
+            </td>
+            <td>@Model.HailTestSizeFront</td>
+            <td>@Model.HailTestSizeLeft</td>
+            <td>@Model.HailTestSizeBack</td>
+            <td>@Model.HailTestSizeRight</td>
+        </tr>
+        <tr>
+            <td>
+                # of shingles
+            </td>
+            <td>@Model.HailDamageFrontSf</td>
+            <td>@Model.HailDamageLeftSf</td>
+            <td>@Model.HailDamageBackSf</td>
+            <td>@Model.HailDamageRightSf</td>
+        </tr>
+        <tr>
+            <td>
+                Potential Wind Damage
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                # of shingles
+            </td>
+            <td>@Model.WindDamageFront</td>
+            <td>@Model.WindDamageLeft</td>
+            <td>@Model.WindDamageBack</td>
+            <td>@Model.WindDamageRight</td>
+        </tr>
+    </table>
+
+    <div class="AsDivider"></div>
+
+    <table id="AiNonWind" border="1">
+        <tr>
+            <td colspan="7">
+                Provide a diagram of roof if inspected or if EagleView not available
+            </td>
+        </tr>
+        <tr>
+            <td colspan="7">
+                20. Predominant Roof Conditions (check all that apply) and Pitch
+            </td>
+        </tr>
+        <tr>
+            <td> &nbsp;</td>
+            <td>Front Slope</td>
+            <td>Left Slope</td>
+            <td>Back Slope</td>
+            <td>Right Slope</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td> &nbsp; </td>
+            <td>@Model.PitchFront </td>
+            <td>@Model.PitchLeft </td>
+            <td>@Model.PitchBack </td>
+            <td>@Model.PitchRight </td>
+
+
+            <td>PITCH</td>
+            <td> /12</td>
+        </tr>
+
+        <tr>
+            <td>Nail pops (N)</td>
+            <td><input type="checkbox" disabled @(Model.NailPopsFront == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.NailPopsLeft == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.NailPopsBack == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.NailPopsRight == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled /></td>
+            <td><input type="checkbox" disabled /></td>
+        </tr>
+
+        <tr>
+            <td>Cupped/Curled (C) </td>
+            <td><input type="checkbox" disabled @(Model.CuppedFront == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.CuppedLeft == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.CuppedBack == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.CuppedRight == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Flashing not sealed  </td>
+            <td><input type="checkbox" disabled @(Model.FlashingNotSealedFront == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.FlashingNotSealedLeft == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.FlashingNotSealedBack == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.FlashingNotSealedRight == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled /></td>
+            <td><input type="checkbox" disabled /></td>
+        </tr>
+
+        <tr>
+            <td>Blisters (B)  </td>
+            <td><input type="checkbox" disabled @(Model.BlistersFront == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.BlistersLeft == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.BlistersBack == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.BlistersRight == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled /></td>
+            <td><input type="checkbox" disabled /></td>
+        </tr>
+
+        <tr>
+            <td>Mechanical marks (M)  </td>
+            <td><input type="checkbox" disabled @(Model.BlistersFront == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.BlistersLeft == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.BlistersBack == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.BlistersRight == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled /></td>
+            <td><input type="checkbox" disabled /></td>
+        </tr>
+
+        <tr>
+            <td>Manufactured marks  </td>
+            <td><input type="checkbox" disabled @(Model.ManufacturedMarksFront == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.ManufacturedMarksLeft == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.ManufacturedMarksBack == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.ManufacturedMarksRight == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled /></td>
+            <td><input type="checkbox" disabled /></td>
+        </tr>
+
+        <tr>
+            <td>Thermal cracking (T)  </td>
+            <td><input type="checkbox" disabled @(Model.ThermalCrackingFront == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.ThermalCrackingLeft == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.ThermalCrackingBack == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.ThermalCrackingRight == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled /></td>
+            <td><input type="checkbox" disabled /></td>
+        </tr>
+
+        <tr>
+            <td>Granule loss (G)  </td>
+            <td><input type="checkbox" disabled @(Model.GranuleLossFront == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.GranuleLossLeft == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.GranuleLossBack == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.GranuleLossRight == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled /></td>
+            <td><input type="checkbox" disabled /></td>
+        </tr>
+
+        <tr>
+            <td>Prior repairs  </td>
+            <td><input type="checkbox" disabled @(Model.PriorRepairsFront == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.PriorRepairsLeft == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.PriorRepairsBack == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.PriorRepairsRight == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled /></td>
+            <td><input type="checkbox" disabled /></td>
+        </tr>
+
+        <tr>
+            <td>Debris on roof  </td>
+            <td><input type="checkbox" disabled @(Model.RoofDebrisFront == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.RoofDebrisLeft == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.RoofDebrisBack == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.RoofDebrisRight == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled /></td>
+            <td><input type="checkbox" disabled /></td>
+        </tr>
+
+        <tr>
+            <td>Clogged gutters  </td>
+            <td><input type="checkbox" disabled @(Model.CloggedGuttersFront == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.CloggedGuttersLeft == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.CloggedGuttersBack == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.CloggedGuttersRight == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled /></td>
+            <td><input type="checkbox" disabled /></td>
+        </tr>
+
+        <tr>
+            <td>Decking rotted  </td>
+            <td><input type="checkbox" disabled @(Model.DeckingRottedFront == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.DeckingRottedLeft == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.DeckingRottedBack == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled @(Model.DeckingRottedRight == "Yes" ? "checked" : String.Empty) /></td>
+            <td><input type="checkbox" disabled /></td>
+            <td><input type="checkbox" disabled /></td>
+        </tr>
+        @if (Model.OtherConditionsName != "")
+        {
+            <tr>
+                <td> @Model.OtherConditionsName </td>
+                <td><input type="checkbox" disabled @(Model.OtherConditionsFront == "Yes" ? "checked" : String.Empty) /></td>
+                <td><input type="checkbox" disabled @(Model.OtherConditionsLeft == "Yes" ? "checked" : String.Empty) /></td>
+                <td><input type="checkbox" disabled @(Model.OtherConditionsBack == "Yes" ? "checked" : String.Empty) /></td>
+                <td><input type="checkbox" disabled @(Model.OtherConditionsRight == "Yes" ? "checked" : String.Empty) /></td>
+                <td><input type="checkbox" disabled /></td>
+                <td><input type="checkbox" disabled /></td>
+            </tr>
+        }
+    </table>
+
+    <div class="AsDivider"></div>
+
+    <table id="AsRoofDetails" border="1">
+        <tr>
+            <td colspan="9">
+                21. Roof Details
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Material
+            </td>
+            <td>
+                Present
+            </td>
+            <td>
+                Damaged?
+            </td>
+            <td>
+                Qty
+            </td>
+            <td>
+                Material
+            </td>
+            <td>
+                Present
+            </td>
+            <td>
+                Damaged?
+            </td>
+            <td>
+                Qty
+            </td>
+            <td>
+                Painted
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Rake Starter
+            </td>
+            <td>
+                @Model.RakeStarter
+            </td>
+            <td>
+                NA
+            </td>
+            <td>
+                NA
+            </td>
+            <td>
+                Drip-edge @Html.Raw("@") rakes
+            </td>
+            <td>
+                @Model.DripEdgeRakePresent
+            </td>
+            <td>@(@Model.DripEdgeRakePresent == "Yes" ? Model.DripEdgeRakeQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.DripEdgeRakeQty
+            </td>
+            <td>
+                @Model.DripEdgeRakePainted
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Ice/water shield
+            </td>
+            <td>
+                @Model.IceWaterShield
+            </td>
+            <td>
+                NA
+            </td>
+            <td>
+                NA
+            </td>
+            <td>
+                Drip-edge @Html.Raw("@") eaves
+            </td>
+            <td>
+                @Model.DripEdgeEavePresent
+            </td>
+            <td>@(@Model.DripEdgeEavePresent == "Yes" ? Model.DripEdgeEaveQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.DripEdgeEaveQty
+            </td>
+            <td>
+                @Model.DripEdgeEavePainted
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Felt Type  @Model.FeltDescription
+            </td>
+            <td>
+                @Model.Felt
+            </td>
+            <td>
+                NA
+            </td>
+            <td>
+                NA
+            </td>
+            <td>
+                Downspout   @Model.DownSpoutsSize Inch.
+            </td>
+            <td>
+                @(Model.DownSpoutsDamaged == "NA" ? "NA" : Model.DownSpoutsDamaged == "" ? "NA" : "Yes")
+            </td>
+            <td>@(Model.DownspoutsLength != "0" ? "Yes" : "No") </td>
+            <td>
+                @Model.DownspoutsLength
+            </td>
+            <td>
+                @Model.DownSpoutsPainted
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Valley Type
+            </td>
+            <td>
+            </td>
+            <td>
+                NA
+            <td>
+                NA
+            </td>
+            <td>
+                Fascia     @Model.FasciaSize Inch.
+            </td>
+            <td>
+                @(Model.FasciaDamaged == "NA" ? "NA" : Model.FasciaDamaged == "" ? "NA" : "Yes")
+            </td>
+            <td>
+                @Model.FasciaDamaged
+            </td>
+            <td>
+                @Model.FasciaLength
+            </td>
+            <td>
+                NA
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Valley Material  @Model.ValleyType
+            </td>
+            <td>
+                @Model.ValleyPresent
+            </td>
+            <td>@(@Model.ValleyPresent == "Yes" ? Model.ValleyQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.ValleyQty
+            </td>
+            <td>
+                Gutter  @Model.GutterSize - @Model.GutterMaterial
+            </td>
+            <td>
+                @(Model.GuttersDamage == "NA" ? "NA" : Model.GuttersDamage == "" ? "NA" : "Yes")
+            </td>
+            <td>
+                @Model.GuttersDamage
+            </td>
+            <td>
+                @Model.GutterLength
+            </td>
+            <td>
+                @Model.GutterPainted
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Flashing
+            </td>
+            <td>
+                @Model.FlashingPresent
+            </td>
+            <td>@(@Model.FlashingPresent == "Yes" ? Model.FlashingQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.FlashingQty
+            </td>
+            <td>
+                Box vents
+            </td>
+            <td>
+                @Model.BoxVentsPresent
+            </td>
+            <td>@(@Model.BoxVentsPresent == "Yes" ? Model.BoxVentsQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.BoxVentsQty
+            </td>
+            <td>
+                @Model.BoxVentsPainted
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Ridge Shingle Type
+            </td>
+            <td>
+                NA
+            </td>
+            <td>
+                NA
+            </td>
+            <td>
+                NA
+            </td>
+            <td>
+                Turbine
+            </td>
+            <td>
+                @Model.TurbinesPresent
+            </td>
+            <td>@(@Model.TurbinesPresent == "Yes" ? Model.TurbinesQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.TurbinesQty
+            </td>
+            <td>
+                @Model.TurbinesPainted
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Skylight
+            </td>
+            <td>
+                @Model.SkylightsPresent
+            </td>
+            <td>@(@Model.SkylightsPresent == "Yes" ? Model.SkylightsQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.SkylightsQty
+            </td>
+            <td>
+                Powered vent cover
+            </td>
+            <td>
+                @Model.PowerVentCoversPresent
+            </td>
+            <td>@(@Model.PowerVentCoversPresent == "Yes" ? Model.PowerVentCoversQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.PowerVentCoversQty
+            </td>
+            <td>
+                @Model.PowerVentCoversPainted
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Satellite Dish
+            </td>
+            <td>
+                @Model.SatelliteDishPresent
+            </td>
+            <td>@(@Model.SatelliteDishPresent == "Yes" ? Model.SatelliteDishQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.SatelliteDishQty
+            </td>
+            <td>
+                Powered Vent
+            </td>
+            <td>
+                @Model.PowerVentsPresent
+            </td>
+            <td>@(@Model.PowerVentsPresent == "Yes" ? Model.PowerVentsQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.PowerVentsQty
+            </td>
+            <td>
+                @Model.PowerVentsPainted
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Ridge Vents
+            </td>
+            <td>
+                @Model.RidgeVentsPresent
+            </td>
+            <td>@(@Model.RidgeVentsPresent == "Yes" ? Model.RidgeVentsQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.RidgeVentsQty
+            </td>
+            <td>
+                HVAC caps
+            </td>
+            <td>
+                @Model.HvacPresent
+            </td>
+            <td>@(@Model.HvacPresent == "Yes" ? Model.HvacQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.HvacQty
+            </td>
+            <td>
+                @Model.HvacPainted
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Chimney Flashing
+            </td>
+            <td>
+                NA
+            </td>
+            <td>
+                NA
+            </td>
+            <td>
+                NA
+            </td>
+            <td>
+                Lead Pipe Jack Type
+            </td>
+            <td>
+                @Model.PipebootLeadPresent
+            </td>
+            <td>@(@Model.PipebootLeadPresent == "Yes" ? Model.PipebootLeadQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.PipebootLeadQty
+            </td>
+            <td>
+                @Model.PipebootLeadPainted
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                Plastic Pipe Jack Type
+            </td>
+            <td>
+                @Model.PipebootPlasticPresent
+            </td>
+            <td>@(@Model.PipebootPlasticPresent == "Yes" ? Model.PipebootPlasticQty != "0" ? "Yes" : "No" : "NA") </td>
+            <td>
+                @Model.PipebootPlasticQty
+            </td>
+            <td>
+                @Model.PipebootPlasticPainted
+            </td>
+        </tr>
+    </table>
+
+    <table id="AsInstallErrors" border="1">
+        <tr>
+            <td colspan="4">
+                22. Installation Issues
+            </td>
+        </tr>
+        <tr>
+            <td style="width:5%">
+                <input type="checkbox" disabled @(Model.InstallationErrorDescription.Contains("Improper fastener size") ? "checked" : String.Empty) />
+            </td>
+            <td style="width:45%">
+                Improper fastener size
+            </td>
+            <td style="width:5%">
+                <input type="checkbox" disabled @(Model.InstallationErrorDescription.Contains("Improper shingle exposure") ? "checked" : String.Empty) />
+            </td>
+            <td style="width:45%">
+                Improper shingle exposure
+            </td>
+        </tr>
+
+        <tr>
+            <td style="width:5%">
+                <input type="checkbox" disabled @(Model.InstallationErrorDescription.Contains("Fastener not on nail line") ? "checked" : String.Empty) />
+            </td>
+            <td style="width:45%">
+                Fastener not on nail line
+            </td>
+            <td style="width:5%">
+                <input type="checkbox" disabled @(Model.InstallationErrorDescription.Contains("Manufacturer defect") ? "checked" : String.Empty) />
+            </td>
+            <td style="width:45%">
+                Manufacturer defect
+            </td>
+        </tr>
+        <tr>
+            <td style="width:5%">
+                <input type="checkbox" disabled @(Model.InstallationErrorDescription.Contains("Improper fastener installation") ? "checked" : String.Empty) />
+            </td>
+            <td style="width:45%">
+                Improper fastener installation
+            </td>
+
+
+            @if (@Model.InstallationErrorOther == "Other")
+            {
+
+                <td style="width:5%">
+                    <input type="checkbox" disabled checked />
+                </td>
+                <td style="width:5%">
+                    Other:  @Model.InstallationErrorDescription
+                </td>
+
+            }
+            else
+            {
+                <td style="width:5%">
+
+                    <input type="checkbox" disabled />
+
+                </td>
+                <td style="width:45%">
+                    Other
+                </td>
+            }
+        </tr>
+        <tr>
+            <td colspan="4">
+                23.  Was the interior of the home inspected?   <input type="checkbox" disabled @(Model.InteriorInspected == "Yes" ? "checked" : String.Empty) /> Yes  <input type="checkbox" disabled @(Model.InteriorInspected == "No" ? "checked" : String.Empty) /> No
+                &nbsp;
+                @if (Model.InteriorInspected == "Yes")
+                {
+                    <span style="color:red"> (See Diagram for more information) </span>
+                }
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                23a.  Is there anyone who lives in the home who currently has COVID-19 or has had it within the last 14 days, has been exposed to someone with COVID-19 within the past 14 days, or has any symptoms related to COVID-19?  &nbsp;&nbsp;  <input type="checkbox" disabled @(Model.HasCovid == "Yes" ? "checked" : String.Empty) /> Yes  <input type="checkbox" disabled @(Model.HasCovid == "No" ? "checked" : String.Empty) /> No
+             </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                If interior damages present, provide detailed diagram including measurements, damage areas, doors, windows, openings.
+            </td>
+        </tr>
+    </table>
+
+    <table id="AsRoomDamage" border="1">
+        <tr>
+            <td colspan="4">
+                Room Name:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Areas Affected:
+            </td>
+            <td>
+                <input type="checkbox" disabled /> Walls
+            </td>
+            <td>
+                <input type="checkbox" disabled /> Ceilings
+            </td>
+            <td>
+                <input type="checkbox" disabled /> Floors
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Material
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Primary Condition
+            </td>
+            <td>
+                Sq. Footage:
+            </td>
+            <td>
+                Sq. Footage:
+            </td>
+            <td>
+                Sq. Footage:
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Secondary Condition
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+
+    <div class="AsDivider"></div>
+
+    <table id="AsStormRelated" border="1">
+        <tr>
+            <td colspan="5">
+                24. Are there storm-related damages to the exterior? <input type="checkbox" disabled @(Model.StormDamagePresent == "Yes" ? "checked" : String.Empty) /> Yes <input type="checkbox" disabled @(Model.StormDamagePresent == "No" ? "checked" : String.Empty) /> No
+            </td>
+        </tr>
+        <tr>
+            <td>Elevation -></td>
+            <td>Front</td>
+            <td>Left</td>
+            <td>Back</td>
+            <td>Right</td>
+        </tr>
+        <tr>
+            <td>Siding @Model.SidingMaterial</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;Damage?  @Model.SidingDamage</td>
+            <td>@Model.SidingDamageFront</td>
+            <td>@Model.SidingDamageLeft</td>
+            <td>@Model.SidingDamageRight</td>
+            <td>@Model.SidingDamageBack</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;Paint/Stain? No</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Trim Type NA</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;Damage? NA</td>
+            <td>NA</td>
+            <td>NA</td>
+            <td>NA</td>
+            <td>NA</td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;Paint/Stain? NA</td>
+            <td>NA</td>
+            <td>NA</td>
+            <td>NA</td>
+            <td>NA</td>
+        </tr>
+        <tr>
+            <td>Deck/Porches/Fences</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;Type: Fence</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;Damage?  @Model.FenceDamaged</td>
+            <td> @Model.FenceLength </td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;Paint/Stain?  @(Model.FencePainted == "Yes" ? "Painted" : Model.FenceStained == "Yes" ? "Stained" : "No")
+            </td>
+            <td> </td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Deck/Porches/Fences</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;Type: Deck</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;Damage?   @(Model.DeckSf != "0" ? "Yes" : "No")</td>
+            <td>@Model.DeckSf</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>&nbsp;&nbsp;&nbsp;Paint/Stain? @(Model.DeckPainted == "Yes" ? "Painted" : Model.DeckStained == "Yes" ? "Stained" : "No")</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <div class="AsDivider"></div>
+
+    <table id="AsOutBuilding" border="1">
+        <tr>
+            <td colspan="5">
+                Are other building structures present?  <input type="checkbox" disabled @(Model.OutBuildingDamage == "Yes" ? "checked" : String.Empty) /> Yes <input type="checkbox" disabled @(Model.OutBuildingDamage == "No" ? "checked" : String.Empty) /> No
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                25. Approximate age of roof:
+            </td>
+            <td>
+                26. # of Stories:
+            </td>
+            <td colspan="2">
+                27. # of Layers:
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="width:50%">
+                28. Roof Material Type:
+            </td>
+            <td colspan="2" style="width:50%">
+                29. Collateral Evidence
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="checkbox" disabled /> 20-Yr 3-Tab
+            </td>
+            <td>
+                <input type="checkbox" disabled /> High Grade Laminate
+            </td>
+            <td>
+                <input type="checkbox" disabled /> Trees, flowers, shrubs
+            </td>
+            <td>
+                <input type="checkbox" disabled />  Awnings, patio covers
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="checkbox" disabled /> 25-Yr 3-Tab
+            </td>
+            <td>
+                <input type="checkbox" disabled /> Premium Laminate
+            </td>
+            <td>
+                <input type="checkbox" disabled />  Patio furniture
+            </td>
+            <td>
+                <input type="checkbox" disabled />  Gutters
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="checkbox" disabled /> Laminate
+            </td>
+            <td>
+                <input type="checkbox" disabled /> Deluxe Laminate
+            </td>
+            <td>
+                <input type="checkbox" disabled />  Refrigeration Coils
+            </td>
+            <td>
+                <input type="checkbox" disabled />  Oxidation removed
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="checkbox" disabled /> Wood
+            </td>
+            <td>
+                <input type="checkbox" disabled /> Rolled
+            </td>
+            <td>
+                <input type="checkbox" disabled />  Fences or decks
+            </td>
+            <td>
+                <input type="checkbox" disabled />  Roof vents, flashing
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="checkbox" disabled /> Metal
+            </td>
+            <td>
+                <input type="checkbox" disabled /> Mod Bit
+            </td>
+            <td>
+                <input type="checkbox" disabled />  Window Screens
+            </td>
+            <td>
+                <input type="checkbox" disabled />  Outbuilding, sheds
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="checkbox" disabled /> Other
+            </td>
+
+            <td>
+                <input type="checkbox" disabled />  Neighborhood
+            </td>
+            <td>
+                <input type="checkbox" disabled />  Skylights
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="5">
+                30. Depth of eaves:
+            </td>
+        </tr>
+    </table>
+
+    <div class="AsDivider"></div>
+
+    <table id="AsBrittlenessTwo" border="1">
+        <tr>
+            <td colspan="4">
+                31. Did adjuster request a Repairability Assessment? <input type="checkbox" disabled /> Yes <input type="checkbox" disabled /> No
+            </td>
+        </tr>
+        <tr>
+            <td style="width:25%">
+                Front Slope
+            </td>
+            <td style="width:25%">
+                Result
+            </td>
+            <td style="width:25%">
+                Left Slope
+            </td>
+            <td style="width:25%">
+                Result
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Back Slope
+            </td>
+            <td>
+                Result
+            </td>
+            <td>
+                Right Slope
+            </td>
+            <td>
+                Result
+            </td>
+        </tr>
+    </table>
+
+    <table id="AsHailTwo" border="1">
+        <tr>
+            <td colspan="5">
+                32. Evidence of Hail and Wind
+            </td>
+        </tr>
+
+        <tr>
+            <td>&nbsp;</td>
+            <td style="text-align:center">Front Slope</td>
+            <td style="text-align:center">Left Slope</td>
+            <td style="text-align:center">Back Slope</td>
+            <td style="text-align:center">Right Slope</td>
+        </tr>
+        <tr>
+            <td>
+                Potential Hail Damage
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                Size of Test Square
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                # of shingles
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                Potential Wind Damage
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                # of shingles
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+    <div class="AsDivider"></div>
+    <table id="AiNonWindTwo" border="1">
+
+        <tr>
+            <td colspan="7">
+                33. Predominant Roof Conditions (check all that apply) and Pitch
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>Front Slope</td>
+            <td>Left Slope</td>
+            <td>Back Slope</td>
+            <td>Right Slope</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Pitch</td>
+            <td>PITCH</td>
+            <td>PITCH</td>
+            <td>PITCH</td>
+            <td>PITCH</td>
+            <td> /12</td>
+            <td> /12</td>
+        </tr>
+
+        <tr>
+            <td>Nail pops (N)</td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Cupped/Curled (C) </td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Flashing not sealed  </td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Blisters (B)  </td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Mechanical marks (M)  </td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Manufactured marks  </td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Thermal cracking (T)  </td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Granule loss (G)  </td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Prior repairs  </td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Debris on roof  </td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Clogged gutters  </td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Decking rotted  </td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+        <tr>
+            <td>Mechanical </td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+            <td><input type="checkbox" /></td>
+        </tr>
+
+    </table>
+    <div class="AsDivider"></div>
+    <table id="AsRoofDetailsTwo" border="1">
+        <tr>
+            <td colspan="9">
+                34. Roof Details
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Material
+            </td>
+            <td>
+                Present
+            </td>
+            <td>
+                Damaged?
+            </td>
+            <td>
+                Qty
+            </td>
+            <td>
+                Material
+            </td>
+            <td>
+                Present
+            </td>
+            <td>
+                Damaged?
+            </td>
+            <td>
+                Qty
+            </td>
+            <td>
+                Painted
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Rake Starter
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                Drip-edge @Html.Raw("@") rakes
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Ice/water shield
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                Drip-edge @Html.Raw("@") eaves
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Flashing
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                Box vents
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Skylight
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                Powered vent cover
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Satellite Dish
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                Powered Vent
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Ridge Vents
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                HVAC caps
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Chimney Flashing
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                Pipe Jack Type
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+    <div class="AsDivider"></div>
+
+    <table id="AsInstallErrorsTwo" border="1">
+        <tr>
+            <td colspan="4">
+                35. Installation Issues
+            </td>
+        </tr>
+        <tr>
+            <td style="width:5%">
+                <input type="checkbox" disabled />
+            </td>
+            <td style="width:45%">
+                Improper fastener size
+            </td>
+            <td style="width:5%">
+                <input type="checkbox" disabled />
+            </td>
+            <td style="width:45%">
+                Improper shingle exposure
+            </td>
+        </tr>
+        <tr>
+            <td style="width:5%">
+                <input type="checkbox" disabled />
+            </td>
+            <td style="width:45%">
+                Fastener not on nail line
+            </td>
+            <td style="width:5%">
+                <input type="checkbox" disabled />
+            </td>
+            <td style="width:45%">
+                Manufacturer defect
+            </td>
+        </tr>
+        <tr>
+            <td style="width:5%">
+                <input type="checkbox" disabled />
+            </td>
+            <td style="width:45%">
+                Improper fastener installation
+            </td>
+            <td style="width:5%">
+                <input type="checkbox" disabled />
+            </td>
+            <td style="width:45%">
+                Other
+            </td>
+        </tr>
+    </table>
+
+    <table id="AsOverflow" border="1">
+        <tr>
+            <td colspan="4">
+                36. Notes – Use this area for overflow or additional notes pertinent to the inspection<br />
+                @Model.AdditionalSummary
+            </td>
+        </tr>
+    </table>
+
+</div>
+

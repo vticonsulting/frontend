@@ -1,0 +1,156 @@
+<script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+<script type="module">
+    import tailwindcssTypography from "https://cdn.skypack.dev/@@tailwindcss/typography";
+    import tailwindcssForms from "https://cdn.skypack.dev/@@tailwindcss/forms";
+
+    window.tailwindConfig = {
+        theme: {
+        extend: {
+            fontFamily: {
+            sans: ['Inter var', 'sans-serif'],
+            mono: ['Space Mono', 'Fira Code', 'monospace'],
+            },
+            fontSize: {
+            "2xs": ["0.625rem", "0.875rem"],
+            },
+            colors: {
+            brand: {
+                DEFAULT: "#002894",
+                50: "#f2f4fa",
+                100: "#e6eaf4",
+                200: "#bfc9e4",
+                300: "#99a9d4",
+                400: "#4d69b4",
+                500: "#002894",
+                600: "#002485",
+                700: "#001e6f",
+                800: "#001859",
+                900: "#001449",
+            },
+            primary: {
+                DEFAULT: "#314B6F",
+                50: "#f5f6f8",
+                100: "#eaedf1",
+                200: "#ccd2db",
+                300: "#adb7c5",
+                400: "#6f819a",
+                500: "#314B6F",
+                600: "#2c4464",
+                700: "#253853",
+                800: "#1d2d43",
+                900: "#182536",
+            },
+            // Secondary, Neutral
+            secondary: {
+                DEFAULT: "#64748B",
+                50: "#F8FAFC",
+                100: "#F1F5F9",
+                200: "#E2E8F0",
+                300: "#CBD5E1",
+                400: "#94A3B8",
+                500: "#64748B",
+                600: "#475569",
+                700: "#334155",
+                800: "#1E293B",
+                900: "#0F172A",
+            },
+            accent: {
+                DEFAULT: "#ee7d1e",
+                50: "#fef9f4",
+                100: "#fdf2e9",
+                200: "#fbdfc7",
+                300: "#f8cba5",
+                400: "#f3a462",
+                500: "#ee7d1e",
+                600: "#d6711b",
+                700: "#b35e17",
+                800: "#8f4b12",
+                900: "#753d0f",
+            },
+            },
+        },
+        },
+        plugins: [tailwindcssTypography, tailwindcssForms],
+    };
+
+    window.tailwindCSS.refresh();
+</script>
+<script type="tailwind-config">
+    window.tailwindConfig
+</script>
+
+<!-- Petite Vue -->
+<script type="module">
+    import { createApp } from "https://unpkg.com/petite-vue?module";
+
+    const columns = ["name", "power"];
+
+    const data = [
+        { name: "Chuck Norris", power: Infinity },
+        { name: "Bruce Lee", power: 9000 },
+        { name: "Jackie Chan", power: 7000 },
+        { name: "Jet Li", power: 8000 },
+    ];
+
+    const menu = [
+        { slug: 'dashboard', name: "Dashboard", href: "index.html", current: false },
+        { slug: 'reports', name: "Reports", href: "reports.html", current: true },
+    ];
+
+    const tabs = [
+        { slug: 'property-overview', name: "Property Overview", href: "#", current: false },
+        { slug: 'inspection-summary', name: "Inspection Summary", href: "#", current: true },
+        { slug: 'report-details', name: "Report Details", href: "#", current: false },
+        { slug: 'scope-sheet', name: "Scope Sheet", href: "#", current: false },
+        { slug: 'photo-set', name: "Photo Set", href: "#", current: false },
+    ];
+
+    createApp({
+        activeTab: 'inspection-summary',
+        showMobileMenu: false,
+        showProfileDropdown: false,
+        menu,
+        tabs,
+        query: "",
+        columns,
+        data,
+        sortKey: "",
+        sortOrders: columns.reduce((o, key) => ((o[key] = 1), o), {}),
+
+        get filteredData() {
+            const sortKey = this.sortKey;
+            const filterKey = this.query && this.query.toLowerCase();
+            const order = this.sortOrders[sortKey] || 1;
+            let data = this.data;
+            if (filterKey) {
+                data = data.filter((row) => {
+                    return Object.keys(row).some((key) => {
+                        return String(row[key]).toLowerCase().indexOf(filterKey) > -1;
+                    });
+                });
+            }
+            if (sortKey) {
+                data = data.slice().sort((a, b) => {
+                    a = a[sortKey];
+                    b = b[sortKey];
+                    return (a === b ? 0 : a > b ? 1 : -1) * order;
+                });
+            }
+            return data;
+        },
+
+        sortBy(key) {
+            this.sortKey = key;
+            this.sortOrders[key] = this.sortOrders[key] * -1;
+        },
+
+        capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        },
+        setActiveTab(tab) {
+            this.tabs.forEach(tab => tab.current = false)
+            tab.current = true
+            this.activeTab = tab.slug;
+        }
+    }).mount();
+</script>

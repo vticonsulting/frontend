@@ -1,0 +1,44 @@
+@using Exemplar.Web.Areas.PropertyInspection.Models
+@model Exemplar.Web.Areas.PropertyInspection.Models.ReportViewModels.SectionViewModels.RoofObservationSection
+
+@{
+  switch (Model.ReportType)
+  {
+    case ReportType.AllstateLadderAssist:
+      { Html.RenderPartial("~/Views/Reports/Sections/RoofObservations/_ReportType0.cshtml", Model); }
+      break;
+    case ReportType.AllstateVirtual:
+      { Html.RenderPartial("~/Views/Reports/Sections/RoofObservations/_ReportType1.cshtml", Model); }
+      break;
+    case ReportType.LadderAssistOther:
+      { Html.RenderPartial("~/Views/Reports/Sections/RoofObservations/_ReportType3.cshtml"); }
+      break;
+    case ReportType.DirectInspectionShingles:
+      { Html.RenderPartial("~/Views/Reports/Sections/RoofObservations/_ReportType3.cshtml", Model); }
+      break;
+    case ReportType.DirectInspectionNoBt:
+      { Html.RenderPartial("~/Views/Reports/Sections/RoofObservations/_ReportType3.cshtml", Model); }
+      break;
+    case ReportType.DirectInspectionAsphaltRoof:
+      { Html.RenderPartial("~/Views/Reports/Sections/RoofObservations/_ReportType3.cshtml", Model); }
+      break;
+    case ReportType.DirectInspectionTile:
+      { Html.RenderPartial("~/Views/Reports/Sections/RoofObservations/_ReportType3.cshtml", Model); }
+      break;
+    case ReportType.DirectInspectionBituminousMembranes:
+      { Html.RenderPartial("~/Views/Reports/Sections/RoofObservations/_ReportType3.cshtml", Model); }
+      break;
+    case ReportType.DirectInspectionMetal:
+      { Html.RenderPartial("~/Views/Reports/Sections/RoofObservations/_ReportType3.cshtml", Model); }
+      break;
+    case ReportType.DirectInspectionWood:
+      { Html.RenderPartial("~/Views/Reports/Sections/RoofObservations/_ReportType3.cshtml", Model); }
+      break;
+
+    case ReportType.DirectInspectionNoTestSquares:
+      { Html.RenderPartial("~/Views/Reports/Sections/RoofObservations/_ReportType3.cshtml", Model); }
+      break;
+    default:
+      break;
+  }
+}

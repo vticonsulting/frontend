@@ -1,0 +1,41 @@
+@using Exemplar.Web.Areas.PropertyInspection.Models;
+@model Exemplar.Web.Areas.PropertyInspection.Models.ReportType;
+
+@if (@Model == ReportType.DirectInspectionAsphaltRoof || @Model == ReportType.DirectInspectionTile || @Model == ReportType.DirectInspectionBituminousMembranes || @Model == ReportType.DirectInspectionMetal || @Model == ReportType.DirectInspectionWood || @Model == ReportType.DirectInspectionCAStateAutoAssociation)
+{
+  <h2 class="mt-4 font-semibold text-lg">Roof - Wind</h2>
+  <p class="mt-2">
+    Wind damage totals are acquired on a damaged per slope basis.
+  </p>
+}
+
+@if (@Model == ReportType.DirectInspectionShingles)
+{
+  <h2 class="mt-4 font-semibold text-lg">Roof - Wind</h2>
+  <p class="mt-2">
+    Wind damage to an asphalt composition shingle consists of; creasing, tearing, complete detachment, and impacts
+    from wind driven objects. Wind damage totals are acquired on a shingle damaged per slope basis. If wind damage
+    is present a brittleness "repairability" test is performed on each slope that sustained damage. A brittleness
+    test is performed by detaching a shingle at the tar strip and lifting approximately three inches or a 40-degree angle.
+    This would be the necessary shingle manipulation required to feather and replace a damaged shingle.
+  </p>
+}
+
+@if (@Model == ReportType.DirectInspectionNoBt)
+{
+  <h2 class="mt-4 font-semibold text-lg">Roof - Wind</h2>
+  <p class="mt-2">
+    Wind damage to an asphalt composition shingle consists of; creasing, tearing, complete detachment, and impacts
+    from wind driven objects. Wind damage totals are acquired on a shingles damaged per slope basis.
+  </p>
+}
+
+@if (@Model == ReportType.DirectInspectionNoTestSquares)
+{
+  <h2 class="mt-4 font-semibold text-lg">Roof - Wind</h2>
+
+  <p class="mt-2">
+    Wind damage to an asphalt composition shingle consists of: creasing, tearing, complete detachment, and impacts from
+    winddriven objects. Wind damage totals are acquired on a ‘shingle damaged per slope’ basis.
+  </p>
+}

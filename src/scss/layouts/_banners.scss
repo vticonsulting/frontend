@@ -1,0 +1,6 @@
+@use '../abstracts' as *;
+
+.banner {
+  background-color: $primary-color;
+  color: scale-color($primary-color, $lightness: +40%);
+}

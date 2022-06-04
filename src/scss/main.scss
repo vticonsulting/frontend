@@ -1,0 +1,224 @@
+@use 'base';
+@use 'utilities';
+@use 'components';
+@use 'layouts';
+@use 'theme';
+
+del {
+    text-decoration: line-through;
+    background-color: #fbb;
+    color: #555;
+}
+
+ins {
+    text-decoration: none;
+    background-color: #d4fcbc;
+}
+
+blockquote {
+    padding-left: 15px;
+    border-left: 3px solid #d7d7db;
+    font-size: 1rem;
+}
+
+.outer {
+    position: relative;
+
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: calc(9 / 16) * 100%;
+    }
+
+    > .inner {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+}
+
+// @use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:list';
+
+// @use 'abstracts' as *;
+
+// @use 'base';
+// @use 'utilities';
+// @use 'components';
+// @use 'layouts';
+// @use 'theme';
+
+// .item3 {
+//   $row: list.slash(span math.div(6, 2), 7);
+//   grid-row: $row;
+// }
+
+// .micro {
+//   width: sum(50px, 30px, 100px);
+// }
+
+// @include syntax-colors(
+//   $string: #080,
+//   $comment: #800,
+//   $variable: #60b,
+// );
+
+// @include media(screen, print) using ($type) {
+//   h1 {
+//     font-size: 40px;
+
+//     @if $type==print {
+//       font-family: Calluna;
+//     }
+//   }
+// }
+
+// @include app-background(#036);
+
+// .wrapper .field {
+//   @include unify-parent("input") {
+//     /* ... */
+//   }
+
+//   @include unify-parent("select") {
+//     /* ... */
+//   }
+// }
+
+// .circle {
+//   $size: 100px;
+//   width: $size;
+//   height: $size;
+//   border-radius: $size * 0.5;
+// }
+
+// .fancy-link {
+//   text-decoration: none;
+//   background-image: linear-gradient(red, red);
+//   background-repeat: no-repeat;
+//   background-position: bottom left;
+//   background-size: 0% 3px;
+//   transition: background-size 500ms ease-in-out;
+
+//   /* extra styling   */
+//   font-weight: var(--fw-bold);
+// }
+
+// .fancy-link:hover {
+//   background-size: 100% 3px;
+//   color: inherit;
+// }
+
+// .one {
+//   background-color: orange;
+//   background-image: url(https://picsum.photos/id/1005/600/600);
+//   background-blend-mode: screen;
+// }
+
+// .two {
+//   background-color: orange;
+//   background-image: url(https://picsum.photos/id/1005/600/600);
+//   background-blend-mode: multiply;
+// }
+
+// .three {
+//   background-color: orange;
+//   background-image: url(https://picsum.photos/id/1005/600/600);
+//   background-blend-mode: overlay;
+// }
+
+// .content * {
+//   padding: 15vh 100px;
+//   background-position: center;
+//   background-size: cover;
+
+// }
+
+// .column-content {
+//   columns: 200px;
+
+//   width: 80%;
+//   max-width: 750px;
+//   margin: 0 auto;
+// }
+
+// .box-shadow-content {
+//   box-shadow:
+//     0 0 0 10px #ee6352,
+//     0 0 0 20px #d45379,
+//     0 0 0 30px #a4558f,
+//     0 0 0 40px #6d588e,
+//     0 0 0 50px #405378;
+
+//   /* additional styling */
+//   width: 80%;
+//   margin: 0 auto;
+//   max-width: 25em;
+//   padding: 1em 2em;
+//   border-radius: 1em;
+// }
+
+// .so-many-shadows {
+//   text-shadow:
+//     0.025em 0.025em 0 yellow,
+//     0.05em 0.05em 0 blue,
+//     0.075em 0.075em 0 red,
+//     0.1em 0.1em 0 black;
+
+
+//   /* other styling */
+//   font-family: var(--ff-title);
+//   font-weight: var(--fw-title);
+//   text-transform: uppercase;
+//   font-size: calc(2rem + 5vw);
+//   text-align: center;
+//   margin: 0;
+//   color: var(--clr-primary);
+// }
+
+// .input-field {
+//   display: flex;
+//   flex-direction: column;
+// }
+
+// .info {
+//   @include theme;
+// }
+
+// .alert {
+//   @include theme($theme: DarkRed);
+// }
+
+// .success {
+//   @include theme($theme: DarkGreen);
+// }
+
+// .container {
+//   display: flex;
+// }
+
+// article[role="main"] {
+//   width: math.div(600px, 960px) * 100%; // 62.5%;
+// }
+
+// aside[role="complementary"] {
+//   width: math.div(300px, 960px) * 100%; // 31.25%;
+//   margin-left: auto;
+// }
+
+
+// @debug calc(12px / 4px); // 3
+// @debug math.div(12px, 4px); // 3
+// @debug #f2ece4; // #f2ece4
+// @debug #b37399aa; // rgba(179, 115, 153, 67%)
+// @debug midnightblue; // #191970
+// @debug rgb(204, 102, 153); // #c69
+// @debug rgba(107, 113, 127, 0.8); // rgba(107, 113, 127, 0.8)
+// @debug hsl(228, 7%, 86%); // #dadbdf
+// @debug hsla(20, 20%, 85%, 0.7); // rgb(225, 215, 210, 0.7)
+// @debug map.get($font-weights, "medium"); // 500
+// @debug map.get($font-weights, "extra-bold"); // 800

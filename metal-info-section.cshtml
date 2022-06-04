@@ -1,0 +1,21 @@
+@using Exemplar.Web.Areas.PropertyInspection.Models;
+@model Exemplar.Web.Areas.PropertyInspection.Models.ReportType;
+
+@if (@Model == ReportType.DirectInspectionShingles
+|| @Model == ReportType.DirectInspectionAsphaltRoof
+|| @Model == ReportType.DirectInspectionNoBt
+|| @Model == ReportType.DirectInspectionMetal
+|| @Model == ReportType.DirectInspectionTile
+|| @Model == ReportType.DirectInspectionBituminousMembranes
+|| @Model == ReportType.DirectInspectionWood)
+{
+  <div class="SectionLabel">Roof - Metal Accessory Items </div>
+  <p class="mt-2">
+    Metal roof accessory items rarely suffer functional damage from hail impact. However, hail may cause aesthetic damage
+    in the
+    form of indentations. Rooftop penetrations can offer clear and permanent indications of hailstone impacts, including
+    hail size
+    and direction of the hail fall. Light gauge metal items will often suffer indentations even when the roofing material
+    escapes damage.
+  </p>
+}

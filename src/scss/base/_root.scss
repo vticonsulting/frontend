@@ -1,0 +1,81 @@
+@use "sass:meta";
+@use '../abstracts' as *;
+
+:root {
+  --primary: #{$primary};
+  --accent: #{$accent};
+  --warn: #{$warn};
+
+  --clr-primary: #ee6352;
+  --clr-secondary: #d16e8d;
+  --clr-accent: #F7F7FF;
+  --clr-gradient: linear-gradient(-90deg, var(--clr-primary), var(--clr-secondary));
+  --ff-title: bungee, sans-serif;
+  --ff-body: canada-type-gibson, sans-serif;
+  --fw-body: 300;
+  --fw-bold: 800;
+  --fw-title: 400;
+  --fw-number: 800;
+  --font-family-sans-serif: #{meta.inspect($font-family-sans-serif)};
+  --font-family-monospace: #{meta.inspect($font-family-monospace)};
+  --accent-color-right: #{$accent-color};
+
+  // Even though this looks like a Sass variable, it's valid CSS so it's not
+  // evaluated.
+  --consumed-by-js: $primary;
+}
+
+
+:root {
+  @each $color, $shades in $colors {
+    @each $shade, $value in $shades {
+      --color-#{$color}-#{$shade}: #{$value};
+    }
+    // color: $color;
+    // --color-#{$color}: shade;
+  }
+
+  @each $screen-size, $font-size in $type-scale {
+    @if $screen-size == small {
+      @each $size, $value in $font-size {
+        --fs-#{$size}: #{$value};
+      }
+    } @else {
+      @include mq(small) {
+        @each $size, $value in $font-size {
+          --fs-#{$size}: #{$value};
+        }
+      }
+    }
+  }
+}
+
+:root {
+  --section-spacing: 3.5rem;
+
+  @include mq(medium) {
+    --section-spacing: 7rem;
+  }
+
+  @each $color, $shade in $colors {
+    @each $prop, $value in $shade {
+      --clr-#{$color}-#{$prop}: #{$value};
+    }
+  }
+
+  @each $screen-size, $property in $type-scale {
+    @if $screen-size == small {
+      @each $prop, $value in $property {
+        --fs-#{$prop}: #{$value};
+      }
+    }
+
+    @else {
+      @include mq(small) {
+        @each $prop, $value in $property {
+          --fs-#{$prop}: #{$value};
+        }
+      }
+    }
+  }
+}

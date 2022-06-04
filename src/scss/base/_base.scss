@@ -1,0 +1,16 @@
+html {
+  scroll-behavior: smooth;
+}
+
+label {
+  color: #444;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: opacity linear 200ms, transform ease-in 150ms;
+  order: -1;
+}
+
+input:not(:placeholder-shown)~label {
+  transform: translateY(0px);
+  opacity: 1;
+}

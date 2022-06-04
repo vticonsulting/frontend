@@ -1,0 +1,316 @@
+@use "../abstracts" as *;
+
+// ################################### KENDO UI ###################################
+// $base-bg: #f6f6f6;
+// $base-text: #656565;
+// $base-border: rgba( black, .08
+// $base-gradient: $base-bg, darken( $base-bg, 2% )
+// $hovered-bg: #ededed
+// $focused-shadow
+// $selected-bg: $primary
+// $disabled-opacity: .6
+
+// $font-size: 1rem;
+// $line-height: (24/16);
+
+$font-size: 0.875rem; // 14px
+$line-height: calc(20 / 14);
+
+$input-bg: #f0f0f0;
+$autocomplete-bg: #ffffff;
+$grid-border-width: 1px;
+$accent: $color-secondary-500;
+$error: $color-red-500;
+$warning: #fcd34d;
+$success: #15803d;
+$info: #bfdbfe;
+$padding-x: 8px;
+$spacer: 1em;
+
+// $grid-border: $color-primary-200;
+// $grid-header-bg: $color-primary-100;
+// $grid-padding-x;
+// $grid-padding-y;
+$primary: $color-primary-500;
+$border-radius: 0.25rem; // 4px
+
+// ################################### KENDO UI (Dropdown List) ###################################
+
+// $dropdownlist-bg: $button-bg;
+// $dropdownlist-text: $button-text;
+// $dropdownlist-border: $button-border;
+// $dropdownlist-gradient: $button-gradient;
+
+// $dropdownlist-hovered-bg: $button-hovered-bg;
+// $dropdownlist-hovered-text: $button-hovered-text;
+// $dropdownlist-hovered-border: $button-hovered-border;
+// $dropdownlist-hovered-gradient: $button-hovered-gradient;
+
+// $dropdownlist-focused-bg: null;
+// $dropdownlist-focused-text: null;
+// $dropdownlist-focused-border: null;
+// $dropdownlist-focused-gradient: null;
+// $dropdownlist-focused-shadow: $input-focused-shadow;
+
+// ################################### KENDO UI (Input) ###################################
+
+// $input-default-width: 12.4em;
+
+// $input-border-width: 1px;
+// $input-border-height: ( $input-border-width * 2 );
+// $input-border-radius: $border-radius;
+// $input-border-radius-sm: $border-radius;
+// $input-border-radius-lg: $border-radius;
+
+// $input-padding-x: $padding-x;
+// $input-padding-y: $padding-y;
+// $input-font-family: $font-family;
+// $input-font-size: $font-size;
+// $input-line-height: $line-height;
+// $input-line-height-em: $input-line-height * 1em;
+
+// $input-padding-x-sm: ($input-padding-x / 2);
+// $input-padding-y-sm: ($input-padding-y / 2);
+// $input-font-size-sm: $input-font-size;
+// $input-line-height-sm: $line-height-sm;
+
+// $input-padding-x-lg: ($input-padding-x * 1.5);
+// $input-padding-y-lg: ($input-padding-y * 1.5);
+// $input-font-size-lg: $input-font-size;
+// $input-line-height-lg: $line-height-lg;
+
+// $input-calc-height: calc( #{$input-line-height * 1em} + #{$input-padding-y * 2} + #{$input-border-height} );
+// $input-calc-height-sm: calc( #{$input-line-height-sm * 1em} + #{$input-padding-y-sm * 2} + #{$input-border-height} );
+// $input-calc-height-lg: calc( #{$input-line-height-lg * 1em} + #{$input-padding-y-lg * 2} + #{$input-border-height} );
+
+// $input-inner-calc-height: calc( #{$input-line-height * 1em} + #{$input-padding-y * 2} );
+// $input-inner-calc-height-sm: calc( #{$input-line-height-sm * 1em} + #{$input-padding-y-sm * 2} );
+// $input-inner-calc-height-lg: calc( #{$input-line-height-lg * 1em} + #{$input-padding-y-lg * 2} );
+
+// $input-adornment-height: calc( #{$input-line-height * $input-font-size} + #{$input-padding-y * 2} );
+// $input-adornment-width: $input-adornment-height;
+
+// $input-bg: $component-bg;
+// $input-text: $component-text;
+// $input-border: $component-border;
+// $input-shadow: null;
+
+// $input-hovered-bg: null;
+// $input-hovered-text: null;
+// $input-hovered-border: rgba( $input-border, .16 );
+// $input-hovered-shadow: null;
+
+// $input-focused-bg: null;
+// $input-focused-text: null;
+// $input-focused-border: $input-hovered-border;
+// $input-focused-shadow: 0 0 0 2px rgba( $input-focused-border, .08 );
+
+// $input-placeholder-text: $subtle-text;
+// $input-placeholder-opacity: 1;
+
+// $input-selected-bg: $primary;
+// $input-selected-text: $primary-contrast;
+
+// $input-clear-button-focused-background: $base-text;
+// $input-clear-button-focused-opacity: .2;
+
+// // Picker
+// $picker-select-border-width: 0px;
+
+// $picker-select-padding-x: $input-padding-y;
+// $picker-select-padding-y: $input-padding-y;
+
+// $picker-select-padding-x-sm: $input-padding-y-sm;
+// $picker-select-padding-y-sm: $input-padding-y-sm;
+
+// $picker-select-padding-x-lg: $input-padding-y-sm;
+// $picker-select-padding-y-lg: $input-padding-y-sm;
+
+// $picker-select-calc-size: $input-inner-calc-height;
+// $picker-select-calc-size-sm: $input-inner-calc-height-sm;
+// $picker-select-calc-size-lg: $input-inner-calc-height-lg;
+
+// // Spinner
+// $spinner-width: $button-inner-calc-size;
+// $spinner-min-width: calc( #{$icon-size} + #{$picker-select-padding-x * 2} );
+// $spinner-icon-offset: 2px;
+
+// // Input icon
+// $input-icon-width: calc( #{$icon-size} + #{$input-padding-y * 2} );
+// $input-icon-height: calc( #{$input-line-height * $input-font-size} + #{$input-padding-y * 2} );
+
+// $input-icon-text: $subtle-text;
+// $input-icon-opacity: null;
+
+// // Input separator
+// $input-separator-color: $input-text;
+// $input-separator-opacity: .5;
+
+
+// @import '@progress/kendo-theme-default/scss/action-buttons/_index.scss';
+// @import '@progress/kendo-theme-default/scss/action-sheet/_index.scss';
+// @import '@progress/kendo-theme-default/scss/adaptive/_index.scss';
+// @import '@progress/kendo-theme-default/scss/appbar/_index.scss';
+// @import '@progress/kendo-theme-default/scss/autocomplete/_index.scss';
+// @import '@progress/kendo-theme-default/scss/avatar/_index.scss';
+// @import '@progress/kendo-theme-default/scss/badge/_index.scss';
+// @import '@progress/kendo-theme-default/scss/bottom-navigation/_index.scss';
+// @import '@progress/kendo-theme-default/scss/breadcrumb/_index.scss';
+// @import '@progress/kendo-theme-default/scss/button/_index.scss';
+// @import '@progress/kendo-theme-default/scss/calendar/_index.scss';
+// @import '@progress/kendo-theme-default/scss/captcha/_index.scss';
+// @import '@progress/kendo-theme-default/scss/card/_index.scss';
+// @import '@progress/kendo-theme-default/scss/chat/_index.scss';
+// @import '@progress/kendo-theme-default/scss/checkbox/_index.scss';
+// @import '@progress/kendo-theme-default/scss/chip/_index.scss';
+// @import '@progress/kendo-theme-default/scss/color-preview/_index.scss';
+// @import '@progress/kendo-theme-default/scss/coloreditor/_index.scss';
+// @import '@progress/kendo-theme-default/scss/colorgradient/_index.scss';
+// @import '@progress/kendo-theme-default/scss/colorpalette/_index.scss';
+// @import '@progress/kendo-theme-default/scss/colorpicker/_index.scss';
+// @import '@progress/kendo-theme-default/scss/combobox/_index.scss';
+// @import '@progress/kendo-theme-default/scss/common/_index.scss';
+// @import '@progress/kendo-theme-default/scss/core/_index.scss';
+// @import '@progress/kendo-theme-default/scss/cursor/_index.scss';
+// @import '@progress/kendo-theme-default/scss/dataviz/_index.scss';
+// @import '@progress/kendo-theme-default/scss/datetime/_index.scss';
+// @import '@progress/kendo-theme-default/scss/dialog/_index.scss';
+// @import '@progress/kendo-theme-default/scss/drawer/_index.scss';
+// @import '@progress/kendo-theme-default/scss/dropdowngrid/_index.scss';
+// @import '@progress/kendo-theme-default/scss/dropdownlist/_index.scss';
+// @import '@progress/kendo-theme-default/scss/dropdowntree/_index.scss';
+// @import '@progress/kendo-theme-default/scss/dropzone/_index.scss';
+// @import '@progress/kendo-theme-default/scss/editor/_index.scss';
+// @import '@progress/kendo-theme-default/scss/expansion-panel/_index.scss';
+// @import '@progress/kendo-theme-default/scss/fab/_index.scss';
+// @import '@progress/kendo-theme-default/scss/filemanager/_index.scss';
+// @import '@progress/kendo-theme-default/scss/filter/_index.scss';
+// @import '@progress/kendo-theme-default/scss/floating-label/_index.scss';
+// @import '@progress/kendo-theme-default/scss/forms/_index.scss';
+// @import '@progress/kendo-theme-default/scss/gantt/_index.scss';
+// @import '@progress/kendo-theme-default/scss/grid/_index.scss';
+// @import '@progress/kendo-theme-default/scss/icons/_index.scss';
+// @import '@progress/kendo-theme-default/scss/imageeditor/_index.scss';
+// @import '@progress/kendo-theme-default/scss/input/_index.scss';
+// @import '@progress/kendo-theme-default/scss/listbox/_index.scss';
+// @import '@progress/kendo-theme-default/scss/listgroup/_index.scss';
+// @import '@progress/kendo-theme-default/scss/listview/_index.scss';
+// @import '@progress/kendo-theme-default/scss/loader/_index.scss';
+// @import '@progress/kendo-theme-default/scss/map/_index.scss';
+// @import '@progress/kendo-theme-default/scss/maskedtextbox/_index.scss';
+// @import '@progress/kendo-theme-default/scss/mediaplayer/_index.scss';
+// @import '@progress/kendo-theme-default/scss/menu/_index.scss';
+// @import '@progress/kendo-theme-default/scss/messagebox/_index.scss';
+// @import '@progress/kendo-theme-default/scss/multiselect/_index.scss';
+// @import '@progress/kendo-theme-default/scss/notification/_index.scss';
+// @import '@progress/kendo-theme-default/scss/numerictextbox/_index.scss';
+// @import '@progress/kendo-theme-default/scss/orgchart/_index.scss';
+// @import '@progress/kendo-theme-default/scss/overlay/_index.scss';
+// @import '@progress/kendo-theme-default/scss/pager/_index.scss';
+// @import '@progress/kendo-theme-default/scss/panelbar/_index.scss';
+// @import '@progress/kendo-theme-default/scss/pdf-viewer/_index.scss';
+// @import '@progress/kendo-theme-default/scss/pivotgrid/_index.scss';
+// @import '@progress/kendo-theme-default/scss/popover/_index.scss';
+// @import '@progress/kendo-theme-default/scss/popup/_index.scss';
+// @import '@progress/kendo-theme-default/scss/progressbar/_index.scss';
+// @import '@progress/kendo-theme-default/scss/radio/_index.scss';
+// @import '@progress/kendo-theme-default/scss/rating/_index.scss';
+// @import '@progress/kendo-theme-default/scss/responsivepanel/_index.scss';
+// @import '@progress/kendo-theme-default/scss/ripple/_index.scss';
+// @import '@progress/kendo-theme-default/scss/scheduler/_index.scss';
+// @import '@progress/kendo-theme-default/scss/scroller/_index.scss';
+// @import '@progress/kendo-theme-default/scss/scrollview/_index.scss';
+// @import '@progress/kendo-theme-default/scss/searchbox/_index.scss';
+// @import '@progress/kendo-theme-default/scss/skeleton/_index.scss';
+// @import '@progress/kendo-theme-default/scss/slider/_index.scss';
+// @import '@progress/kendo-theme-default/scss/splitter/_index.scss';
+// @import '@progress/kendo-theme-default/scss/spreadsheet/_index.scss';
+// @import '@progress/kendo-theme-default/scss/stepper/_index.scss';
+// @import '@progress/kendo-theme-default/scss/styling/_index.scss';
+// @import '@progress/kendo-theme-default/scss/switch/_index.scss';
+// @import '@progress/kendo-theme-default/scss/tabstrip/_index.scss';
+// @import '@progress/kendo-theme-default/scss/taskboard/_index.scss';
+// @import '@progress/kendo-theme-default/scss/textarea/_index.scss';
+// @import '@progress/kendo-theme-default/scss/textbox/_index.scss';
+// @import '@progress/kendo-theme-default/scss/tilelayout/_index.scss';
+// @import '@progress/kendo-theme-default/scss/timeline/_index.scss';
+// @import '@progress/kendo-theme-default/scss/toolbar/_index.scss';
+// @import '@progress/kendo-theme-default/scss/tooltip/_index.scss';
+// @import '@progress/kendo-theme-default/scss/treelist/_index.scss';
+// @import '@progress/kendo-theme-default/scss/treeview/_index.scss';
+// @import '@progress/kendo-theme-default/scss/typography/_index.scss';
+// @import '@progress/kendo-theme-default/scss/upload/_index.scss';
+// @import '@progress/kendo-theme-default/scss/utils/_index.scss';
+// @import '@progress/kendo-theme-default/scss/validator/_index.scss';
+// @import '@progress/kendo-theme-default/scss/window/_index.scss';
+// @import '@progress/kendo-theme-default/scss/wizard/_index.scss';
+
+// NOTE: the variables bellow this point will not take effect,
+// because the theme is already imported
+$grid-border: red;
+
+// $toolbar-padding-x
+// $toolbar-padding-y
+// $series-a
+// $accent-contrast
+// $base-text
+// $base-bg
+// $base-border
+// $base-gradient
+// $hovered-text
+// $hovered-bg
+// $hovered-border
+// $hovered-gradient
+// $selected-text
+// $selected-bg
+// $selected-border
+// $selected-gradient
+// $font-size: 1rem;
+// $font-family: inherit;
+// $line-height: (20/14)
+// $border-radius: 0.25rem;
+//
+// @import "~@progress/kendo-theme-default/dist/all.scss";
+
+// // Import only the Grid and TreeView styles using Node Sass
+// @import "~@progress/kendo-theme-default/scss/grid/_index.scss";
+// @import "~@progress/kendo-theme-default/scss/treeview/_index.scss";
+
+// // or using Dart Sass
+// @import "~@progress/kendo-theme-default/scss/grid/";
+// @import "~@progress/kendo-theme-default/scss/treeview/";
+
+.k-grid,
+.k-window {
+  border-radius: $border-radius;
+  overflow: hidden;
+}
+
+.k-header {
+  font-size: 0.75rem;
+  // letter-spacing: 0.5em;
+  text-transform: uppercase;
+}
+
+.k-widget.k-dropdown {
+  width: 100%;
+  min-width: 10rem; // 160px;
+  margin-top: 0.25rem; // 4px;
+}
+
+.k-widget.k-dropdown.k-dropdown-operator {
+  min-width: auto;
+  width: auto;
+}
+
+.k-grid-header .k-filter-row .k-filtercell .k-filtercell-operator>.k-clear-button-visible {
+  width: calc(1.42857em + 14px);
+  height: calc(1.42857em + 14px);
+  margin-top: 0.25rem;
+  margin-left: 0.25rem;
+}
+
+.k-dropdown .k-dropdown-wrap,
+.k-dropdowntree .k-dropdown-wrap {
+  background-color: white !important;
+}

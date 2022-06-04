@@ -1,0 +1,47 @@
+@model Exemplar.Web.Areas.PropertyInspection.Models.ReportViewModels.SectionViewModels.StormInfoSection
+
+<h2  class="mt-4 font-semibold text-lg">Storm Info</h2>
+
+@if (Model.StormDamagePresent != null && Model.StormDamagePresent == "Yes")
+{
+  <div>
+    <span>Storm Damage Type: </span>
+    <span>
+      @if (Model.StormDamageType != null)
+      {
+        if (Model.StormDamageType.Contains("Other"))
+        {
+          if (Model.StormDamageType.Length > 5)
+          {
+            @(Model.StormDamageType.Replace("Other|","").Replace("|Other", "").Replace("|"," | ") + " | Other:" + Model.StormDamageTypeOther.ToString());
+          }
+          else
+          {
+            @(Model.StormDamageType + ":" + Model.StormDamageTypeOther.ToString());
+          }
+        }
+        else
+        {
+          @Model.StormDamageType
+        }
+      }
+    </span>
+  </div>
+
+  <div>
+    <span>Storm Direction: </span>
+    <span>@(Model.StormDirection != null ? Model.StormDirection : string.Empty) </span>
+  </div>
+
+  @if (Model.HailSize != null && Model.HailSize.Length > 0)
+  {
+    <div>
+      <span>Hail Size: </span>
+      <span>@Model.HailSize</span>
+    </div>
+  }
+}
+else
+{
+  <p class="mt-2">NA</p>
+}

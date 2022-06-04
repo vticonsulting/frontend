@@ -1,0 +1,2050 @@
+@using Exemplar.Dto.PropertyInspectionForm
+@model Exemplar.Dto.PropertyInspectionForm.HicFormReportDto
+@{
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+  var Model = ViewData["Model"] as HicFormReportDto;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Texas Allstate HIC Report</title>
+  <style>
+    html {
+      box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+    body {
+        margin: 1rem;
+    }
+    label {
+        margin-bottom: 0;
+    }
+    @@media print {
+        body {
+            margin: 0;
+        }
+
+      .pagebreak {
+        page-break-before: always;
+      }
+    }
+
+    .hic-report {
+      width: 100%;
+      min-width: 724px;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 11px;
+    }
+
+    .hic-table {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      border-collapse: collapse;
+      border: 1px solid #000;
+    }
+
+    .hic-table .table-header {
+      height: 17px;
+      background-color: #c6d9f1;
+      text-align: center;
+    }
+
+    .hic-table th,
+    .hic-table td {
+      padding: 0;
+      vertical-align: middle;
+    }
+
+    .hic-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .hic-table table td {
+      border-top: 1px solid #000;
+      border-left: 1px solid #000;
+    }
+
+    .hic-table.exterior th,
+    .hic-table.exterior td,
+    .hic-table.interior th,
+    .hic-table.interior td,
+    .hic-table.additional-entries th,
+    .hic-table.additional-entries td,
+    .hic-table.signatures th,
+    .hic-table.signatures td,
+    .hic-table.copy-provided-to-customer th,
+    .hic-table.copy-provided-to-customer td {
+      border: 1px solid #000;
+      height: 25px;
+    }
+
+    .hic-table.exterior tbody th:first-child,
+    .hic-table.exterior tbody td:first-child,
+    .hic-table.interior tbody th:first-child,
+    .hic-table.interior tbody td:first-child,
+    .hic-table.additional-entries tbody th:first-child,
+    .hic-table.additional-entries tbody td:first-child,
+    .hic-table.signatures tbody th:first-child,
+    .hic-table.signatures tbody td:first-child,
+    .hic-table.copy-provided-to-customer tbody th:first-child,
+    .hic-table.copy-provided-to-customer tbody td:first-child {
+      padding-left: 3px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0 0.25rem;
+      margin-top: 1px;
+      margin-bottom: 1px;
+      font-family: monospace;
+      font-size: 0.8rem;
+      line-height: 1;
+      text-align: left;
+      border: none;
+      border-color: #6b7280;
+      border-width: 1px;
+      border-radius: 0;
+      appearance: none;
+    }
+
+    input[type="text"]:focus {
+      background-color: #fff;
+      outline: none;
+    }
+
+    p.additional-summary {
+        font-family: 'Arial Narrow', Arial, sans-serif;
+        margin: 0;
+        line-height: 1;
+    }
+
+    .text-left {
+      text-align: left;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+    .text-right {
+      text-align: right;
+    }
+
+    .italic {
+      font-style: italic;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .flex-col {
+      flex-direction: column;
+    }
+
+    .items-start {
+      align-items: flex-start;
+    }
+
+    .items-baseline {
+        align-items: baseline;
+    }
+
+    .items-center {
+        align-items: center
+    }
+
+    .justify-center {
+      justify-content: center;
+    }
+
+    .justify-between {
+      justify-content: space-between;
+    }
+
+    .align-middle {
+      vertical-align: middle;
+    }
+
+    .w-full {
+      width: 100%;
+    }
+
+    .whitespace-nowrap {
+      white-space: nowrap;
+    }
+
+    .borderless {
+      border: none;
+    }
+
+    .font-normal {
+      font-weight: 400;
+    }
+
+    .font-bold {
+      font-weight: 600;
+    }
+
+    .mt-4 {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <form class="hic-report">
+    <table class="hic-table">
+      <thead>
+        <tr>
+          <th colspan="4" class="table-header" style="border-right: 2px solid black;">TEXAS HOME INSPECTION CHECKLIST</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="4">
+            <table>
+              <tr>
+                <td class="text-center" colspan="4" style="height: 20px; border-left: none; border-right: 1px solid black;">
+                  <div class="flex items-center justify-center">
+                    <span>Type of inspection:</span>
+                    <input id="inspection-type-initial" type="radio" name="inspectionType" style="margin-left: 22px;" />
+                    <label for="inspection-type-initial" style="margin-left: 4px;">Initial</label>
+                    <input id="inspection-type-subsequent" type="radio" name="inspectionType"
+                      style="margin-left: 40px;" />
+                    <label for="inspection-type-subsequent" style="margin-left: 6px;">Subsequent</label>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <table>
+              <tr>
+                <td style="width: 292px; height: 34px; padding: 0 6px; border-left: none;">
+                  <label for="insured-name">Insured Name:</label>
+                  <input id="insured-name" type="text" name="insuredName" style="height: 17px;"
+                    value="@Model.InsuredName" />
+                </td>
+
+                <td style="width: 188px; padding: 0 6px;">
+                  <label for="claim-number">Claim #:</label>
+                  <input id="claim-number" type="text" name="claimNumber" style="height: 17px;"
+                    value="@Model.ClaimNumber" />
+                </td>
+                <td style="width: 102px; padding: 0 7px;">
+                  <label for="loss-date">Date of Loss:</label>
+                  <input id="loss-date" type="text" name="lossDate" style="height: 17px;" />
+                </td>
+                <td style="width: 142px; padding: 0 8px; border-right: 1px solid black;">
+                  <label for="inspection-date">Date of Inspection:</label>
+                  <input id="inspection-date" type="text" name="inspectionDate" style="height: 17px;"
+                    value="@(Model.InspectionDate != null ? Model.InspectionDate : string.Empty)" />
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <table>
+              <tr>
+                <td style="width: 360px; height: 17px; padding-left: 6px; border-left: none;">
+                  <div class="flex items-center">
+                    <label class="whitespace-nowrap" for="loss-location">Loss Location:</label>
+                    <input id="loss-location" type="text" name="lossLocation" style="height: 17px;"
+                        value="@Model.AddressLine1 @(string.IsNullOrEmpty(Model.AddressLine2) ? "" : @Model.AddressLine2)"
+                    />
+                  </div>
+                </td>
+                <td style="width: 144px; padding: 0 7px;">
+                  <div class="flex items-center">
+                    <label for="city">City:</label>
+                    <input id="city" type="text" name="city" style="height: 17px;" value="@Model.City"/>
+                  </div>
+                </td>
+                <td style="width: 78px; padding: 0 7px;">
+                  <div class="flex items-center">
+                    <label for="state">State:</label>
+                    <input id="state" type="text" name="state" style="height: 17px;" value="@Model.State"/>
+                  </div>
+                </td>
+                <td style="width: 142px; padding: 0 7px; border-right: 1px solid black;">
+                  <div class="flex items-center">
+                    <label class="whitespace-nowrap" for="postal-code">ZIP Code:</label>
+                    <input id="postal-code" type="text" name="postalCode" style="height: 17px;" value="@Model.PostalCode"/>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <table>
+              <tr>
+                <td style="width: 490px; height: 34px; padding-left: 6px; border-left: none;">
+                  <div class="flex items-start">
+                    <label class="whitespace-nowrap" for="email-address">Email Address:</label>
+                    <input id="email-address" type="text" name="emailAddress" style="height: 31px; font-size: 18px;" value="@Model.InsuredEmail" />
+                  </div>
+                </td>
+                <td class="text-center" style="width: 234px; border-right: 1px solid black;">
+                  <label style="display: block;">Insured on premises for inspection:</label>
+                  <input id="insured-on-premises-yes" type="radio" name="insuredOnPremises" value="Yes" @(Model.InsuredPresent == "Yes" ? "checked" : String.Empty) /> Yes
+                  <input id="insured-on-premises-no" type="radio" name="insuredOnPremises" value="No" @(Model.InsuredPresent == "No" ? "checked" : String.Empty) /> No
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <table>
+              <tbody>
+                <tr>
+                  <td style="height: 33px; padding: 0 7px; border-left: none; border-right: 1px solid black;">
+                    <label for="others-present">Any others present? (If yes list and role, e.g., “John Smith,
+                      Contractor”):</label>
+                    <input id="others-present" type="text" name="othersPresent" style="height: 17px;" value="@(Model.ContractorPresent == "Yes" ? "Contractor, " : String.Empty)  @(Model.PublicAdjusterPresent == "Yes" ? "Public Adjuster, " : String.Empty)
+                    @(Model.OutsideAdjusterPresent == "Yes" ? "Outside Adjuster" : String.Empty)"/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="height: 30px; padding-left: 4px; margin: 2px 0 0; line-height: 1.25;">
+      Please complete the interior and exterior checklists, indicating
+      <b>“Yes”</b> if the item/area has damage then use the “Notes” section to describe any pre-existing or non-related
+      damage. Indicate
+      <b>“No”</b> if there is no damage to the item/area. Mark
+      <b>“N/A”</b> if the area does not exist.
+    </p>
+    <table class="hic-table exterior">
+      <thead>
+        <tr>
+          <th class="table-header" colspan="6">EXTERIOR</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th colspan="3" class="text-center" style="width: 116px; height: 20px;">Inspection Damage</th>
+          <th rowspan="2" style="padding-left: 3px;">Notes (Include date and whether repairs were completed; please be
+            concise)</th>
+        </tr>
+        <tr>
+          <th style="width: 106px; height: 17px; padding-left: 3px;">Area/Item</th>
+          <th class="text-center" style="width: 38px;">Yes</th>
+          <th class="text-center" style="width: 38px;">No</th>
+          <th class="text-center" style="width: 38px;">N/A</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Roof</td>
+          <td class="text-center">
+            <input type="radio" name="roof" value="Yes" @(Model.RoofInspected == "Yes" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="roof" value="No" @(Model.RoofInspected == "No" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="roof" value="NA" @(Model.RoofInspected == "NA" ? "checked" : String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="roofNote" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">
+            Siding (if “Yes”
+            <br />indicate elevation)
+          </td>
+          <td class="text-center">
+            <input type="radio" name="siding" value="Yes" @(Model.SidingDamage == "Yes" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="siding" value="No" @(Model.SidingDamage == "No" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="siding" value="NA" @(Model.SidingDamage == "NA" ? "checked" : String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            @* @Model.SidingDamageBack @Model.SidingDamageFront @Model.SidingDamageLeft @Model.SidingDamageRight *@
+            <input type="text" name="sidingNote" value="@Model.SidingNotes"/>
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">
+            Gutters/
+            <br />Downspouts
+          </td>
+          <td class="text-center">
+            <input type="radio" name="gutters" value="Yes" @(Model.GuttersDamage == "Yes" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center align-middle">
+            <input type="radio" name="gutters" value="No" @(Model.GuttersDamage == "No" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="gutters" value="NA" @(Model.GuttersDamage == "NA" ? "checked" : String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="guttersNote" value="@Model.GutterDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Windows</td>
+          <td class="text-center">
+            <input type="radio" name="windows" value="Yes" @(Model.WindowsDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="windows" value="No" @(Model.WindowsDamaged == "No" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="windows" value="NA" @(Model.WindowsDamaged == "NA" ? "checked" : String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="windowsNote" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Screens</td>
+          <td class="text-center">
+            <input type="radio" name="screens" value="Yes" @(Model.WindowScreenDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="screens" value="No" @(Model.WindowScreenDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="screens" value="NA" @(Model.WindowScreenDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="screensNote" />
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Doors</td>
+          <td class="text-center">
+            <input type="radio" name="doors" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="doors" value="No" />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="doors" value="NA" checked />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="doorsNote" value=""/>
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Patio</td>
+          <td class="text-center">
+            <input type="radio" name="patio" value="Yes"  @(Model.PatioFurnitureDamaged == "NA" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="patio" value="No"  @(Model.PatioFurnitureDamaged == "NA" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="patio" value="NA"  @(Model.PatioFurnitureDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="patioNote" value=""  />
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Patio Covering</td>
+          <td class="text-center">
+            <input type="radio" name="patioCovering" value="Yes" @(Model.AwningDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="patioCovering" value="No" @(Model.AwningDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="patioCovering" value="NA" @(Model.AwningDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="patioCoveringNote" value=""  />
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Garage Door</td>
+          <td class="text-center">
+            <input type="radio" name="garageExterior" value="Yes" @(Model.GarageDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="garageExterior" value="No" @(Model.GarageDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="garageExterior" value="NA" @(Model.GarageDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="garageExterior" value="@Model.GarageDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Carport</td>
+          <td class="text-center">
+            <input type="radio" name="carport" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="carport" value="No" />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="carport" value="NA" checked />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="carportNote" />
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Pool Enclosure</td>
+          <td class="text-center">
+            <input type="radio" name="poolEnclosure" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="poolEnclosure" value="No" />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="poolEnclosure" value="NA" checked />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="poolEnclosureNote" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">A/C Unit</td>
+          <td class="text-center">
+            <input type="radio" name="acUnit" value="Yes" @(Model.RefrigerationCoilsDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="acUnit" value="No" @(Model.RefrigerationCoilsDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="acUnit" value="NA" @(Model.RefrigerationCoilsDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="acUnitNote" />
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Deck</td>
+          <td class="text-center">
+            <input type="radio" name="deck" value="Yes" @(Model.DeckDamaged == "Yes" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="deck" value="No" @(Model.DeckDamaged == "No" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="deck" value="NA" @(Model.DeckDamaged == "NA" ? "checked" : String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="deckNote" />
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Shed/Outbuilding</td>
+          <td class="text-center">
+            <input type="radio" name="shed" value="Yes" @(Model.OutBuildingDamage == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="shed" value="No" @(Model.OutBuildingDamage == "No" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="shed" value="NA" @(Model.OutBuildingDamage == "NA" ? "checked" : String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="shedNote" value="@Model.OutBuildingNotes"/>
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Fence</td>
+          <td class="text-center">
+            <input type="radio" name="fence" value="Yes" @(Model.FenceDamaged == "Yes" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="fence" value="No" @(Model.FenceDamaged == "No" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="fence" value="NA" @(Model.FenceDamaged == "NA" ? "checked" : String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="fence" />
+          </td>
+        </tr>
+        <tr>
+          <td style="height: 17px; padding-left: 3px;">Mailbox</td>
+          <td class="text-center">
+            <input type="radio" name="mailbox" value="Yes"/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="mailbox" value="No" />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="mailbox" value="NA" checked/>
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="mailboxNote" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5" class="text-center">
+            <div class="flex items-center justify-center">
+              <input type="checkbox" />
+              <span style="margin-left: 8px; font-style: italic;">Check here if the inspection area/item list is
+                continued below in “Additional Entries” section.</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="mt-4 hic-table interior">
+      <thead>
+        <tr>
+          <th class="table-header" colspan="5">INTERIOR</th>
+        </tr>
+        <tr>
+          <th colspan="5" class="text-left">
+            <table class="italic">
+              <tr>
+                  <td class="font-normal"
+                    style="width: 336px; padding-top: 4px; padding-right: 10px; padding-left: 38px; line-height: 1.5; border: none">The
+                    customer/representative refused inspection of all or part of the interior property at this time,
+                    confirming that there is no interior damage due to the reported loss except as specified below (Sign
+                    below, page 3).</td>
+                  <td class="font-normal"
+                    style="width: 386px; height: 82px; padding-top: 4px; padding-right: 14px; padding-left: 42px; line-height: 1.5; border: none; border-left: 1px solid rgb(0, 0, 0);">
+                    The customer/representative refused inspection of all or part of the interior property at this time,
+                    confirming that there is no new or additional interior damage due to the reported loss since the last
+                    inspection except as specified below (Sign below, page 3).</td>
+              </tr>
+            </table>
+          </th>
+        </tr>
+        <tr>
+          <th></th>
+          <th colspan="3" class="text-center" style="height: 20px;">Inspection Damage</th>
+          <th rowspan="2">Notes (Include date and whether repairs were completed; please be concise)</th>
+        </tr>
+        <tr>
+          <th style="width: 106px; height: 17px; padding-left: 3px;">Area/Item</th>
+          <th class="text-center">Yes</th>
+          <th class="text-center">No</th>
+          <th class="text-center">N/A</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Living Room</td>
+          <td class="text-center">
+            <input type="radio" name="livingRoom" value="Yes" @(Model.LivingRoomDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="livingRoom" value="No" @(Model.LivingRoomDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="livingRoom" value="NA" @(Model.LivingRoomDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="livingRoomNote" value="@Model.LivingRoomDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Family Room</td>
+          <td class="text-center">
+            <input type="radio" name="familyRoom" value="Yes" @(Model.FamilyRoomDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="familyRoom" value="No" @(Model.FamilyRoomDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="familyRoom" value="NA" @(Model.FamilyRoomDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="familyRoomNote" value="@Model.FamilyRoomDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Dining Room</td>
+          <td class="text-center">
+            <input type="radio" name="diningRoom" value="Yes" @(Model.DiningRoomDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="diningRoom" value="No" @(Model.DiningRoomDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="diningRoom" value="NA" @(Model.DiningRoomDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="diningRoomNote" value="@Model.DiningRoomDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Kitchen</td>
+          <td class="text-center">
+            <input type="radio" name="kitchen" value="Yes" @(Model.KitchenDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="kitchen" value="No" @(Model.KitchenDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="kitchen" value="NA" @(Model.KitchenDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="kitchenNote" value="@Model.KitchenDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Breakfast Area</td>
+          <td class="text-center">
+            <input type="radio" name="breakfastArea" value="Yes" @(Model.BreakfastAreaDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="breakfastArea" value="No" @(Model.BreakfastAreaDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="breakfastArea" value="NA" @(Model.BreakfastAreaDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="breakfastAreaNote" value="@Model.BreakfastAreaDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Pantry</td>
+          <td class="text-center">
+            <input type="radio" name="pantry" value="Yes" @(Model.PantryDamaged == "Yes" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="pantry" value="No" @(Model.PantryDamaged == "No" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="pantry" value="NA" @(Model.PantryDamaged == "NA" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="pantryNote" value="@Model.PantryDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>Foyer</td>
+          <td class="text-center">
+            <input type="radio" name="foyer" value="Yes" @(Model.FoyerDamaged == "Yes" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="foyer" value="No" @(Model.FoyerDamaged == "No" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="foyer" value="NA" @(Model.FoyerDamaged == "NA" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="foyerNote" value="@Model.FoyerDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Game Room</td>
+          <td class="text-center">
+            <input type="radio" name="gameRoom" value="Yes" @(Model.GameRoomDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="gameRoom" value="No" @(Model.GameRoomDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="gameRoom" value="NA" @(Model.GameRoomDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="gameRoomNote" value="@Model.GameRoomDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>Office/Study</td>
+          <td class="text-center">
+            <input type="radio" name="office" value="Yes" @(Model.OfficeDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="office" value="No" @(Model.OfficeDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="office" value="NA" @(Model.OfficeDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="officeNote" value="@Model.OfficeDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Hall</td>
+          <td class="text-center">
+            <input type="radio" name="hall" value="Yes" @(Model.HallDamaged == "Yes" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="hall" value="No" @(Model.HallDamaged == "No" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="hall" value="NA" @(Model.HallDamaged == "NA" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="hallNote" value="@Model.HallDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5" style="height: 20px; background-color: rgb(241, 241, 241);">
+              <table class="w-full">
+                  <tr>
+                      <td style="border: none;">Insured's/Rep's Initials:</td>
+                      <td style="border: none;">Claim #: @Model.ClaimNumber</td>
+                      <td class="text-right" style="padding-right: 3px; border: none;">Page 1 of 3</td>
+                  </tr>
+              </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="mt-4 hic-table interior">
+      <thead>
+        <tr>
+          <th class="table-header" colspan="5">INTERIOR (CONTINUED)</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th colspan="3" class="text-center">Inspection Damage</th>
+          <th rowspan="2">Notes (Include date and whether repairs were completed; please be concise)</th>
+        </tr>
+        <tr>
+          <th style="width: 106px; padding-left: 3px;">Area/Item</th>
+          <th class="text-center">Yes</th>
+          <th class="text-center">No</th>
+          <th class="text-center">N/A</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hall Closet</td>
+          <td class="text-center">
+            <input type="radio" name="hallCloset" value="Yes" @(Model.HallClosetDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="hallCloset" value="No" @(Model.HallClosetDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="hallCloset" value="NA" @(Model.HallClosetDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="hallClosetNote" value="@Model.HallClosetDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>Utility Room</td>
+          <td class="text-center">
+            <input type="radio" name="utilityRoom" value="Yes" @(Model.UtilityDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="utilityRoom" value="No" @(Model.UtilityDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="utilityRoom" value="NA" @(Model.UtilityDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="utilityRoomNote" value="@Model.UtilityDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>Garage Door</td>
+          <td class="text-center">
+            <input type="radio" name="garageInterior" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="garageInterior" value="No" />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="garageInterior" value="NA" checked />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="garageInteriorNote" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td>Attic</td>
+          <td class="text-center">
+            <input type="radio" name="attic" value="Yes" @(Model.AtticDamaged == "Yes" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="attic" value="No" @(Model.AtticDamaged == "No" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="attic" value="NA" @(Model.AtticDamaged == "NA" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="atticNote" value="@Model.AtticDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Crawlspace</td>
+          <td class="text-center">
+            <input type="radio" name="crawlspace" value="Yes" @(Model.CrawlSpaceDamaged == "Yes" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="crawlspace" value="No" @(Model.CrawlSpaceDamaged == "No" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="crawlspace" value="NA" @(Model.CrawlSpaceDamaged == "NA" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="crawlspaceNote" value="@Model.CrawlSpaceDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Basement</td>
+          <td class="text-center">
+            <input type="radio" name="basement" value="Yes" @(Model.BasementDamaged == "Yes" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="basement" value="No" @(Model.BasementDamaged == "No" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="basement" value="NA" @(Model.BasementDamaged == "NA" ? "checked" :
+              String.Empty)/>
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="basementNote" value="@Model.BasementDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Master Bedrm</td>
+          <td class="text-center">
+            <input type="radio" name="masterBedroom" value="Yes" @(Model.MasterBedroomDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="masterBedroom" value="No" @(Model.MasterBedroomDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="masterBedroom" value="NA" @(Model.MasterBedroomDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="masterBedroomNote" value="@Model.MasterBedroomDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>MBR Closet</td>
+          <td class="text-center">
+            <input type="radio" name="masterBedroomCloset" value="Yes" @(Model.MasterClosetDamaged == "Yes" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="masterBedroomCloset" value="No" @(Model.MasterClosetDamaged == "No" ? "checked" :
+              String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="masterBedroomCloset" value="NA" @(Model.MasterClosetDamaged == "NA" ? "checked" :
+              String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="masterBedroomClosetNote" value="@Model.MasterClosetDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>Bedroom 2</td>
+          <td class="text-center">
+            <input type="radio" name="bedroom2" value="Yes"  @(Model.BedroomTwoDamaged == "Yes" ? "checked" : String.Empty)  />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bedroom2" value="No"  @(Model.BedroomTwoDamaged == "No" ? "checked" : String.Empty)  />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bedroom2" value="NA"  @(Model.BedroomTwoDamaged == "N/A" ? "checked" : String.Empty)  />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="bedroom2Note" value="@Model.BedroomTwoDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td>BR2 Closet</td>
+          <td class="text-center">
+            <input type="radio" name="bedroom2Closet" value="Yes" @(Model.BedroomTwoClosetDamaged == "Yes" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bedroom2Closet" value="No" @(Model.BedroomTwoClosetDamaged == "No" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bedroom2Closet" value="NA" @(Model.BedroomTwoClosetDamaged == "NA" ? "checked" : String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="bedroom2ClosetNote" value="@Model.BedroomTwoClosetDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>Bedroom 3</td>
+          <td class="text-center">
+            <input type="radio" name="bedroom3" value="Yes"  @(Model.BedroomThreeClosetDamaged == "Yes" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bedroom3" value="No"  @(Model.BedroomThreeClosetDamaged == "No" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bedroom3" value="NA"  @(Model.BedroomThreeClosetDamaged == "NA" ? "checked" : String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="bedroom3Note" value="@Model.BedroomThreeDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>BR3 Closet</td>
+          <td class="text-center">
+            <input type="radio" name="bedroom3Closet" value="Yes" @(Model.BedroomThreeClosetDamaged == "Yes" ? "checked" : String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bedroom3Closet" value="No" @(Model.BedroomThreeClosetDamaged == "No" ? "checked" : String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bedroom3Closet" value="NA" @(Model.BedroomThreeClosetDamaged == "NA" ? "checked" : String.Empty)/>
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="bedroom3ClosetNote" value="@Model.BedroomThreeClosetDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>Bedroom 4</td>
+          <td class="text-center">
+            <input type="radio" name="bedroom4" value="Yes" @(Model.BedroomFourDamaged == "Yes" ? "checked" : String.Empty)  />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bedroom4" value="No" @(Model.BedroomFourDamaged == "No" ? "checked" : String.Empty)  />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bedroom4" value="NA" @(Model.BedroomFourDamaged == "NA" ? "checked" : String.Empty)  />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="bedroom4Note" value="@Model.BedroomFourDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>BR4 Closet</td>
+          <td class="text-center">
+            <input type="radio" name="bedroom4Closet" value="Yes" @(Model.BedroomFourClosetDamaged == "Yes" ? "checked" : String.Empty)  />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bedroom4Closet" value="No" @(Model.BedroomFourClosetDamaged == "No" ? "checked" : String.Empty)  />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bedroom4Closet" value="NA" @(Model.BedroomFourClosetDamaged == "NA" ? "checked" : String.Empty)  />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="bedroom4ClosetNote" value="@Model.BedroomFourClosetDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>Master Bath</td>
+          <td class="text-center">
+            <input type="radio" name="masterBathroom" value="Yes"  @(Model.MasterBathroomDamaged == "Yes" ? "checked" : String.Empty)  />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="masterBathroom" value="No"  @(Model.MasterBathroomDamaged == "No" ? "checked" : String.Empty)  />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="masterBathroom" value="NA"  @(Model.MasterBathroomDamaged == "NA" ? "checked" : String.Empty)  />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="masterBathroomNote" value="@Model.MasterBathroomDescription"/>
+          </td>
+        </tr>
+        <tr>
+          <td>Bathroom 2</td>
+          <td class="text-center">
+            <input type="radio" name="bathroom2" value="Yes"  @(Model.BathroomTwoDamaged == "Yes" ? "checked" : String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bathroom2" value="No"  @(Model.BathroomTwoDamaged == "No" ? "checked" : String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bathroom2" value="NA"  @(Model.BathroomTwoDamaged == "NA" ? "checked" : String.Empty)/>
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="bathroom2Note"  value="@Model.BathroomTwoDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>Bathroom 3</td>
+          <td class="text-center">
+            <input type="radio" name="bathroom3" value="Yes" @(Model.BathroomThreeDamaged == "Yes" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bathroom3" value="No" @(Model.BathroomThreeDamaged == "No" ? "checked" : String.Empty) />
+          </td>
+          <td class="text-center">
+            <input type="radio" name="bathroom3" value="NA" @(Model.BathroomThreeDamaged == "NA" ? "checked" : String.Empty) />
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="bathroom3Note" value="@Model.BathroomThreeDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td>Contents</td>
+          <td class="text-center">
+            <input type="radio" name="contents" value="Yes" @(Model.ContentsDamaged == "Yes" ? "checked" : String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="contents" value="No" @(Model.ContentsDamaged == "No" ? "checked" : String.Empty)/>
+          </td>
+          <td class="text-center">
+            <input type="radio" name="contents" value="NA" @(Model.ContentsDamaged == "NA" ? "checked" : String.Empty)/>
+          </td>
+          <td style="height: 17px; padding: 0 6px;">
+            <input type="text" name="contentsNote" value="@Model.ContentsDescription" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5" class="text-center">
+            <div class="flex items-center justify-center">
+              <input type="checkbox" />
+              <span style="margin-left: 8px; font-style: italic;">Check here if the inspection area/item list is
+                continued below in “Additional Entries” section.</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="mt-4 hic-table additional-entries">
+      <thead>
+        <tr>
+          <th class="table-header" colspan="7">ADDITIONAL ENTRIES</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th colspan="3" class="text-center" style="width: 99px;">
+            Inspection
+            <br />Damage
+          </th>
+          <th colspan="2" class="text-center" style="width: 70px;">Location</th>
+          <th rowspan="2" class="text-center" style="padding-left: 3px;">Notes (Include date and whether repairs were
+            completed; please be concise)</th>
+        </tr>
+        <tr>
+          <th style="width: 106px; padding-left: 3px;">Area/Item</th>
+          <th class="text-center">Yes</th>
+          <th class="text-center">No</th>
+          <th class="text-center">N/A</th>
+          <th class="text-center">INT</th>
+          <th class="text-center">EXT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            @Model.AdditionalOneArea
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-left" style="padding: 0 6px;">
+            <p class="additional-summary">@Model.AdditionalSummary</p>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="7" style="height: 20px; background-color: rgb(241, 241, 241);">
+            <table class="w-full">
+              <tr>
+                <td style="border: none;">Insured's/Rep's Initials:</td>
+                <td style="border: none;">Claim #: @Model.ClaimNumber</td>
+                <td class="text-right" style="padding-right: 3px; border: none;">Page 2 of 3</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagebreak"></div>
+    <table class="mt-4 hic-table additional-entries">
+      <thead>
+        <tr>
+          <th class="table-header" colspan="7">ADDITIONAL ENTRIES (CONTINUED)</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th colspan="3" class="text-center" style="width: 99px;">
+            Inspection
+            <br />Damage
+          </th>
+          <th colspan="2" class="text-center" style="width: 70px;">Location</th>
+          <th rowspan="2" class="text-center" style="padding-left: 3px;">Notes (Include date and whether repairs were
+            completed; please be concise)</th>
+        </tr>
+        <tr>
+          <th style="width: 106px; padding-left: 3px;">Area/Item</th>
+          <th class="text-center">Yes</th>
+          <th class="text-center">No</th>
+          <th class="text-center">N/A</th>
+          <th class="text-center">INT</th>
+          <th class="text-center">EXT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center">
+            <input type="radio" value="Yes" />
+          </td>
+          <td class="text-center" style="padding: 0 6px;">
+            <input type="text" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="mt-4 hic-table signatures">
+      <thead>
+        <tr>
+          <th class="table-header" colspan="3">SIGNATURES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="3">An indication on this form that an item is or is not damaged, is not an indication or
+            representation as to whether there is insurance coverage for that damage. All claims are subject to the
+            terms of the insurance policy. All coverage determinations will be made by your Allstate Adjuster.</td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <table>
+              <tr>
+                <td style="height: 19px; border:none;">
+                  <span>Interior Inspected:</span>
+                  <input type="radio" name="interiorInspected" value="Yes" style="margin-left: 42px;"  @(Model.InteriorInspected == "Yes" ? "checked" : String.Empty)/>
+                  <label style="margin-left: 3px;">Yes</label>
+                  <input type="radio" name="interiorInspected" value="No" style="margin-left: 27px;"  @(Model.InteriorInspected == "No" ? "checked" : String.Empty)/>
+                  <label style="margin-left: 3px;">No</label>
+                  <input type="radio" name="interiorInspected" value="refused" style="margin-left: 24px;" @(Model.InteriorInspected == "Refused" ? "checked" : String.Empty) />
+                  <label style="margin-left: 2px;">Refused</label>
+                </td>
+                <td style="padding-left: 3px; width: 50%; border: none;border-left: 1px solid black;">
+                  <span class="whitespace-nowrap" style="margin-left: 3px;">Exterior Inspected:</span>
+                  <input type="radio" name="exteriorInspected" value="Yes" style="margin-left: 39px;" @(Model.RoofInspected == "Yes" ? "checked" : String.Empty) />
+                  <label style="margin-left: 2px;">Yes</label>
+                  <input type="radio" name="exteriorInspected" value="No" style="margin-left: 32px;" @(Model.RoofInspected == "No" ? "checked" : String.Empty) />
+                  <label style="margin-left: 3px;">No</label>
+                  <input type="radio" name="exteriorInspected" value="refused" style="margin-left: 28px;" @(Model.RoofInspected == "Refused" ? "checked" : String.Empty) />
+                  <label style="margin-left: 3px;">Refused</label>
+                </td>
+              </tr>
+            </table>
+          </td>
+
+        </tr>
+        <tr>
+          <td colspan="2">Insured/Representative Name (Print):</td>
+          <td rowspan="2" class="align-top" style="width: 145px; padding: 0 6px;">
+            <div class="flex flex-col">
+              <label>Date:</label>
+              <input type="text" value="@(Model.InspectionDate != null ? Model.InspectionDate : string.Empty)"/>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">Insured/Representative Signature:</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            Printed Name of Person Completing
+            <br />the Form for the Insurer: @Model.ServiceProviderName
+          </td>
+          <td rowspan="2" class="align-top" style="width: 145px; padding: 0 6px;">
+            <div class="flex flex-col">
+              <label>Date:</label>
+              <input type="text" value="@(Model.InspectionDate != null ? Model.InspectionDate : string.Empty)"/>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            Signature of Person Completing
+            <br />the Form for the Insurer: @Model.ServiceProviderName
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="mt-4 hic-table copy-provided-to-customer">
+      <thead>
+        <tr>
+          <th class="table-header">COPY PROVIDED TO CUSTOMER</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td valign="middle" style="height: 19px; padding-right: 54px;">
+            <table class="w-full">
+              <td style="border: none;">A completed copy of this document was provided to the customer via:</td>
+              <td valign="middle" class="text-right" style="border: none; line-height: 16px">
+                <input type="radio" name="customerCopyProvided" value="email" />
+                <label style="margin-left: 2px;">email</label>
+                <input type="radio" name="customerCopyProvided" value="print" style="margin-left: 12px;" />
+                <label style="margin-left: 3px;">print</label>
+                <input type="radio" name="customerCopyProvided" value="both" style="margin-left: 10px;" />
+                <label style="margin-left: 3px;">both</label>
+              </td>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="font-bold" style="height: 19px; padding-right: 36px; background-color: rgb(241, 241, 241);">
+            <table class="w-full">
+              <td style="border: none;">Claim #: @Model.ClaimNumber</td>
+              <td class="text-right" style="border: none;margin-right: 3px;">Page 3 of 3</td>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</body>
+
+</html>

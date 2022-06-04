@@ -1,0 +1,36 @@
+@model List<Exemplar.Web.Areas.PropertyInspection.Models.ReportViewModels.SectionViewModels.CollateralItem>
+
+<div id="CollateralContainer" class="w-full">
+
+  <div class="TableLabel">Collateral Section</div>
+
+  <table class="TableData" id="Collateral" cellspacing="0">
+    <tr>
+      <th>Collateral</th>
+      <th>Damage</th>
+      <th>Damage Amount</th>
+      <th>Size</th>
+      <th>Material</th>
+      <th>Additional Notes</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+      @if (!String.IsNullOrEmpty(item.Damaged))
+      {
+        @if ((item.Damaged.ToUpper()) != "NO")
+        {
+
+          <tr>
+            <td>@item.Item</td>
+            <td>@item.Damaged</td>
+            <td>@item.DamageAmt</td>
+            <td>@item.Size</td>
+            <td>@item.Material</td>
+            <td>@item.AdditionalNotes</td>
+          </tr>
+        }
+      }
+    }
+  </table>
+</div>

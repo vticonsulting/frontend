@@ -1,0 +1,48 @@
+@use "../abstracts" as *;
+
+@each $color, $shade in $colors {
+  @each $prop, $value in $shade {
+    .text-#{$color}-#{$prop} {
+      color: var(--clr-#{$color}-#{$prop}) !important;
+    }
+
+    .bg-#{$color}-#{$prop} {
+      background-color: var(--clr-#{$color}-#{$prop}) !important;
+    }
+  }
+}
+
+.primary {
+  --clr: var(--clr-primary-400);
+}
+
+.youtube {
+  --clr: var(--clr-youtube-400);
+}
+
+.article {
+  --clr: var(--clr-article-400);
+}
+
+.course {
+  --clr: var(--clr-course-400);
+}
+
+.resource {
+  --clr: var(--clr-resource-400);
+}
+
+.gray {
+  @include prefix(filter, grayscale(50%), moz webkit);
+}
+
+@each $color, $shades in $colors {
+  @each $shade, $value in $shades {
+    .text-#{$color}-#{$shade} {
+      color: $value;
+    }
+    .bg-#{$color}-#{$shade} {
+      color: $value;
+    }
+  }
+}

@@ -1,0 +1,142 @@
+table#roof-summary tr td:first-child {
+    text-align: left;
+    padding-left: 5px;
+}
+
+table#roof-component tr td:first-child {
+    text-align: left;
+    padding-left: 5px;
+    width: 25%;
+}
+
+table#collateral tr td:first-child {
+    text-align: left;
+    padding-left: 5px;
+}
+
+table#damage tr td:first-child {
+    text-align: left;
+    padding-left: 5px;
+}
+
+.row {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.column {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.report-header {
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  font-family: Calibri !important;
+  font-Size: 16px;
+  color: Black;
+  font-weight: 600;
+  width: 100%;
+  border-bottom: 2px solid navy;
+}
+
+.report-label {
+  flex-grow: 1;
+  padding-left: 20px;
+  font-Size: 32px;
+  color: Navy;
+  font-weight: 600;
+}
+
+.report-claim-label div {
+  padding-bottom: 2px;
+  text-align: right;
+}
+
+.report-claim-label {
+  font-Size: 14px;
+  color: gray;
+  font-weight: 600;
+}
+
+.report-claim-values {
+  font-Size: 14px;
+  color: black;
+  font-weight: 600;
+}
+
+.report-sub-label {
+  padding-top: -10px;
+  font-Size: 17px;
+  color: black;
+  font-weight: 600;
+}
+
+.row {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.column {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.table-data {
+  border-width: .5px !important;
+  border-style: solid;
+  border-color: #001C94;
+  width: 100%;
+  font-Size: 12px;
+  color: black;
+  font-weight: 500;
+}
+
+.table-data td {
+  text-align: center;
+  border: 1px solid #001C94;
+}
+
+.table-data th {
+  background-color: #001C94 !important;
+  font-Size: 14px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  width: 100px;
+  text-align: center;
+  padding: 4px;
+  border: 1px solid #001C94 !important;
+}
+
+.table-label {
+  font-Size: 16px;
+  color: Navy;
+  font-weight: 600;
+}
+
+.section {
+  padding-top: 10px;
+  width: 100%;
+  font-Size: 12px;
+  color: black;
+  font-weight: 400;
+  font-family: Arial !important;
+}
+
+.section-label {
+  font-Size: 16px;
+  color: Black;
+  font-weight: 600;
+  font-family: Calibri !important;
+}
+
+#report-container {
+  font-family: Calibri !important;
+  width: 100%;
+  font-Size: 14px !important;
+  margin-top: 10px;
+}

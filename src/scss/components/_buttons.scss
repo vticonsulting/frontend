@@ -1,0 +1,43 @@
+@use '../abstracts' as *;
+
+%toolbelt {
+  box-sizing: border-box;
+  border-top: 1px rgba(#000, .12) solid;
+  padding: 16px 0;
+  width: 100%;
+
+  &:hover {
+    border: 2px rgba(#000, .5) solid;
+  }
+}
+
+.btn {
+  background-color: red;
+
+  & + & {
+    margin-left: 1rem;
+  }
+}
+
+.button {
+  border: 1px solid black;
+  border-radius: if($rounded-corners, 5px, null);
+}
+
+.button {
+  border: 1px solid black;
+
+  @include hover {
+    border-width: 2px;
+  }
+}
+
+.action-buttons {
+  @extend %toolbelt;
+  color: #4285f4;
+}
+
+.reset-buttons {
+  @extend %toolbelt;
+  color: #cddc39;
+}

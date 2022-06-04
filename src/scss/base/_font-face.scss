@@ -1,0 +1,81 @@
+// @font-face {
+//   font-family: "Alaska";
+//   src: url("../fonts/alaska.ttf") format("truetype");
+//   font-display: swap;
+// }
+
+// $roboto-font-path: "../fonts/roboto";
+
+// @font-face {
+//   // This is parsed as a normal function call that takes a quoted string.
+//   src: url("#{$roboto-font-path}/Roboto-Thin.woff2") format("woff2");
+
+//   font-family: "Roboto";
+//   font-weight: 100;
+// }
+
+// @font-face {
+//   // This is parsed as a normal function call that takes an arithmetic
+//   // expression.
+//   src: url($roboto-font-path + "/Roboto-Light.woff2") format("woff2");
+
+//   font-family: "Roboto";
+//   font-weight: 300;
+// }
+
+// @font-face {
+//   // This is parsed as an interpolated special function.
+//   src: url(#{$roboto-font-path}/Roboto-Regular.woff2) format("woff2");
+
+//   font-family: "Roboto";
+//   font-weight: 400;
+// }
+
+// @font-face {
+//   font-weight: normal;
+//   font-family: "Pica";
+//   font-style: normal;
+//   src: url("/assets/font/im_fell_pica.woff") format("woff");
+// }
+
+// @font-face {
+//   font-weight: normal;
+//   font-family: "Pica";
+//   font-style: italic;
+//   src: url("/assets/font/im_fell_pica_italic.woff") format("woff");
+// }
+
+// @font-face {
+//   font-weight: 100 900;
+//   font-family: "Inter";
+//   font-style: normal;
+//   src: url("/assets/font/inter_var.woff2") format("woff2");
+//   font-display: optional;
+//   font-named-instance: "regular";
+// }
+
+// @font-face {
+//   font-weight: 600;
+//   font-family: "Gilroy";
+//   font-style: normal;
+//   src: url("/assets/font/gilroy_semibold.woff2") format("woff2");
+//   font-display: swap;
+// }
+
+// @font-face {
+//   font-weight: 500;
+//   font-family: "blokk neue";
+//   font-style: normal;
+//   src: url("/assets/font/blokk_neue_regular.woff") format("woff");
+//   font-display: swap;
+// }
+
+// @font-face {
+//   font-family: "Redacted";
+//   src: url("/assets/font/redacted_regular.woff2") format("woff2");
+// }
+
+// @font-face {
+//   font-family: "Redacted Script";
+//   src: url("/assets/font/redacted_script_regular.woff2") format("woff2");
+// }

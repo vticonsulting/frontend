@@ -1,0 +1,54 @@
+// @forward 'color-utilities';
+@forward 'container';
+@forward 'flow';
+@forward 'sr-only';
+@forward 'debug';
+
+@use '../abstracts' as *;
+
+.box-shadow {
+  box-shadow: 10px 10px 10px 0 black;
+}
+
+.enlarge {
+  font-size: 14px;
+
+  transition: {
+    property: font-size;
+    duration: 4s;
+    delay: 2s;
+  }
+
+  &:hover {
+    font-size: 36px;
+  }
+}
+
+.filter {
+  filter: drop-shadow(10px 10px 10px black);
+}
+
+.outline {
+  font-size: 40px;
+  font-weight: 700;
+  color: white;
+  -webkit-text-stroke: 2px black;
+}
+
+.pulse {
+  @include inline-animation(2s) {
+    from {
+      background-color: yellow
+    }
+
+    to {
+      background-color: red
+    }
+  }
+}
+
+.tilt {
+  // Oops, we typo'd "webkit" as "wekbit"!
+  // @include prefix(transform, rotate(15deg), wekbit ms);
+  @include prefix(transform, rotate(15deg), webkit ms);
+}

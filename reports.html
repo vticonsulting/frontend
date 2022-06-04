@@ -1,0 +1,1173 @@
+<html class="h-full bg-gray-100">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hancock Claims</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=Fira+Code:wght@300;400;637&family=Flow+Circular&family=Inter:wght@271;900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+
+  <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+
+  <script type="module">
+    import tailwindcssTypography from "https://cdn.skypack.dev/@tailwindcss/typography";
+    import tailwindcssForms from "https://cdn.skypack.dev/@tailwindcss/forms";
+
+    window.tailwindConfig = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter var', 'sans-serif'],
+            mono: ['Space Mono', 'Fira Code', 'monospace'],
+          },
+          fontSize: {
+            "2xs": ["0.625rem", "0.875rem"],
+          },
+          colors: {
+            brand: {
+              DEFAULT: "#002894",
+              50: "#f2f4fa",
+              100: "#e6eaf4",
+              200: "#bfc9e4",
+              300: "#99a9d4",
+              400: "#4d69b4",
+              500: "#002894",
+              600: "#002485",
+              700: "#001e6f",
+              800: "#001859",
+              900: "#001449",
+            },
+            primary: {
+              DEFAULT: "#314B6F",
+              50: "#f5f6f8",
+              100: "#eaedf1",
+              200: "#ccd2db",
+              300: "#adb7c5",
+              400: "#6f819a",
+              500: "#314B6F",
+              600: "#2c4464",
+              700: "#253853",
+              800: "#1d2d43",
+              900: "#182536",
+            },
+            // Secondary, Neutral
+            secondary: {
+              DEFAULT: "#64748B",
+              50: "#F8FAFC",
+              100: "#F1F5F9",
+              200: "#E2E8F0",
+              300: "#CBD5E1",
+              400: "#94A3B8",
+              500: "#64748B",
+              600: "#475569",
+              700: "#334155",
+              800: "#1E293B",
+              900: "#0F172A",
+            },
+            accent: {
+              DEFAULT: "#ee7d1e",
+              50: "#fef9f4",
+              100: "#fdf2e9",
+              200: "#fbdfc7",
+              300: "#f8cba5",
+              400: "#f3a462",
+              500: "#ee7d1e",
+              600: "#d6711b",
+              700: "#b35e17",
+              800: "#8f4b12",
+              900: "#753d0f",
+            },
+          },
+        },
+      },
+      plugins: [tailwindcssTypography, tailwindcssForms],
+    };
+
+    window.tailwindCSS.refresh();
+  </script>
+
+  <script type="tailwind-config">
+    window.tailwindConfig
+  </script>
+
+  <style type="postcss">
+    /* font-thin	font-weight: 100;
+    font-extralight	font-weight: 200;
+    font-light	font-weight: 300;
+    font-normal	font-weight: 400;
+    font-medium	font-weight: 500;
+    font-semibold	font-weight: 600;
+    font-bold	font-weight: 700;
+    font-extrabold	font-weight: 800;
+    font-black	font-weight: 900; */
+    ::selection {
+      @apply bg-primary-500 text-white;
+    }
+
+    #report-container {
+      max-width: 900px;
+    }
+
+
+    .h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .h3 {
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    .p {
+      margin-top: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .table-data {
+      border-width: 0.5px !important;
+      border-style: solid;
+      border-color: #314B6F;
+      width: 100%;
+      font-size: 12px;
+      color: black;
+      font-weight: 500;
+    }
+
+    .table-data td {
+      text-align: center;
+      border: 1px solid #314B6F;
+      padding: 0.25rem 0.5rem;
+      white-space: nowrap;
+    }
+
+    .table-data th {
+      @apply bg-primary border border-primary;
+      font-size: 14px !important;
+      color: white !important;
+      font-weight: 600 !important;
+      width: 100px;
+      text-align: center;
+      padding: 4px;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .table-data thead th:first-child {
+      text-align: left;
+      padding: 0.25rem 0.5rem;
+      white-space: nowrap;
+    }
+
+    .table-data tbody td:first-child {
+      text-align: left;
+      padding: 0.25rem 0.5rem;
+      white-space: nowrap;
+    }
+
+
+    .report-claim-label div {
+      padding-bottom: 2px;
+      text-align: right;
+    }
+
+    .report-claim-label {
+      font-size: 14px;
+      color: gray;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body class="h-full font-sans">
+  <!--
+    https://portalstaging.hancockclaims.com/Project/Detail/1870246
+    https://han-dev-exemplar-core.azurewebsites.net/PropertyInspection/PropertyInspections?projectNumber=2202110008
+
+    https://han-dev-exemplar-core.azurewebsites.net/PropertyInspection/Reports/PreviewNonAllStateReport?propertyInspectionFormId=85227&reportType=7
+
+  -->
+  <div id="app" v-scope class="flex flex-col min-h-full">
+    <!-- AppNavigationComponent -->
+    <nav class="bg-primary-600 print:hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center">
+            <div class="flex-shrink-0">
+              <svg class="text-white" viewBox="0 0 48 48" width="48" height="48" fill="none">
+                <path
+                  d="M25.1074 6C20.9532 7.42373 12.5157 10.3119 12 10.4746V18L25.1074 14.339L38 18V10.4746L25.1074 6Z"
+                  fill="currentColor" stroke="currentColor"></path>
+                <path d="M20.1653 20L12 22.2373V42H20.1653V34.5424H29.8347V42H38V22.2373L29.8347 20V27.2712H20.1653V20Z"
+                  fill="currentColor" stroke="currentColor"></path>
+              </svg>
+            </div>
+            <div class="hidden md:block">
+              <div class="ml-10 flex items-baseline space-x-4">
+                <a v-for="(item, i) in menu" :key="item.name" :href="item.href"
+                  :class="[ item.current ? 'bg-primary-700 text-white' : '' , 'text-white hover:bg-primary hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium']"
+                  :area-current="item.current ? 'page' : undefined">
+                  {{ item.name }}
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-4 flex items-center md:ml-6">
+              <button type="button"
+                class="p-1 bg-primary-600 rounded-full text-primary-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-600 focus:ring-white">
+                <span class="sr-only">View notifications</span>
+                <!-- Heroicon name: outline/bell -->
+                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+              </button>
+
+              <!-- Profile dropdown -->
+              <div class="ml-3 relative">
+                <div>
+                  <button type="button" @click="showProfileDropdown = !showProfileDropdown"
+                    class="max-w-xs bg-primary-600 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-600 focus:ring-white"
+                    id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                    <span class="sr-only">Open user menu</span>
+                    <img class="h-8 w-8 rounded-full"
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      alt="">
+                  </button>
+                </div>
+
+                <!--
+                  Dropdown menu, show/hide based on menu state.
+
+                  Entering: "transition ease-out duration-100"
+                    From: "transform opacity-0 scale-95"
+                    To: "transform opacity-100 scale-100"
+                  Leaving: "transition ease-in duration-75"
+                    From: "transform opacity-100 scale-100"
+                    To: "transform opacity-0 scale-95"
+                -->
+                <div v-show="showProfileDropdown"
+                  class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                  <!-- Active: "bg-gray-100", Not Active: "" -->
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                    id="user-menu-item-0">Your Profile</a>
+
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                    id="user-menu-item-1">Settings</a>
+
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                    id="user-menu-item-2">
+                    Sign out
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="-mr-2 flex md:hidden">
+            <!-- Mobile menu button -->
+            <button @click="showMobileMenu = !showMobileMenu" type="button"
+              class="bg-primary-600 inline-flex items-center justify-center p-2 rounded-md text-primary-200 hover:text-white hover:bg-primary hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-600 focus:ring-white"
+              aria-controls="mobile-menu" aria-expanded="false">
+              <span class="sr-only">Open main menu</span>
+              <svg :class="[ showMobileMenu ? 'hidden' : 'block', 'h-6 w-6' ]" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg :class="[ showMobileMenu ? 'block' : 'hidden', 'h-6 w-6' ]" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile menu, show/hide based on menu state. -->
+      <div v-show="showMobileMenu" class="md:hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <a v-for="(item, i) in menu" :key="item.name" :href="item.href"
+            :class="[ item.current ? 'bg-primary-700 text-white' : '' , 'text-white hover:bg-primary hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium']"
+            :area-current="item.current ? 'page' : undefined">
+            {{ item.name }}
+          </a>
+        </div>
+
+        <div class="pt-4 pb-3 border-t border-primary-700">
+          <div class="flex items-center px-5">
+            <div class="flex-shrink-0">
+              <img class="h-10 w-10 rounded-full"
+                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                alt="">
+            </div>
+
+            <div class="ml-3">
+              <div class="text-base font-medium text-white">
+                Admin User
+              </div>
+              <a href="mailto:admin@example.com" class="text-sm font-medium text-primary-300 hover:underline">
+                admin@example.com
+              </a>
+            </div>
+
+            <button type="button"
+              class="ml-auto bg-primary-600 flex-shrink-0 p-1 rounded-full text-primary-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary-600 focus:ring-white">
+              <span class="sr-only">View notifications</span>
+
+              <!-- Heroicon name: outline/bell -->
+              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="mt-3 px-2 space-y-1">
+            <a href="#"
+              class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-primary hover:bg-opacity-75">
+              Your Profile
+            </a>
+
+            <a href="#"
+              class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-primary hover:bg-opacity-75">
+              Settings
+            </a>
+
+            <a href="#"
+              class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-primary hover:bg-opacity-75">
+              Sign out
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hidden print:block">
+      Are you seriously trying to print this? It's secret!
+    </div>
+
+    <!-- PageHeaderComponent -->
+    <header class="bg-white shadow-sm ">
+      <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-lg leading-6 font-semibold text-gray-900">
+          Reports
+        </h1>
+      </div>
+    </header>
+
+    <!-- MainLayout -->
+    <main class="flex-1">
+      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div id="report-container" class="pb-16 border-4 bg-white rounded-lg">
+          <header class="border-b p-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center text-primary">
+                <svg viewBox="0 0 48 48" width="48" height="48" fill="none">
+                  <path
+                    d="M25.1074 6C20.9532 7.42373 12.5157 10.3119 12 10.4746V18L25.1074 14.339L38 18V10.4746L25.1074 6Z"
+                    fill="currentColor" stroke="currentColor"></path>
+                  <path
+                    d="M20.1653 20L12 22.2373V42H20.1653V34.5424H29.8347V42H38V22.2373L29.8347 20V27.2712H20.1653V20Z"
+                    fill="currentColor" stroke="currentColor"></path>
+                </svg>
+
+                <div class="flex flex-col">
+                  <span class="text-2xl leading-none font-extrabold whitespace-nowrap">
+                    Ladder Assist
+                  </span>
+                  <span class="text-sm text-gray-500">Prepared by Hancock Claims Consultants</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col text-right">
+                <label class="block text-2xs tracking-widest uppercase">Claim Number</label>
+                <a href="#" class="text-gray-500 text-sm hover:underline">XF-4567-GFD980</a>
+              </div>
+
+              <div class="hidden grid grid-cols-4 gap-4 space-x-8">
+                <div class="field">
+                  <label class="block text-xs tracking-wider uppercase">
+                    Carrier
+                  </label>
+                  <span class="ReportClaimValues">
+                    State Farm
+                  </span>
+                </div>
+
+                <div class="field">
+                  <label class="block text-xs tracking-wider uppercase">
+                    Claim Number
+                  </label>
+                  <span class="ReportClaimValues">
+                    9876543210
+                  </span>
+                </div>
+
+                <div class="field">
+                  <label class="block text-xs tracking-wider uppercase">
+                    Inspection Date
+                  </label>
+                  <span class="ReportClaimValues">
+                    10/06/2021 8:00 AM
+                  </span>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <!-- Labels -->
+          <div class="hidden px-8">
+            <ul role="list" class="mt-3 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <li class="col-span-1 flex shadow-sm rounded-md">
+                <div class="flex flex-col">
+                  <label class="block text-2xs tracking-widest uppercase">Inspected by</label>
+                  <span class="text-gray-500 text-sm">Technician Name<br> 678-987-6543</span>
+                  <span class="text-gray-500 text-sm">technician@email.com</span>
+                </div>
+              </li>
+              <li class="col-span-1 flex shadow-sm rounded-md">
+                <div class="flex flex-col">
+                  <label class="block text-2xs tracking-widest uppercase">Outside Temparature</label>
+                  <span class="text-gray-500 text-sm">90 degrees</span>
+                </div>
+              </li>
+              <li class="col-span-1 flex shadow-sm rounded-md">
+                <div class="flex flex-col">
+                  <label class="block text-2xs tracking-widest uppercase">Loss Location</label>
+                  <span class="text-gray-500 text-sm">1547 BOULDER WALK DR SE<br>ATLANTA, Georgia 30316-3987</span>
+                </div>
+              </li>
+              <li class="col-span-1 flex shadow-sm rounded-md">
+                <div class="flex flex-col">
+                  <label class="block text-2xs tracking-widest uppercase">Inspection Date / Time</label>
+                  <span class="text-gray-500 text-sm">10/06/2021 8:00 AM</span>
+                </div>
+              </li>
+              <li class="col-span-1 flex shadow-sm rounded-md">
+                <div class="flex flex-col">
+                  <label class="block text-2xs tracking-widest uppercase">Carrier</label>
+                  <span class="text-gray-500 text-sm">State Farm</span>
+                </div>
+              </li>
+              <li class="col-span-1 flex shadow-sm rounded-md">
+                <div class="flex flex-col">
+                  <label class="block text-2xs tracking-widest uppercase">Adjuster</label>
+                  <span class="text-gray-500 text-sm">Jeff Ottinger</span>
+                </div>
+              </li>
+              <li class="hidden col-span-1 flex shadow-sm rounded-md">
+                <div class="flex flex-col">
+                  <label class="block text-2xs tracking-widest uppercase">Claim Number</label>
+                  <span class="text-gray-500 text-sm">XF-4567-GFD980</span>
+                </div>
+              </li>
+              <li class="col-span-1 flex shadow-sm rounded-md">
+                <div class="flex flex-col">
+                  <label class="block text-2xs tracking-widest uppercase">Insured</label>
+                  <span class="text-gray-500 text-sm">Janet Robertson</span>
+                </div>
+              </li>
+              <li class="col-span-1 flex shadow-sm rounded-md">
+                <div class="flex flex-col">
+                  <label class="block text-2xs tracking-widest uppercase">Present at Inspection</label>
+                  <span class="text-gray-500 text-sm">Janet Robertson</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tabs -->
+          <div id="tabs" class="mt-4 px-8">
+            <div class="sm:hidden">
+              <label for="tabs" class="sr-only">Select a tab</label>
+              <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+              <select id="tabs" name="tabs"
+                class="block w-full border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                <option v-for="tab in tabs" :key="tab.name" :selected="tab.current">
+                  {{ tab.name }}
+                </option>
+              </select>
+            </div>
+            <div class="hidden sm:block">
+              <nav class="flex space-x-4" aria-label="Tabs">
+                <a @click="setActiveTab(tab)" v-for="(tab, i) in tabs" :key="tab.name" :href="tab.href"
+                  :class="[tab.current ? 'bg-primary-100 text-primary-700' : 'text-gray-500 hover:text-gray-700', 'px-3 py-2 font-medium text-sm rounded-md']"
+                  :aria-current="tab.current ? 'page' : undefined">
+                  {{ tab.name }}
+                </a>
+              </nav>
+            </div>
+          </div>
+
+          <!-- ReportHeader -->
+          <header class="ReportHeader">
+            <div class="flex justify-between">
+              <div class="hidden Column" id="HeaderContainer">
+                <svg viewBox="0 0 48 48" width="48" height="48" fill="none">
+                  <path
+                    d="M25.1074 6C20.9532 7.42373 12.5157 10.3119 12 10.4746V18L25.1074 14.339L38 18V10.4746L25.1074 6Z"
+                    fill="currentColor" stroke="currentColor"></path>
+                  <path
+                    d="M20.1653 20L12 22.2373V42H20.1653V34.5424H29.8347V42H38V22.2373L29.8347 20V27.2712H20.1653V20Z"
+                    fill="currentColor" stroke="currentColor"></path>
+                </svg>
+              </div>
+
+              <div class="flex-1 hidden Column ReportLabel">
+                <h1 class="hidden text-2xl font-extrabold">
+                  Ladder Assist
+                </h1>
+
+                <div class="ReportSubLabel">
+                  Prepared by Hancock Claims Consultants
+                </div>
+
+                <div class="report-claim-label">
+                  <label for="" class="block text-xs tracking-wider uppercase">Inspected by:</label>
+                  <span class="ReportClaimValues">Jane Doe Tel: 678-987-6543</span>
+                </div>
+
+                <div class="report-claim-label">
+                  <label for="" class="block text-xs tracking-wider uppercase">Inspection Date:</label>
+                  <span class="ReportClaimValues">10/06/2021 8:00 AM</span>
+                </div>
+              </div>
+
+              <div class="hidden Column report-claim-label">
+                <div>
+                  <label class="block text-xs tracking-wider uppercase">Carrier</label>
+                  <span class="ReportClaimValues">State Farm</span>
+                </div>
+
+                <div>
+                  <label class="block text-xs tracking-wider uppercase">Adjuster</label>
+                  <span class="ReportClaimValues">Insurance Adjuster</span>
+                </div>
+
+                <div>
+                  <label class="block text-xs tracking-wider uppercase">Claim number</label>
+                  <span class="ReportClaimValues">GA-98-76543</span>
+                </div>
+
+                <div>
+                  <label class="block text-xs tracking-wider uppercase">Insured</label>
+                  <span class="ReportClaimValues">Vic Tolbert</span>
+                </div>
+
+                <div>
+                  <label class="block text-xs">Loss Location</label>
+                  <span class="ReportClaimValues">1547 Boulder Walk Dr SE</span>
+                </div>
+
+                <div class="ReportClaimValues">Atlanta, GA 30316-3987</div>
+              </div>
+            </div>
+          </header>
+
+          <!-- PropertyOverview -->
+          <article v-show="activeTab == 'property-overview'" id="property-overview" class="mt-8 px-8">
+            <section>
+
+              <img class="w-full rounded-lg border shadow-lg aspect-video" src="./assets/img/home.jpg" alt="property" />
+
+              <h1 class="mt-8 font-bold text-2xl text-primary-500">Property Overview</h1>
+
+              <div id="roof">
+                <h2 class="mt-4 font-semibold text-lg">Roof</h2>
+
+                <p class="mt-2">
+                  The structure accessed was a <span class="font-bold">two story single family dwelling</span> with a
+                  <span class="font-bold">thirty year laminated shingle</span> on a predominately <span
+                    class="font-bold">Pitch</span>.
+                </p>
+
+                <p class="mt-2">(Then either)</p>
+
+                <p class="mt-2">Damages to the following components were observed:</p>
+
+                <p class="mt-2">(OR)</p>
+
+                <p class="mt-2">There were no damages observed</p>
+              </div>
+
+              <div id="elevation">
+                <h2 class="mt-4 font-semibold text-lg">Elevation</h2>
+
+                <p class="mt-2">
+                  A walk around inspection of all elevations was completed revealing
+                  the presence of hardy plank siding, 5 inch downspouts,
+                </p>
+
+                <p class="mt-2">(Then either)</p>
+
+                <p class="mt-2">
+                  Damages to the following components were observed:
+                </p>
+
+                <p class="mt-2">(OR)</p>
+
+                <p>There were no damages observed</p>
+              </div>
+
+              <div id="interior">
+                <h2 class="mt-4 font-semibold text-lg">Interior</h2>
+
+                <p class="mt-2">
+                  An interior inspection was completed and the following areas were
+                  documented with possible damage:
+                </p>
+
+                <p class="mt-2">(Then either)</p>
+
+                <p class="mt-2">
+                  Damages to the following components were observed:
+                </p>
+
+                <p class="mt-2">(OR)</p>
+
+                <p class="mt-2">There were no damages observed</p>
+              </div>
+
+              <div id="other-structures">
+                <h2 class="mt-4 font-semibold text-lg">Other Structures</h2>
+
+                <p class="mt-2">
+                  Other Structures inspected included (FILL from PIF descriptors).
+                </p>
+
+                <p class="mt-2">(Then either)</p>
+
+                <p class="mt-2">
+                  Damages were found to: (Fill from PIF)
+                </p>
+
+                <p class="mt-2">(OR)</p>
+
+                <p class="mt-2">There were no damages observed</p>
+              </div>
+
+              <div id="video-link">
+                <h2 class="mt-4 font-semibold text-lg">Video Link</h2>
+              </div>
+            </section>
+          </article>
+
+          <!-- Inspection Summary -->
+          <article v-show="activeTab == 'inspection-summary'" id="inspection-summary" class="px-8">
+            <h1 class="mt-8 font-bold text-2xl text-primary-500">Inspection Summary</h1>
+
+            <section id="roof-section" class="mt-4" style="page-break-before: always !important">
+              <div class="Section Row">
+                <div id="DamageContainer">
+
+                  <table class="table-data mt-4" id="Damage">
+                    <thead>
+                      <tr>
+                        <th class="text-left">Elevation/Direction</th>
+                        <th>Hail Damage +</th>
+                        <th>Wind Damage</th>
+                        <th>Other Damage</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Front Elevation/North</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>Back Elevation/South</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>Left Elevation/East</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+                      <tr>
+                        <td>Right Elevation/West</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div id="RoofSections" class="Section Row">
+                <div style="width: 25%" class="Column">
+                  <div id="RoofSummaryContainer">
+                    <h2 class="table-label text-lg font-medium mt-8">Roof Summary</h2>
+
+                    <table class="table-data mt-4" id="RoofSummary">
+                      <thead>
+                        <tr>
+                          <th>Category</th>
+                          <th>Description</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr>
+                          <td>Roof Type</td>
+                          <td>Flat</td>
+                        </tr>
+                        <tr>
+                          <td>Roof Material</td>
+                          <td>20 Year Comp.</td>
+                        </tr>
+                        <tr>
+                          <td>Ice and Water</td>
+                          <td>No</td>
+                        </tr>
+                        <tr>
+                          <td>Pitch 0/12-6/12</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Pitch 7/12-9/12</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Pitch 10/12-12/12</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Stories</td>
+                          <td>1</td>
+                        </tr>
+                        <tr>
+                          <td>One Story</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Two Story</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Valley Type</td>
+                          <td>NA</td>
+                        </tr>
+                        <tr>
+                          <td>Universal Starter</td>
+                          <td>No</td>
+                        </tr>
+                        <tr>
+                          <td>Rake</td>
+                          <td>No</td>
+                        </tr>
+                        <tr>
+                          <td>Layers</td>
+                          <td>1</td>
+                        </tr>
+                        <tr>
+                          <td>Felt Paper</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Soffit Depth</td>
+                          <td>36 (in)</td>
+                        </tr>
+                        <tr>
+                          <td>Public Adjuster Present</td>
+                          <td>No</td>
+                        </tr>
+                        <tr>
+                          <td>Insured Present</td>
+                          <td>No</td>
+                        </tr>
+                        <tr>
+                          <td>Contractor Present</td>
+                          <td>No</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div style="width: 75%" class="Column">
+                  <div id="RoofSummaryContainer">
+                    <h2 class="table-label text-lg font-medium mt-8">Roof Components</h2>
+
+                    <table class="table-data mt-4" id="RoofComponent">
+                      <thead>
+                        <tr id="RoofComponentHeader">
+                          <th>Roof Component</th>
+                          <th>Quantity</th>
+                          <th>Qty Dmg</th>
+                          <th>Painted</th>
+                          <th>Material</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Hvac Vent 4 Inch</td>
+                          <td>1</td>
+                          <td>1</td>
+                          <td>Yes</td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section id="collateral-section">
+              <div id="CollateralContainer" class="w-full">
+                <h2 class="table-label text-lg font-medium mt-8">Collateral Section</h2>
+
+                <table class="table-data mt-4" id="Collateral">
+                  <thead>
+                    <tr>
+                      <th>Collateral</th>
+                      <th>Damage</th>
+                      <th>Damage Amount</th>
+                      <th>Size</th>
+                      <th>Material</th>
+                      <th>Additional Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Fascia</td>
+                      <td>Yes</td>
+                      <td></td>
+                      <td>6 In</td>
+                      <td>Aluminum</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="interior-section" class="w-full">
+              <div id="InteriorContainer" class="w-1/2">
+                <h2 class="table-label text-lg font-medium mt-8">Interior Summary</h2>
+
+                <table class="table-data mt-4" id="Interior">
+                  <thead>
+                    <tr>
+                      <th>Location</th>
+                      <th>SF</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="width: 30%">Contents</td>
+                      <td style="width: 10%"></td>
+                      <td style="width: 60%; text-align: left; padding-left: 4px"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="notes">
+              <h2 class="table-label text-lg font-medium mt-8">Notes</h2>
+
+              <ul class="mt-2 pl-8 list-disc">
+                <li>For all damages show totals and total amount damaged. IE, if window screens damaged, show total
+                  present, then total damaged, same for all other components</li>
+                <li>Same for siding and interior, total area amounts and then damages - have to where this populates
+                  directi Page 2</li>
+                <li>If we can include Prior repairs, non storm related conditions, and storm info on this sheet we can
+                  do away with report sheet.</li>
+              </ul>
+            </section>
+          </article>
+
+          <!-- Report Details -->
+          <article v-show="activeTab == 'report-details'" id="report-details" class="px-8">
+            <h1 class="mt-8 font-bold text-2xl text-primary-500">Report Details</h1>
+
+            <section id="roof-observations-section">
+              <h2 class="mt-4 font-semibold text-lg">Roof Observations</h2>
+
+              <section id="RoofObservationsContainer" class="Section">
+                <p class="mt-2">
+                  The risk assessed consists of a <span class="font-bold">1 story structure</span> with a <span
+                    class="font-bold">Flat
+                    style roof</span> with the following predominant pitches:
+                </p>
+
+                <ul class="mt-2 pl-8 list-disc">
+                  <li>Front Pitch: NA</li>
+                  <li>Left Pitch: NA</li>
+                  <li>Back Pitch: NA</li>
+                  <li>Right Pitch: NA</li>
+                </ul>
+
+                <p class="mt-2">
+                  The roof was comprised of a <span class="font-bold">20 Year Comp. shingle system</span> with and
+                  the following roof accessories:
+                </p>
+
+                <ul class="mt-2 pl-8 list-disc">
+                  <li>Hvac Vent 4 Inch</li>
+                </ul>
+
+                <p class="mt-2">
+                  A walk-around of the structure was conducted examining the siding,
+                  windows, window screens, fascia, gutters, and downspouts. This
+                  examination yielded the following damage:
+                </p>
+
+                <ul class="mt-2 pl-8 list-disc">
+                  <li>Fascia Damage</li>
+                </ul>
+
+                <p class="mt-2">
+                  The entirety of the roof system was inspected for wind related
+                  damages finding no damages. Hail test squares were conducted on
+                  each directional slope finding no hail strikes within nor to any
+                  other field shingles. No prior repairs were observed. Other areas
+                  of concern if any are noted in the additional summary.
+                </p>
+              </section>
+
+              <section id="roof-observations-container">
+                <p class="mt-2">
+                  The risk assessed consists of a 2 story structure with a Flat style roof with the
+                  following predominant pitches:
+                </p>
+
+                <ul class="mt-2 pl-8 list-disc">
+                  <li>Front Pitch: 1/12 </li>
+                  <li>Left Pitch: 2/12 </li>
+                  <li>Back Pitch: 3/12 </li>
+                  <li>Right Pitch: 4/12 </li>
+                </ul>
+
+                <p class="mt-2">
+                  The roof was comprised of a Laminate 30 Year shingle system with and the following roof accessories:
+                </p>
+
+                <ul class="mt-2 pl-8 list-disc">
+                  <li>Hvac Vent 6 Inch</li>
+                </ul>
+
+                <p class="mt-2">
+                  A walk-around of the structure was conducted examining the siding, windows, window screens, fascia,
+                  gutters, and downspouts.
+                </p>
+
+                <p class="mt-2">No sudden loss created damages. The entirety of the roof system was inspected for wind
+                  related damages finding no damages.</p>
+
+                <p class="mt-2">Hail test squares were conducted on each directional slope finding no hail strikes
+                  within nor to any other field shingles.</p>
+
+                <p class="mt-2">No prior repairs were observed. Other areas of concern if any are noted in the
+                  additional summary.</p>
+              </section>
+            </section>
+
+            <section id="storm-info-section">
+              <h2 class="mt-4 font-semibold text-lg">Storm Info</h2>
+
+              <p class="mt-2">NA</p>
+            </section>
+
+            <section id="non-storm-related-damage-section">
+              <h2 class="mt-4 font-semibold text-lg">Non Storm Related Damage</h2>
+
+              <p class="mt-2"></p>
+            </section>
+
+            <section id="roof-hail-section">
+              <h2 class="mt-4 font-semibold text-lg">Roof - Hail</h2>
+              <p class="mt-2">
+                Hail damage to a composition shingle roof system consists of bruising or fracturing of the shingle mat.
+                Bruising is most common at unsupported locations and usually requires manual examination to confirm that
+                damage has occurred to the shingle mat. Fracturing typically occurs at unsupported locations and is
+                readily evident. These conditions can promote the absorption of moisture and subsequent
+                deterioration of a shingle. Hail damage to a roof is quantified by the analysis of
+                "test squares" (10' x 10' Area). The purpose of the test squares is to determine the amount of
+                hail damage in a representative area of the roof. The test square results are then applied to
+                individual roof fields, or the roof as a whole, to estimate the total damage incurred.
+                Protocol calls for the examination of four (4) test squares – One (1) facing each direction.
+                Larger and/or more complex roofs typically require additional test squares at the discretion
+                of the adjuster. Additionally, a cursory overview of the remainder of each field is conducted
+                to confirm the findings of the test squares.
+              </p>
+            </section>
+
+            <section id="roof-wind-section">
+              <h2 class="mt-4 font-semibold text-lg">Roof - Wind </h2>
+
+              <p class="mt-2">
+                Wind damage to an asphalt composition shingle consists of; creasing, tearing, complete detachment, and
+                impacts
+                from wind driven objects. Wind damage totals are acquired on a shingle damaged per slope basis. If wind
+                damage
+                is present a brittleness "repairability" test is performed on each slope that sustained damage. A
+                brittleness
+                test is performed by detaching a shingle at the tar strip and lifting approximately three inches or a
+                40-degree angle.
+                This would be the necessary shingle manipulation required to feather and replace a damaged shingle.
+              </p>
+            </section>
+
+            <section id="roof-metal-accessory-items-section">
+              <h2 class="mt-4 font-semibold text-lg">Roof - Metal Accessory Items </h2>
+
+              <p class="mt-2">
+                Metal roof accessory items rarely suffer functional damage from hail impact. However, hail may cause
+                aesthetic damage in the
+                form of indentations. Rooftop penetrations can offer clear and permanent indications of hailstone
+                impacts, including hail size
+                and direction of the hail fall. Light gauge metal items will often suffer indentations even when the
+                roofing material escapes damage.
+              </p>
+            </section>
+
+            <section id="out-buiding-damage-section">
+              <h2 class="mt-4 font-semibold text-lg"> Out Building Damage </h2>
+
+              <p class="mt-2">
+                This is information the outbuilding and the damage observed during the inspection. Just some random
+                dummy comment to help with the report
+              </p>
+            </section>
+
+            <section id="additional-summary-section">
+              <h2 class="mt-4 font-semibold text-lg">Additional Summary</h2>
+
+              <p class="mt-2">
+                This is an additional summary for this property inspection and contains more information that provides a
+                better picture of the data collected during the visit to the property. This is just some dummy content
+                and probably will not make any sense to anyone reading it. I just want to have more text to show up on
+                the report as I try to refresh the look and feel for 2022.
+              </p>
+            </section>
+          </article>
+
+          <!-- Scope Sheet -->
+          <article v-show="activeTab == 'scope-sheet'" id="scope-sheet" class="px-8">
+            <h1 class="mt-8 font-bold text-2xl text-primary-500">Scope Sheet</h1>
+
+            <div class="max-w-3xl mx-auto">
+              <svg class="border-2 border-dashed border-gray-300 bg-white h-64 w-full text-gray-200"
+                preserveAspectRatio="none" stroke="currentColor" fill="none" viewBox="0 0 200 200" aria-hidden="true">
+                <path vector-effect="non-scaling-stroke" stroke-width="2" d="M0 0l200 200M0 200L200 0"></path>
+              </svg>
+            </div>
+
+          </article>
+
+          <!-- Photo Set -->
+          <article v-show="activeTab == 'photo-set'" id="photo-set" class="px-8">
+            <h1 class="mt-8 font-bold text-2xl text-primary-500">Inspection Photos</h1>
+
+            1. Front of Risk
+
+            Have all pertinant info show in photo
+            Have option to add additional description to all photos, if needed and populate onto photo set
+            labeling as well such as size and material
+            when applicable. Also have freeform narrative boxes from PIF populate under
+            photo labeling for each corresponding area
+
+            2. Address
+          </article>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Petite Vue -->
+  <script type="module">
+    import { createApp } from "https://unpkg.com/petite-vue?module";
+
+    const columns = ["name", "power"];
+
+    const data = [
+      { name: "Chuck Norris", power: Infinity },
+      { name: "Bruce Lee", power: 9000 },
+      { name: "Jackie Chan", power: 7000 },
+      { name: "Jet Li", power: 8000 },
+    ];
+
+    const menu = [
+      { slug: 'dashboard', name: "Dashboard", href: "index.html", current: false },
+      { slug: 'reports', name: "Reports", href: "reports.html", current: true },
+    ];
+
+    const tabs = [
+      { slug: 'property-overview', name: "Property Overview", href: "#", current: false },
+      { slug: 'inspection-summary', name: "Inspection Summary", href: "#", current: true },
+      { slug: 'report-details', name: "Report Details", href: "#", current: false },
+      { slug: 'scope-sheet', name: "Scope Sheet", href: "#", current: false },
+      { slug: 'photo-set', name: "Photo Set", href: "#", current: false },
+    ];
+
+    createApp({
+      activeTab: 'inspection-summary',
+      showMobileMenu: false,
+      showProfileDropdown: false,
+      menu,
+      tabs,
+      query: "",
+      columns,
+      data,
+      sortKey: "",
+      sortOrders: columns.reduce((o, key) => ((o[key] = 1), o), {}),
+
+      get filteredData() {
+        const sortKey = this.sortKey;
+        const filterKey = this.query && this.query.toLowerCase();
+        const order = this.sortOrders[sortKey] || 1;
+        let data = this.data;
+        if (filterKey) {
+          data = data.filter((row) => {
+            return Object.keys(row).some((key) => {
+              return String(row[key]).toLowerCase().indexOf(filterKey) > -1;
+            });
+          });
+        }
+        if (sortKey) {
+          data = data.slice().sort((a, b) => {
+            a = a[sortKey];
+            b = b[sortKey];
+            return (a === b ? 0 : a > b ? 1 : -1) * order;
+          });
+        }
+        return data;
+      },
+
+      sortBy(key) {
+        this.sortKey = key;
+        this.sortOrders[key] = this.sortOrders[key] * -1;
+      },
+
+      capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      },
+      setActiveTab(tab) {
+        this.tabs.forEach(tab => tab.current = false)
+        tab.current = true
+        this.activeTab = tab.slug;
+      }
+    }).mount();
+  </script>
+</body>
+
+</html>

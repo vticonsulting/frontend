@@ -1,0 +1,40 @@
+@use "sass:meta";
+
+@forward 'banners';
+@forward 'courses';
+@forward 'errors';
+@forward 'headers';
+@forward 'reports';
+
+@use '../abstracts'as *;
+
+.row {
+  display: flex;
+  flex-wrap: wrap
+}
+
+[class^=col-] {
+  flex-basis: 100%;
+}
+
+@for $i from 1 through $columns {
+  .col-#{$i} {
+    flex: 0 0 calc(100% / ($columns / $i));
+  }
+
+  .col-offset-#{$i} {
+    margin-left: calc(100% / ($columns / $i));
+  }
+}
+
+@media (min-width: 960px) {
+  @for $i from 1 through $columns {
+    .col-#{$i} {
+      flex: 0 0 calc(100% / ($columns / $i));
+    }
+
+    .col-offset-#{$i} {
+      margin-left: calc(100% / ($columns / $i));
+    }
+  }
+}

@@ -1,0 +1,9 @@
+@use '../abstracts/' as *;
+
+nav ul {
+  @include horizontal-list;
+}
+
+.nav-item:not(:last-of-type) {
+  border-bottom: 1px solid rgba(0, 0, 0, .25);
+}

@@ -1,0 +1,92 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=Fira+Code:wght@300;400;637&family=Flow+Circular&family=Inter:wght@271;900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+  integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+
+<link rel="stylesheet" href="~/styles/main.css" />
+
+<script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+<script type="module">
+  import tailwindcssTypography from "https://cdn.skypack.dev/@@tailwindcss/typography";
+  import tailwindcssForms from "https://cdn.skypack.dev/@@tailwindcss/forms";
+
+  window.tailwindConfig = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter var', 'sans-serif'],
+          mono: ['Space Mono', 'Fira Code', 'monospace'],
+        },
+        fontSize: {
+          "2xs": ["0.625rem", "0.875rem"],
+        },
+        colors: {
+          brand: {
+            DEFAULT: "#002894",
+            50: "#f2f4fa",
+            100: "#e6eaf4",
+            200: "#bfc9e4",
+            300: "#99a9d4",
+            400: "#4d69b4",
+            500: "#002894",
+            600: "#002485",
+            700: "#001e6f",
+            800: "#001859",
+            900: "#001449",
+          },
+          primary: {
+            DEFAULT: "#314B6F",
+            50: "#f5f6f8",
+            100: "#eaedf1",
+            200: "#ccd2db",
+            300: "#adb7c5",
+            400: "#6f819a",
+            500: "#314B6F",
+            600: "#2c4464",
+            700: "#253853",
+            800: "#1d2d43",
+            900: "#182536",
+          },
+          // Secondary, Neutral
+          secondary: {
+            DEFAULT: "#64748B",
+            50: "#F8FAFC",
+            100: "#F1F5F9",
+            200: "#E2E8F0",
+            300: "#CBD5E1",
+            400: "#94A3B8",
+            500: "#64748B",
+            600: "#475569",
+            700: "#334155",
+            800: "#1E293B",
+            900: "#0F172A",
+          },
+          accent: {
+            DEFAULT: "#ee7d1e",
+            50: "#fef9f4",
+            100: "#fdf2e9",
+            200: "#fbdfc7",
+            300: "#f8cba5",
+            400: "#f3a462",
+            500: "#ee7d1e",
+            600: "#d6711b",
+            700: "#b35e17",
+            800: "#8f4b12",
+            900: "#753d0f",
+          },
+        },
+      },
+    },
+    plugins: [tailwindcssTypography, tailwindcssForms],
+  };
+
+  window.tailwindCSS.refresh();
+</script>
+<script type="tailwind-config">
+        window.tailwindConfig
+    </script>
+<script type="text/javascript">
+  const Exemplar = Exemplar || {};
+</script>

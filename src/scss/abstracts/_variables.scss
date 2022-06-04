@@ -1,0 +1,265 @@
+$app-header-height: 4rem; // 64px
+$app-sidebar-width: 16.5rem; // 264px
+$app-sidebar-width-collapsed: 3rem; // 48px
+$spacing-unit: 0.25rem; // 4px
+
+// Bootstrap Options
+$spacer: $spacing-unit * 4;
+$enable-rounded: true;
+$enable-caret: false;
+$enable-grid-classes: false;
+$enable-transitions: false;
+$enable-print-styles: false;
+$enable-shadows: false;
+$enable-gradients: true;
+$enable-validation-icons: false;
+
+// Grid
+$grid-breakpoints: (xs: 0,
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  2xl: 1536px,
+);
+
+/*
+ * Color
+ * Used by Bootstrap Grid system
+ */
+$color-torea-bay: #002894; // Brand
+$color-san-juan: #314b6f; // Primary
+$color-tango: #ee7d1e; // Accent
+
+$color-white: #fff;
+$color-blue: $color-san-juan;
+$color-orange: $color-tango;
+
+// Grays
+$blue-gray: #64748B;
+$cool-gray: #6B7280;
+$gray: #71717A;
+$true-gray: #737373;
+$warm-gray: #78716C;
+
+$red: #EF4444;
+$orange: #F97316;
+$amber: #F59E0B;
+$yellow: #EAB308;
+$lime: #84CC16;
+$green: #22C55E;
+$emerald: #10B981;
+$teal: #14B8A6;
+$cyan: #06B6D4;
+$sky: #0EA5E9;
+$blue: #3B82F6;
+$indigo: #6366F1;
+$violet: #8B5CF6;
+$purple: #A855F7;
+$fushia: #D946EF;
+$pink: #EC4899;
+$rose: #F43F5E;
+
+// Color
+
+/* -------------------------------------------------------
+ * Named Colors
+ * ------------------------------------------------------- */
+$color-white : #fff;
+$white: $color-white;
+
+$color-black : #000;
+$black: $color-black;
+
+$color-red: #f00;
+
+/// Hancock Brand Color
+$color-torea-bay : #002894;
+$color-torea-bay-50 : #f2f4fa;
+$color-torea-bay-100 : #e6eaf4;
+$color-torea-bay-200 : #bfc9e4;
+$color-torea-bay-300 : #99a9d4;
+$color-torea-bay-400 : #4d69b4;
+$color-torea-bay-500 : #002894;
+$color-torea-bay-600 : #002485;
+$color-torea-bay-700 : #001e6f;
+$color-torea-bay-800 : #001859;
+$color-torea-bay-900 : #001449;
+
+/// Primary Color (Chosen by Core 10)
+$color-san-juan : #314b6f;
+$color-san-juan-50 : #f5f6f8;
+$color-san-juan-100 : #eaedf1;
+$color-san-juan-200 : #ccd2db;
+$color-san-juan-300 : #adb7c5;
+$color-san-juan-400 : #6f819a;
+$color-san-juan-500 : #314b6f;
+$color-san-juan-600 : #2c4464;
+$color-san-juan-700 : #253853;
+$color-san-juan-800 : #1d2d43;
+$color-san-juan-900 : #182536;
+
+/// Neutral Color
+$color-stone : #78716c; // Neutral
+$color-stone-50 : #fafaf9;
+$color-stone-100 : #f5f5f4;
+$color-stone-200 : #e7e5e4;
+$color-stone-300 : #d6d3d1;
+$color-stone-400 : #a8a29e;
+$color-stone-500 : #78716c;
+$color-stone-600 : #57534e;
+$color-stone-700 : #44403c;
+$color-stone-800 : #292524;
+$color-stone-900 : #1c1917;
+
+/// Accent / Secondary Color
+$color-tango : #ee7d1e;
+$color-tango-50 : #fef9f4;
+$color-tango-100 : #fdf2e9;
+$color-tango-200 : #fbdfc7;
+$color-tango-300 : #f8cba5;
+$color-tango-400 : #f3a462;
+$color-tango-500 : #ee7d1e;
+$color-tango-600 : #d6711b;
+$color-tango-700 : #b35e17;
+$color-tango-800 : #8f4b12;
+$color-tango-900 : #753d0f;
+
+
+
+/***********************************
+ * Derived Colors
+ ***********************************/
+$color-primary : $color-san-juan;
+$color-primary-50 : $color-san-juan-50;
+$color-primary-100 : $color-san-juan-100;
+$color-primary-200 : $color-san-juan-200;
+$color-primary-300 : $color-san-juan-300;
+$color-primary-400 : $color-san-juan-400;
+$color-primary-500 : $color-san-juan-500;
+$color-primary-600 : $color-san-juan-600;
+$color-primary-700 : $color-san-juan-700;
+$color-primary-800 : $color-san-juan-800;
+$color-primary-900 : $color-san-juan-900;
+
+$color-secondary : $color-tango;
+$color-secondary-50 : $color-tango-50;
+$color-secondary-100 : $color-tango-100;
+$color-secondary-200 : $color-tango-200;
+$color-secondary-300 : $color-tango-300;
+$color-secondary-400 : $color-tango-400;
+$color-secondary-500 : $color-tango-500;
+$color-secondary-600 : $color-tango-600;
+$color-secondary-700 : $color-tango-700;
+$color-secondary-800 : $color-tango-800;
+$color-secondary-900 : $color-tango-900;
+
+$gray-100: #f8f9fa;
+
+// ### Bootstrap Color variable overrides
+$theme-colors: ('primary': #314b6f,
+  'secondary': #eaedf1,
+  'brand': #002894,
+  'accent': #ee7d1e,
+  'success': #15803d,
+  'info': #bfdbfe,
+  'warning': #fcd34d,
+  'danger': #dc2626,
+  'light': $gray-100,
+  'dark': #001738,
+);
+
+// Body
+$body-text: $color-primary;
+$body-bg: $color-white;
+
+// Base
+$base-bg: #f6f6f6;
+$base-border-radius: 4px;
+$base-border: rgba(black, .08);
+$base-disabled-opacity: 0.5;
+$base-disabled-opacity: 0.5;
+$base-font-family: inherit;
+$base-font-size: 0.75rem;
+$base-font-size: 1rem;
+$base-gradient: $base-bg, darken($base-bg, 2%);
+$base-line-height: 1.25;
+$base-line-height: 1.5;
+$base-rounded-border-radius: 9999px;
+$base-rounded-border-radius: 9999px;
+$base-text: $body-text;
+
+// Font Family
+$font-family-sans-serif: Inter,
+sans-serif;
+$font-family-monospace: 'Cascadia Code',
+monospace;
+$font-family-base: $font-family-sans-serif;
+
+// Font Size
+$line-height-base: 1.5;
+$font-size-base: 1rem; // Assumes the browser default, typically `16px`
+$font-size-2xs: 0.625rem; // 10px
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px $font-size-base * 0.875;
+$font-size-base: 1rem; // 16px
+$font-size-lg: 1.125rem; // 18px $font-size-base * 1.25;
+$font-size-xl: 1.5rem; //
+$font-size-2xl: 1.5rem; //
+$font-size-3xl: 1.5rem; //
+$font-size-4xl: 1.5rem; //
+$font-size-5xl: 1.5rem; //
+
+// TODO: Define as Map
+// text-xs	 font-size: 0.75rem;  line-height: 1rem;
+// text-sm   font-size: 0.875rem; line-height: 1.25rem;
+// text-base font-size: 1rem;     line-height: 1.5rem;
+// text-lg	 font-size: 1.125rem; line-height: 1.75rem;
+// text-xl	 font-size: 1.25rem;  line-height: 1.75rem;
+// text-2xl  font-size: 1.5rem;   line-height: 2rem;
+// text-3xl  font-size: 1.875rem; line-height: 2.25rem;
+// text-4xl  font-size: 2.25rem;  line-height: 2.5rem;
+// text-5xl  font-size: 3rem;     line-height: 1;
+// text-6xl  font-size: 3.75rem;  line-height: 1;
+// text-7xl  font-size: 4.5rem;   line-height: 1;
+// text-8xl  font-size: 6rem;     line-height: 1;
+// text-9xl  font-size: 8rem;     line-height: 1;
+
+// Font Weight
+$font-thin: 100;
+$font-extralight: 200;
+$font-light: 300;
+$font-normal: 400;
+$font-medium: 500;
+$font-semibold: 600;
+$font-bold: 700;
+$font-extrabold: 800;
+$font-black: 900;
+
+// Bootstrap Font Weights
+$font-weight-lighter: $font-extralight;
+$font-weight-light: $font-light;
+$font-weight-normal: $font-normal;
+$font-weight-bold: $font-bold;
+$font-weight-bolder: $font-extrabold;
+$font-weight-base: $font-weight-normal;
+
+
+// Bootstrap Heading Font Sizes
+$h1-font-size: $font-size-base * 2.5;
+$h2-font-size: $font-size-base * 2;
+$h3-font-size: $font-size-base * 1.75;
+$h4-font-size: $font-size-base * 1.5;
+$h5-font-size: $font-size-base * 1.25;
+$h6-font-size: $font-size-base;
+
+$headings-margin-bottom: $spacer * 0.5;
+$headings-font-family: null;
+$headings-font-weight: 500;
+$headings-line-height: 1.2;
+$headings-color: null;
+
+
+// Bootstrap Buttons
+$btn-padding-y: 0.25rem;
+$btn-padding-x: 2rem;

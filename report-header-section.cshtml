@@ -1,0 +1,45 @@
+@using Exemplar.Web.Areas.PropertyInspection.Models.ReportViewModels.SectionViewModels
+@using Exemplar.Web.Areas.PropertyInspection.Models.ReportViewModels
+
+@model Exemplar.Web.Areas.PropertyInspection.Models.ReportViewModels.SectionViewModels.ReportHeaderSection
+@{
+  var baseReport = (BaseReport)ViewData["Model"];
+  var Model = baseReport.ReportHeaderSection;
+}
+
+<div class="ReportHeader">
+  <div class="Row">
+    <div class="Column" id="HeaderContainer" style="width:10% !important">
+      <img src="@ViewData["ExemplarCoreUrl"]/images/ReportLogo.png" alt="DI Logo" />
+    </div>
+
+    <div class="Column ReportLabel" style="width:40% !important;text-align:left;padding-top:5px">
+      @Model.ReportName
+      <div class="ReportSubLabel">Prepared by Hancock Claims Consultants </div>
+      <div class="ReportClaimLabel">Inspected by: <span class="ReportClaimValues">@Model.InspectedBy </span></div>
+      <div class="ReportClaimLabel"> Inspection Date: <span class="ReportClaimValues">@Model.InspectionDate</span>
+      </div>
+    </div>
+
+    <div class="Column ReportClaimLabel" style="width:50% !important;text-align:right">
+      <div>
+        CARRIER: <span class="ReportClaimValues">@Model.Carrier</span>
+      </div>
+      <div>
+        ADJUSTER: <span class="ReportClaimValues">@Model.Adjuster</span>
+      </div>
+      <div>
+        CLAIMNUMBER: <span class="ReportClaimValues">@Model.ClaimNumber</span>
+      </div>
+      <div>
+        INSURED: <span class="ReportClaimValues">@Model.InsuredName</span>
+      </div>
+      <div>LOSS LOCATION: <span class="ReportClaimValues">@Model.AddressLine1</span></div>
+      @if (Model.AddressLine2 != null && Model.AddressLine2.Length > 0)
+      {
+        <div class="ReportClaimValues">@Model.AddressLine2</div>
+      }
+      <div class="ReportClaimValues">@Model.AddressLine3</div>
+    </div>
+  </div>
+</div>

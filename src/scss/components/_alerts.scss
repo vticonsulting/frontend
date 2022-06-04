@@ -1,0 +1,32 @@
+@use 'sass:map';
+
+@use '../abstracts' as *;
+
+.alert {
+  border: 1px solid $border-dark;
+}
+
+.alert {
+  // Instead of $theme-color-#{warning}
+  background-color: map.get($theme-colors, "warning");
+}
+
+.alert {
+  // The parent selector can be used to add pseudo-classes to the outer
+  // selector.
+  &:hover {
+    font-weight: bold;
+  }
+
+  // It can also be used to style the outer selector in a certain context, such
+  // as a body set to use a right-to-left language.
+  [dir=rtl] & {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+
+  // You can even use it as an argument to pseudo-class selectors.
+  :not(&) {
+    opacity: 0.8;
+  }
+}

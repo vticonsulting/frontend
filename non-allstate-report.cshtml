@@ -1,0 +1,236 @@
+@using Exemplar.Web.Areas.PropertyInspection.Models.ReportViewModels
+@{
+    var Model = ViewData["Model"] as BaseReport;
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <style type="text/css">
+
+        table#RoofSummary tr td:first-child {
+            text-align: left;
+            padding-left: 5px;
+        }
+
+        table#RoofComponent tr td:first-child {
+            text-align: left;
+            padding-left: 5px;
+            width: 25%;
+        }
+
+        table#Collateral tr td:first-child {
+            text-align: left;
+            padding-left: 5px;
+        }
+
+        table#Damage tr td:first-child {
+            text-align: left;
+            padding-left: 5px;
+        }
+
+    .Row {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .Column {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    .ReportHeader {
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        font-family: Calibri !important;
+        font-Size: 16px;
+        color: Black;
+        font-weight: 600;
+        width: 100%;
+        border-bottom: 2px solid navy;
+    }
+
+    .ReportLabel {
+        flex-grow: 1;
+        padding-left: 20px;
+        font-Size: 32px;
+        color: Navy;
+        font-weight: 600;
+    }
+
+    .ReportClaimLabel div {
+        padding-bottom: 2px;
+        text-align: right;
+    }
+
+    .ReportClaimLabel {
+        font-Size: 14px;
+        color: gray;
+        font-weight: 600;
+    }
+
+    .ReportClaimValues {
+        font-Size: 14px;
+        color: black;
+        font-weight: 600;
+    }
+
+    .ReportSubLabel {
+        padding-top: -10px;
+        font-Size: 17px;
+        color: black;
+        font-weight: 600;
+    }
+
+    .Row {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .Column {
+        display: table-cell;
+        vertical-align: top;
+    }
+
+        .TableData {
+            border-width: .5px !important;
+            border-style: solid;
+            border-color: #001C94;
+            width: 100%;
+            font-Size: 12px;
+            color: black;
+            font-weight: 500;
+        }
+
+        .TableData td {
+            text-align: center;
+            border: 1px solid #001C94;
+        }
+
+        .TableData th {
+            background-color: #001C94 !important;
+            font-Size: 14px !important;
+            color: white !important;
+            font-weight: 600 !important;
+            width: 100px;
+            text-align: center;
+            padding: 4px;
+            border: 1px solid #001C94 !important;
+        }
+
+    .TableLabel {
+        font-Size: 16px;
+        color: Navy;
+        font-weight: 600;
+    }
+
+        .Section {
+            padding-top: 10px;
+            width: 100%;
+            font-Size: 12px;
+            color: black;
+            font-weight: 400;
+            font-family: Arial !important;
+        }
+
+        .SectionLabel {
+            font-Size: 16px;
+            color: Black;
+            font-weight: 600;
+            font-family: Calibri !important;
+        }
+
+    #ReportContainer {
+        font-family: Calibri !important;
+        width: 100%;
+        font-Size: 14px !important;
+        margin-top: 10px;
+    }
+    </style>
+    <div id="ReportContainer">
+        <div class="Section">
+            @{ Html.RenderPartial("~/Views/Reports/Sections/_ReportHeaderSection.cshtml", Model.ReportHeaderSection); }
+        </div>
+        <br />
+        <div class="Section">
+            @{ Html.RenderPartial("~/Views/Reports/Sections/_RoofObservations.cshtml", Model.RoofObservationSection); }
+        </div>
+        <br />
+
+        <div class="Section">
+            @{ Html.RenderPartial("~/Views/Reports/Sections/_StormInfoSection.cshtml", Model.StormInfoSection); }
+        </div>
+        <br />
+        <div class="Section">
+            @{ Html.RenderPartial("~/Views/Reports/Sections/_NonStormSection.cshtml", Model.NonStormDamageItems); }
+        </div>
+        <br />
+        <div class="Section">
+            @{ Html.RenderPartial("~/Views/Reports/Sections/_HailInfoSection.cshtml", Model.ReportHeaderSection.ReportType); }
+        </div>
+        <div class="Section">
+            @{ Html.RenderPartial("~/Views/Reports/Sections/_WindInfoSection.cshtml", Model.ReportHeaderSection.ReportType); }
+        </div>
+        <div class="Section">
+            @{ Html.RenderPartial("~/Views/Reports/Sections/_MetalInfoSection.cshtml", Model.ReportHeaderSection.ReportType); }
+        </div>
+
+        @if (Model.OutBuildingDamage == "Yes")
+        {
+            <div class="Section">
+                <div class="SectionLabel">
+                    Out Building Damage
+                </div>
+                <p class="mt-2">
+                    @Model.OutBuildingNotes
+                </p>
+            </div>
+        }
+
+        <div class="Section">
+            <div class="SectionLabel">
+                Additional Summary
+            </div>
+            @if (Model.AdditionalSummary != null && Model.AdditionalSummary.Length > 0)
+            {
+                <p class="mt-2">
+                    @Model.AdditionalSummary
+                </p>
+            }
+            else
+            {
+                <text> NA </text>
+            }
+        </div>
+
+        <div class="Section" style="page-break-before: always !important;">
+            <div class="Section Row">
+                @{ Html.RenderPartial("~/Views/Reports/Sections/_DamageOverviewSection.cshtml", Model.DamageOverviewSection); }
+            </div>
+            <br />
+            <div id="RoofSections" class="Section Row">
+                <div style="width:25%" class="Column">
+                    @{ Html.RenderPartial("~/Views/Reports/Sections/_RoofSummarySection.cshtml", Model.RoofSummarySection); }
+                </div>
+                <div style="width:75%;padding-left:10px" class="Column">
+                    @{ Html.RenderPartial("~/Views/Reports/Sections/_RoofComponentsSection.cshtml", Model.RoofComponents); }
+                </div>
+            </div>
+            <br />
+        </div>
+        <div class="Section">
+            @{ Html.RenderPartial("~/Views/Reports/Sections/_CollateralSection.cshtml", Model.CollateralItems); }
+        </div>
+        <br />
+        @if (Model.InteriorItems.Count > 0)
+        {
+            <div class="Section" style="width: 100%">
+                @{ Html.RenderPartial("~/Views/Reports/Sections/_InteriorSection.cshtml", Model.InteriorItems); }
+            </div>
+        }
+    </div>
+

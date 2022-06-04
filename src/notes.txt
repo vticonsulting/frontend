@@ -1,0 +1,1803 @@
+boolean-wrapper-component
+<boolean-wrapper-component
+  id="InteriorInspected"
+  label="Was the Interior Inspected?"
+  v-bind:choices="['Yes', 'No']"
+  v-on:onChanged="onSectionInspectedChange('Interior', $event)"
+  :current-value="model.InteriorInspected"
+  :validate="true"
+/>
+
+boolean-camera-wrapper-component
+<boolean-camera-wrapper-component
+  id="AllPhotosShingle"
+  label="Shingle Gauge Photo Taken?"
+  v-bind:choices="['Yes', 'No']"
+  v-on:onChanged="model.AllPhotosShingle = $event"
+  :asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleGauge)"
+  :current-value="model.AllPhotosShingle"
+  :disable-camera="fieldAssets.length >= 100"
+  :field-assets="ReturnFieldAssets(assetFieldEnum.ShingleGauge)"
+/>
+
+canvas-button-component
+<canvas-button-component
+  id="OaInitials"
+  label="Please sign your initials in the box to the right:"
+  v-show="model.OaInitialsRequired && model.OaInitialsCaptured == null"
+  v-on:onChanged="model.OaInitialsCaptured = $event"
+  :company-id="companyId"
+  :current-value="model.OaInitialsCaptured"
+  :project-id="projectId"
+  :property-inspection-form-id="propertyInspectionFormId"
+  :validate="isAllState && model.OaInitialsRequired"
+  hide-margin
+/>
+
+checkbox-wrapper-component
+<checkbox-wrapper-component
+  id="FasciaMaterial"
+  label="Fascia Material:"
+  v-on:onChanged="model.FasciaMaterial = $event"
+  v-bind:choices="masterFasciaMaterials"
+  :current-value="model.FasciaMaterial"
+  :validate="validate"
+/>
+
+checkbox-camera-wrapper-component
+<checkbox-camera-wrapper-component
+  id="Shingle Exposure:"
+  label="Shingle Exposure:"
+  v-bind:choices="['Yes', 'No']"
+  v-on:onChanged="model.ShingleExposureSf = $event"
+  :asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleExposureSf)"
+  :disable-camera="fieldAssets.length >= 100"
+  :field-assets="ReturnFieldAssets(assetFieldEnum.ShingleExposureSf)"
+  :validate="validate" :current-value="model.ShingleExposureSf"
+/>
+
+numeric-wrapper-component
+<numeric-wrapper-component
+  label="Fascia Size (inches):"
+  v-show="String(model.FasciaSize).length > 0 && model.FasciaSize == 0"
+  v-on:onChanged="model.FasciaSizeOther = $event"
+  :current-value="model.FasciaSizeOther"
+  :validate="String(model.FasciaSize).length > 0 && model.FasciaSize == 0"
+  decimal
+  hide-margin
+/>
+
+numeric-camera-wrapper-component
+<numeric-camera-wrapper-component
+  label="Qty Damaged:"
+  v-show="model.DripEdgeEavePresent"
+  v-on:onChanged="ValidateQtyDamaged($event, 'DripEdgeEaveQty', 'DripEdgeEaveQtyDamaged')"
+  :asset-upload-model="ReturnAssetModel(assetFieldEnum.DripEdgeEaveQtyDamaged)"
+  :current-value="model.DripEdgeEaveQtyDamaged"
+  :disable-camera="fieldAssets.length >= 100"
+  :field-assets="ReturnFieldAssets(assetFieldEnum.DripEdgeEaveQtyDamaged)"
+  :validate="model.DripEdgeEavePresent"
+  hide-margin
+/>
+
+directional-camera-wrapper-component
+<directional-camera-wrapper-component
+  label="Roof Overview Photos:"
+  v-show="fieldAssets.length < 100"
+  :disable-camera="fieldAssets.length >= 100"
+  :validate="false"
+/>
+
+textbox-wrapper-component
+<textbox-wrapper-component
+  id="FasciaMaterialOther"
+  label="Fascia Material Other:"
+  v-show="model.FasciaMaterial=='Other'"
+  v-on:onChanged="model.FasciaMaterialOther = $event"
+  :current-value="model.FasciaMaterialOther"
+  :max-characters=50
+  :validate="model.FasciaMaterial=='Other'"
+  hide-margin
+/>
+
+textbox-camera-wrapper-component
+<textbox-wrapper-component
+  id="AdditionalSummary"
+  label="Additional Summary:"
+  v-on:onChanged="model.AdditionalSummary = $event"
+  :current-value="model.AdditionalSummary"
+  :max-characters=8000
+  :validate="validate"
+  text-area
+/>
+
+
+AdditionalSummary
+AllPhotosPitch
+AllPhotosShingle
+AllStateInspection
+BlisterDamage
+CollaborationSuccessful
+ContractorPresent
+ContractorPresentOnRoof
+CreatedOn
+DeckingRotted
+DeckStained
+Direction
+Downspouts
+DripEdgeEave
+DripEdgeRake
+DryerExhaust
+EagleViewProvided
+EaveStarter
+Elevation
+ExcessiveWeathering
+ExposedFasteners
+Fascia
+Felt
+Fence
+Flashing
+FlatRoofScupperDrain
+FreeForm
+GableVent
+Gutter
+GutterDamaged
+HailDamageDisagreeSouth
+HailDamage
+HvacOther
+IceShield
+Insured
+InteriorInspected
+LaAccompanied
+LaOnTime
+LastModifiedOn
+OffRidgeVents
+OutsideAdjuster
+OutsideTemp
+PropertyInspectionFormId
+RoleExplained
+RoofInspected
+RopeHarness
+SoffitVents
+SolarPanel
+SwampCooler
+TarpInstall
+TarpReset
+ThermalCracking
+Turbines
+ValleyMetal
+
+
+
+##### PropertyInspectionFormElevationProfile.cs
+
+.ForMember(dest => dest.DownSpoutsSouthLf, opt => opt.MapFrom(src => src.DownSpoutsSouthLf))
+.ForMember(dest => dest.DownSpoutsWestDamaged, opt => opt.MapFrom(src => src.DownSpoutsWestDamaged))
+.ForMember(dest => dest.DownSpoutsWestLf, opt => opt.MapFrom(src => src.DownSpoutsWestLf))
+- .ForMember(dest => dest.FasciaEastDamaged, opt => opt.MapFrom(src => src.FasciaEastDamaged))
+- .ForMember(dest => dest.FasciaEastLf, opt => opt.MapFrom(src => src.FasciaEastLf))
+.ForMember(dest => dest.FasciaDamaged, opt => opt.MapFrom(src => src.FasciaDamaged))
+.ForMember(dest => dest.FasciaMaterial, opt => opt.MapFrom(src => src.FasciaMaterial))
+.ForMember(dest => dest.FasciaMaterialOther, opt => opt.MapFrom(src => src.FasciaMaterialOther))
+- .ForMember(dest => dest.FasciaNorthDamaged, opt => opt.MapFrom(src => src.FasciaNorthDamaged))
+- .ForMember(dest => dest.FasciaNorthLf, opt => opt.MapFrom(src => src.FasciaNorthLf))
+.ForMember(dest => dest.FasciaSize, opt => opt.MapFrom(src => src.FasciaSize))
+.ForMember(dest => dest.FasciaSizeOther, opt => opt.MapFrom(src => src.FasciaSizeOther))
+- .ForMember(dest => dest.FasciaSouthDamaged, opt => opt.MapFrom(src => src.FasciaSouthDamaged))
+- .ForMember(dest => dest.FasciaSouthLf, opt => opt.MapFrom(src => src.FasciaSouthLf))
+- .ForMember(dest => dest.FasciaWestDamaged, opt => opt.MapFrom(src => src.FasciaWestDamaged))
+- .ForMember(dest => dest.FasciaWestLf, opt => opt.MapFrom(src => src.FasciaWestLf))
+.ForMember(dest => dest.FenceDamaged, opt => opt.MapFrom(src => src.FenceDamaged))
+.ForMember(dest => dest.FenceDescription, opt => opt.MapFrom(src => src.FenceDescription))
+.ForMember(dest => dest.FenceHeightLf, opt => opt.MapFrom(src => src.FenceHeightLf))
+
+##### PropertyInspectionFormMainProfile.cs
+
+.ForMember(dest => dest.AllPhotosShingle, opt => opt.MapFrom(src => src.AllPhotosShingle))
+.ForMember(dest => dest.AllStateInspection, opt => opt.MapFrom(src => src.AllStateInspection))
+.ForMember(dest => dest.CollaborationSuccessfull, opt => opt.MapFrom(src => src.CollaborationSuccessfull))
++ .ForMember(dest => dest.ContractorPresent, opt => opt.MapFrom(src => src.ContractorPresent))
++ .ForMember(dest => dest.ContractorPresentOnRoof, opt => opt.MapFrom(src => src.ContractorPresentOnRoof))
+.ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => src.CreatedOn))
+.ForMember(dest => dest.DirectionNorth, opt => opt.MapFrom(src => src.DirectionNorth))
++ .ForMember(dest => dest.EagleViewProvided, opt => opt.MapFrom(src => src.EagleViewProvided))
+.ForMember(dest => dest.ElevationInspected, opt => opt.MapFrom(src => src.ElevationInspected))
++ .ForMember(dest => dest.InsuredPresent, opt => opt.MapFrom(src => src.InsuredPresent))
+.ForMember(dest => dest.InteriorInspected, opt => opt.MapFrom(src => src.InteriorInspected))
++ .ForMember(dest => dest.LaAccompanied, opt => opt.MapFrom(src => src.LaAccompanied))
++ .ForMember(dest => dest.LaOnTime, opt => opt.MapFrom(src => src.LaOnTime))
+.ForMember(dest => dest.LastModifiedOn, opt => opt.MapFrom(src => src.LastModifiedOn))
++ .ForMember(dest => dest.OutsideAdjusterOnEdge, opt => opt.MapFrom(src => src.OutsideAdjusterOnEdge))
++ .ForMember(dest => dest.OutsideAdjusterOnLadder, opt => opt.MapFrom(src => src.OutsideAdjusterOnLadder))
++ .ForMember(dest => dest.OutsideAdjusterPresent, opt => opt.MapFrom(src => src.OutsideAdjusterPresent))
++ .ForMember(dest => dest.OutsideAdjusterPresentOnRoof, opt => opt.MapFrom(src => src.OutsideAdjusterPresentOnRoof))
+.ForMember(dest => dest.OutsideTemp, opt => opt.MapFrom(src => src.OutsideTemp))
+.ForMember(dest => dest.PropertyInspectionFormId, opt => opt.MapFrom(src => src.PropertyInspectionFormId))
++ .ForMember(dest => dest.PublicAdjusterPresent, opt => opt.MapFrom(src => src.PublicAdjusterPresent))
++ .ForMember(dest => dest.PublicAdjusterPresentOnRoof, opt => opt.MapFrom(src => src.PublicAdjusterPresentOnRoof))
++ .ForMember(dest => dest.RoleExplained, opt => opt.MapFrom(src => src.RoleExplained))
+.ForMember(dest => dest.RoofInspected, opt => opt.MapFrom(src => src.RoofInspected))
++ .ForMember(dest => dest.RopeHarness, opt => opt.MapFrom(src => src.RopeHarness))
++ .ForMember(dest => dest.TarpInstall, opt => opt.MapFrom(src => src.TarpInstall))
++ .ForMember(dest => dest.TarpInstallSizeSf, opt => opt.MapFrom(src => src.TarpInstallSizeSf))
++ .ForMember(dest => dest.TarpResetSizeSf, opt => opt.MapFrom(src => src.TarpResetSizeSf))
+.ReverseMap()
+
+
+// #####  PropertyInspectionFormRoofProfile.cs
+.ForMember(dest => dest.AdditionalSummary, opt => opt.MapFrom(src => src.AdditionalSummary))
++ .ForMember(dest => dest.AllPhotosPitch, opt => opt.MapFrom(src => src.AllPhotosPitch))
++ .ForMember(dest => dest.AllPhotosShingle, opt => opt.MapFrom(src => src.AllPhotosShingle))
+.ForMember(dest => dest.BlisterDamage, opt => opt.MapFrom(src => src.BlisterDamage))
+.ForMember(dest => dest.BlistersEast, opt => opt.MapFrom(src => src.BlistersEast))
+.ForMember(dest => dest.BlistersNorth, opt => opt.MapFrom(src => src.BlistersNorth))
+.ForMember(dest => dest.DeckingRottedNorth, opt => opt.MapFrom(src => src.DeckingRottedNorth))
+.ForMember(dest => dest.DeckingRottedSouth, opt => opt.MapFrom(src => src.DeckingRottedSouth))
+.ForMember(dest => dest.DeckingRottedWest, opt => opt.MapFrom(src => src.DeckingRottedWest))
++ .ForMember(dest => dest.DripEdgeEavePainted, opt => opt.MapFrom(src => src.DripEdgeEavePainted))
++ .ForMember(dest => dest.DripEdgeEavePresent, opt => opt.MapFrom(src => src.DripEdgeEavePresent))
++ .ForMember(dest => dest.DripEdgeEaveQty, opt => opt.MapFrom(src => src.DripEdgeEaveQty))
++ .ForMember(dest => dest.DripEdgeEaveQtyDamaged, opt => opt.MapFrom(src => src.DripEdgeEaveQtyDamaged))
++ .ForMember(dest => dest.DripEdgeRakePainted, opt => opt.MapFrom(src => src.DripEdgeRakePainted))
++ .ForMember(dest => dest.DripEdgeRakePresent, opt => opt.MapFrom(src => src.DripEdgeRakePresent))
++ .ForMember(dest => dest.DripEdgeRakeQty, opt => opt.MapFrom(src => src.DripEdgeRakeQty))
++ .ForMember(dest => dest.DripEdgeRakeQtyDamaged, opt => opt.MapFrom(src => src.DripEdgeRakeQtyDamaged))
+.ForMember(dest => dest.EagleViewProvided, opt => opt.MapFrom(src => src.EagleViewProvided))
+.ForMember(dest => dest.EaveStarter, opt => opt.MapFrom(src => src.EaveStarter))
+.ForMember(dest => dest.ExcessiveWeathering, opt => opt.MapFrom(src => src.ExcessiveWeathering))
+.ForMember(dest => dest.ExposedFasteners, opt => opt.MapFrom(src => src.ExposedFasteners))
++ .ForMember(dest => dest.FasciaDamaged, opt => opt.MapFrom(src => src.FasciaDamaged))
++ .ForMember(dest => dest.FasciaMaterial, opt => opt.MapFrom(src => src.FasciaMaterial))
++ .ForMember(dest => dest.FasciaMaterialOther, opt => opt.MapFrom(src => src.FasciaMaterialOther))
++ .ForMember(dest => dest.FasciaSize, opt => opt.MapFrom(src => src.FasciaSize))
++ .ForMember(dest => dest.FasciaSizeOther, opt => opt.MapFrom(src => src.FasciaSizeOther))
+.ForMember(dest => dest.Felt, opt => opt.MapFrom(src => src.Felt))
+.ForMember(dest => dest.FeltDescription, opt => opt.MapFrom(src => src.FeltDescription))
+.ForMember(dest => dest.FlashingNotSealedNotes, opt => opt.MapFrom(src => src.FlashingNotSealedNotes))
+.ForMember(dest => dest.ThermalCrackingNorth, opt => opt.MapFrom(src => src.ThermalCrackingNorth))
+.ForMember(dest => dest.ThermalCrackingSouth, opt => opt.MapFrom(src => src.ThermalCrackingSouth))
+.ForMember(dest => dest.ThermalCrackingWest, opt => opt.MapFrom(src => src.ThermalCrackingWest))
++ .ForMember(dest => dest.ValleyMetalMaterial, opt => opt.MapFrom(src => src.ValleyMetalMaterial))
++ .ForMember(dest => dest.ValleyMetalPainted, opt => opt.MapFrom(src => src.ValleyMetalPainted))
++ .ForMember(dest => dest.ValleyMetalPresent, opt => opt.MapFrom(src => src.ValleyMetalPresent))
++ .ForMember(dest => dest.ValleyMetalQty, opt => opt.MapFrom(src => src.ValleyMetalQty))
++ .ForMember(dest => dest.ValleyMetalQtyDamaged, opt => opt.MapFrom(src => src.ValleyMetalQtyDamaged))
+.ForMember(dest => dest.ValleyType, opt => opt.MapFrom(src => src.ValleyType))
+.ForMember(dest => dest.WindDamageEastFiveSqft, opt => opt.MapFrom(src => src.WindDamageEastFiveSqft))
+.ForMember(dest => dest.WindDamageEastFourSqft, opt => opt.MapFrom(src => src.WindDamageEastFourSqft))
+
+// ##### Report_AllStateLadderAssistProfile.cs
+
+.ForMember(dest => dest.ExcessiveWeathering, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormRoof.ExcessiveWeathering)))
+.ForMember(dest => dest.ExposedFasteners, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormRoof.ExposedFasteners)))
+.ForMember(dest => dest.FasciaSize, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormElevation.FasciaSize, src.PropertyInspectionFormElevation.FasciaSizeOther)))
+- .ForMember(dest => dest.FasciaLength, opt => opt.MapFrom(src => MappingProfile.ReturnAddString(src.PropertyInspectionFormElevation.FasciaEastLf, src.PropertyInspectionFormElevation.FasciaNorthLf, src.PropertyInspectionFormElevation.FasciaSouthLf, src.PropertyInspectionFormElevation.FasciaWestLf, 0)))
++ //.ForMember(dest => dest.FasciaLength, opt => opt.MapFrom(src => MappingProfile.ReturnAddString(src.PropertyInspectionFormElevation.FasciaEastLf, src.PropertyInspectionFormElevation.FasciaNorthLf, src.PropertyInspectionFormElevation.FasciaSouthLf, src.PropertyInspectionFormElevation.FasciaWestLf, 0)))
+.ForMember(dest => dest.Felt, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormRoof.Felt)))
+.ForMember(dest => dest.FeltDescription, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormRoof.FeltDescription)))
+.ForMember(dest => dest.FlashingPresent, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormRoofDamagedItem.FlashingPresent)))
+
+
+// ##### Report_AllStateVirtualProfile
+
+.ForMember(dest => dest.ExcessiveWeathering, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormRoof.ExcessiveWeathering)))
+.ForMember(dest => dest.ExposedFasteners, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormRoof.ExposedFasteners)))
+.ForMember(dest => dest.FasciaDamaged, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormElevation.FasciaDamaged)))
+- .ForMember(dest => dest.FasciaLength, opt => opt.MapFrom(src => MappingProfile.ReturnAddString(src.PropertyInspectionFormElevation.FasciaEastLf, src.PropertyInspectionFormElevation.FasciaNorthLf, src.PropertyInspectionFormElevation.FasciaSouthLf, src.PropertyInspectionFormElevation.FasciaWestLf, 0)))
+
++ //.ForMember(dest => dest.FasciaLength, opt => opt.MapFrom(src => MappingProfile.ReturnAddString(src.PropertyInspectionFormElevation.FasciaEastLf, src.PropertyInspectionFormElevation.FasciaNorthLf, src.PropertyInspectionFormElevation.FasciaSouthLf, src.PropertyInspectionFormElevation.FasciaWestLf, 0)))
+.ForMember(dest => dest.FasciaMaterial, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormElevation.FasciaMaterial, src.PropertyInspectionFormElevation.FasciaMaterialOther)))
+.ForMember(dest => dest.FasciaSize, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormElevation.FasciaSize, src.PropertyInspectionFormElevation.FasciaSizeOther)))
+.ForMember(dest => dest.Felt, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormRoof.Felt)))
+
+
+// ##### Report_BaseReportProfile.cs
+.ForMember(dest => dest.DeckStained, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormElevation.DeckStained)))
+.ForMember(dest => dest.FasciaDamaged, opt => opt.MapFrom(src => src.PropertyInspectionFormElevation.FasciaDamaged.Length > 0 ? src.PropertyInspectionFormElevation.FasciaDamaged : string.Empty))
+- .ForMember(dest => dest.FasciaDamageAmt, opt => opt.MapFrom(src =>
+-     src.PropertyInspectionFormElevation.FasciaDamaged.Length > 0 && src.PropertyInspectionFormElevation.FasciaDamaged == "Yes" ?
+-     (src.PropertyInspectionFormElevation.FasciaNorthDamaged == "Yes" ? $"N ({src.PropertyInspectionFormElevation.FasciaNorthLf.ToString()} LF) " : string.Empty) +
+-     (src.PropertyInspectionFormElevation.FasciaSouthDamaged == "Yes" ? $" S ({src.PropertyInspectionFormElevation.FasciaSouthLf.ToString()} LF) " : string.Empty) +
+-     (src.PropertyInspectionFormElevation.FasciaNorthDamaged == "Yes" ? $" E ({src.PropertyInspectionFormElevation.FasciaEastLf.ToString()} LF) " : string.Empty) +
+-     (src.PropertyInspectionFormElevation.FasciaSouthDamaged == "Yes" ? $" W ({src.PropertyInspectionFormElevation.FasciaWestLf.ToString()} LF) " : string.Empty) : string.Empty))
+
++ //.ForMember(dest => dest.FasciaDamageAmt, opt => opt.MapFrom(src =>
++ //    src.PropertyInspectionFormElevation.FasciaDamaged.Length > 0 && src.PropertyInspectionFormElevation.FasciaDamaged == "Yes" ?
++ //    (src.PropertyInspectionFormElevation.FasciaNorthDamaged == "Yes" ? $"N ({src.PropertyInspectionFormElevation.FasciaNorthLf.ToString()} LF) " : string.Empty) +
++ //    (src.PropertyInspectionFormElevation.FasciaSouthDamaged == "Yes" ? $" S ({src.PropertyInspectionFormElevation.FasciaSouthLf.ToString()} LF) " : string.Empty) +
++ //    (src.PropertyInspectionFormElevation.FasciaNorthDamaged == "Yes" ? $" E ({src.PropertyInspectionFormElevation.FasciaEastLf.ToString()} LF) " : string.Empty) +
++ //    (src.PropertyInspectionFormElevation.FasciaSouthDamaged == "Yes" ? $" W ({src.PropertyInspectionFormElevation.FasciaWestLf.ToString()} LF) " : string.Empty) : string.Empty))
+.ForMember(dest => dest.FasciaMaterial, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormElevation.FasciaMaterial, src.PropertyInspectionFormElevation.FasciaMaterialOther)))
+.ForMember(dest => dest.FasciaSize, opt => opt.MapFrom(src => MappingProfile.ReturnString(src.PropertyInspectionFormElevation.FasciaSize, src.PropertyInspectionFormElevation.FasciaSizeOther)))
+
+
+
+// ##### PropertyInspectionFormElevationConfiguration.cs
+builder.Property(t => t.DownSpoutsWestDamaged).HasColumnType("varchar(5)");
+builder.Property(t => t.DownSpoutsWestLf).HasColumnType("float");
+builder.Property(t => t.FasciaDamaged).HasColumnType("varchar(5)");
+- builder.Property(t => t.FasciaEastDamaged).HasColumnType("varchar(5)");
+- builder.Property(t => t.FasciaEastLf).HasColumnType("double");
+- builder.Property(t => t.FasciaNorthDamaged).HasColumnType("varchar(5)");
+- builder.Property(t => t.FasciaNorthLf).HasColumnType("float");
+- builder.Property(t => t.FasciaSouthDamaged).HasColumnType("varchar(5)");
+- builder.Property(t => t.FasciaSouthLf).HasColumnType("float");
+- builder.Property(t => t.FasciaWestDamaged).HasColumnType("varchar(5)");
+- builder.Property(t => t.FasciaWestLf).HasColumnType("float");
+- builder.Property(t => t.FasciaEastDamaged).HasColumnType("varchar(5)");
+- builder.Property(t => t.FasciaEastLf).HasColumnType("float");
+- builder.Property(t => t.FasciaNorthDamaged).HasColumnType("varchar(5)");
+- builder.Property(t => t.FasciaNorthLf).HasColumnType("float");
+- builder.Property(t => t.FasciaSouthDamaged).HasColumnType("varchar(5)");
+- builder.Property(t => t.FasciaSouthLf).HasColumnType("float");
+- builder.Property(t => t.FasciaWestDamaged).HasColumnType("varchar(5)");
+- builder.Property(t => t.FasciaWestLf).HasColumnType("float");
+builder.Property(t => t.FasciaMaterial).HasColumnType("varchar(50)");
+builder.Property(t => t.FasciaMaterialOther).HasColumnType("varchar(50)");
+builder.Property(t => t.FasciaSize).HasColumnType("smallint");
+
+// ##### PropertyInspectionFormMainConfiguration.cs
+
+
+builder.HasKey(o => o.Id);
+builder.Property(t => t.AllStateInspection).HasColumnType("bit");
+builder.Property(t => t.AllPhotos).HasColumnType("bit");
+- builder.Property(t => t.AllPhotosAppearance).HasColumnType("bit");
+- builder.Property(t => t.AllPhotosAssessment).HasColumnType("bit");
+- builder.Property(t => t.AllPhotosElevation).HasColumnType("bit");
++ //builder.Property(t => t.AllPhotosAppearance).HasColumnType("bit");
++ //builder.Property(t => t.AllPhotosAssessment).HasColumnType("bit");
++ //builder.Property(t => t.AllPhotosElevation).HasColumnType("bit");
+builder.Property(t => t.AllPhotosPitch).HasColumnType("bit");
+builder.Property(t => t.AllPhotosShingle).HasColumnType("bit");
+builder.Property(t => t.CollaborationSuccessfull).HasColumnType("varchar(5)");
+
+
+builder.Property(t => t.AllPhotosPitch).HasColumnType("bit");
+builder.Property(t => t.AllPhotosShingle).HasColumnType("bit");
+builder.Property(t => t.CollaborationSuccessfull).HasColumnType("varchar(5)");
++ builder.Property(t => t.ContractorPresent).HasColumnType("bit");
++ builder.Property(t => t.ContractorPresentOnRoof).HasColumnType("bit");
+builder.Property(t => t.CreatedOn).HasColumnType("datetime").HasDefaultValueSql("getdate()").IsRequired();
+builder.Property(t => t.DirectionNorth).HasColumnType("varchar(15)");
++ builder.Property(t => t.EagleViewProvided).HasColumnType("bit");
+builder.Property(t => t.ElevationInspected).HasColumnType("bit");
++ builder.Property(t => t.InsuredPresent).HasColumnType("bit");
++ builder.Property(t => t.InteriorInspected).HasColumnType("bit");
++ builder.Property(t => t.LaAccompanied).HasColumnType("bit");
++ builder.Property(t => t.LaOnTime).HasColumnType("bit");
++ builder.Property(t => t.OutsideAdjusterOnEdge).HasColumnType("bit");
++ builder.Property(t => t.OutsideAdjusterOnLadder).HasColumnType("bit");
++ builder.Property(t => t.OutsideAdjusterPresent).HasColumnType("bit");
++ builder.Property(t => t.OutsideAdjusterPresentOnRoof).HasColumnType("bit");
+builder.Property(t => t.OutsideTemp).HasColumnType("float");
+- builder.Property(t => t.InteriorInspected).HasColumnType("bit");
+builder.Property(t => t.LastModifiedOn).HasColumnType("datetime").HasDefaultValueSql("getdate()").IsRequired();
+builder.Property(t => t.PropertyInspectionFormId).IsRequired();
++ builder.Property(t => t.PublicAdjusterPresent).HasColumnType("bit");
++ builder.Property(t => t.PublicAdjusterPresentOnRoof).HasColumnType("bit");
++ builder.Property(t => t.RoleExplained).HasColumnType("bit");
+builder.Property(t => t.RoofInspected).HasColumnType("bit");
++ builder.Property(t => t.RopeHarness).HasColumnType("bit");
++ builder.Property(t => t.TarpInstall).HasColumnType("bit");
++ builder.Property(t => t.TarpInstallSizeSf).HasColumnType("float");
++ builder.Property(t => t.TarpResetSizeSf).HasColumnType("float");
+
+
+##### PropertyInspectionFormRoofConfiguration.cs
+
+builder.Property(t => t.AdditionalSummary).HasColumnType("varchar(8000)");
++ builder.Property(t => t.AllPhotosPitch).HasColumnType("bit");
++ builder.Property(t => t.AllPhotosShingle).HasColumnType("bit");
+builder.Property(t => t.BlisterDamage).HasColumnType("bit");
+builder.Property(t => t.BlistersNorth).HasColumnType("varchar(5)").IsRequired(false);
+builder.Property(t => t.BlistersEast).HasColumnType("varchar(5)");
+builder.Property(t => t.DeckingRottedSouth).HasColumnType("varchar(5)");
+builder.Property(t => t.DeckingRottedWest).HasColumnType("varchar(5)");
++ builder.Property(t => t.DripEdgeEavePainted).HasColumnType("bit");
++ builder.Property(t => t.DripEdgeEavePresent).HasColumnType("bit");
++ builder.Property(t => t.DripEdgeEaveQty).HasColumnType("smallint");
++ builder.Property(t => t.DripEdgeEaveQtyDamaged).HasColumnType("smallint");
++ builder.Property(t => t.DripEdgeRakePainted).HasColumnType("bit");
++ builder.Property(t => t.DripEdgeRakePresent).HasColumnType("bit");
++ builder.Property(t => t.DripEdgeRakeQty).HasColumnType("smallint");
++ builder.Property(t => t.DripEdgeRakeQtyDamaged).HasColumnType("smallint");
+builder.Property(t => t.EagleViewProvided).HasColumnType("bit");
+
+builder.Property(t => t.EaveStarter).HasColumnType("bit");
+builder.Property(t => t.ExposedFasteners).HasColumnType("bit");
+builder.Property(t => t.ExcessiveWeathering).HasColumnType("bit");
++ builder.Property(t => t.FasciaDamaged).HasColumnType("varchar(5)");
++ builder.Property(t => t.FasciaMaterial).HasColumnType("varchar(50)");
++ builder.Property(t => t.FasciaMaterialOther).HasColumnType("varchar(50)");
++ builder.Property(t => t.FasciaSize).HasColumnType("smallint");
++ builder.Property(t => t.FasciaSizeOther).HasColumnType("smallint");
+builder.Property(t => t.Felt).HasColumnType("bit");
+builder.Property(t => t.FeltDescription).HasColumnType("varchar(100)");
+
+builder.Property(t => t.FlashingNotSealedNotes).HasColumnType("varchar(8000)");
++ builder.Property(t => t.FreeForm).HasColumnType("varchar(8000)");
+
+
+builder.Property(t => t.GutterMaterialOther).HasColumnType("varchar(100)");
+builder.Property(t => t.GutterSize).HasColumnType("varchar(50)");
+builder.Property(t => t.GutterSizeOther).HasColumnType("varchar(50)");
+builder.Property(t => t.GuttersDamagedNoNorth).HasColumnType("bit");
++ builder.Property(t => t.GuttersDamagedNoSouth).HasColumnType("bit");
++ builder.Property(t => t.GuttersDamagedNoEast).HasColumnType("bit");
++ builder.Property(t => t.GuttersDamagedNoWest).HasColumnType("bit");
++ builder.Property(t => t.GuttersDamagedYesNorth).HasColumnType("bit");
+builder.Property(t => t.GutterNorthDamaged).HasColumnType("bit");
+builder.Property(t => t.GutterNorthLf).HasColumnType("float");
++ builder.Property(t => t.GuttersDamagedYesEast).HasColumnType("bit");
+builder.Property(t => t.GutterEastDamaged).HasColumnType("bit");
+builder.Property(t => t.GutterEastLf).HasColumnType("float");
++ builder.Property(t => t.GuttersDamagedYesSouth).HasColumnType("bit");
+builder.Property(t => t.GutterSouthDamaged).HasColumnType("bit");
+builder.Property(t => t.GutterSouthLf).HasColumnType("float");
++ builder.Property(t => t.GuttersDamagedYesWest).HasColumnType("bit");
+builder.Property(t => t.GutterWestDamaged).HasColumnType("bit");
+builder.Property(t => t.GutterWestLf).HasColumnType("float");
+- builder.Property(t => t.HailSize).HasColumnType("varchar(50)");
++ //builder.Property(t => t.HailSize).HasColumnType("varchar(50)");
+builder.Property(t => t.HailDamageNorthSf).HasColumnType("smallint");
+builder.Property(t => t.HailDamageSouthSf).HasColumnType("smallint");
+builder.Property(t => t.HailDamageEastSf).HasColumnType("smallint");
+
+builder.Property(t => t.ThermalCrackingSouth).HasColumnType("varchar(5)");
+builder.Property(t => t.ThermalCrackingWest).HasColumnType("varchar(5)");
+builder.Property(t => t.ValleyMetalMaterial).HasColumnType("varchar(25)");
++ builder.Property(t => t.ValleyMetalPainted).HasColumnType("bit");
++ builder.Property(t => t.ValleyMetalPresent).HasColumnType("bit");
++ builder.Property(t => t.ValleyMetalQty).HasColumnType("smallint");
++ builder.Property(t => t.ValleyMetalQtyDamaged).HasColumnType("smallint");
+builder.Property(t => t.ValleyType).HasColumnType("varchar(50)");
+builder.Property(t => t.WindDamageNorthOneSqft).HasColumnType("float");
+builder.Property(t => t.WindDamageSouthOneSqft).HasColumnType("float");
+builder.Property(t => t.WindDamageEastOneSqft).HasColumnType("float");
+
+##### PropertyInspectionFormMain.cs
+
+public bool? AllStateInspection { get; set; }
+public bool? AllPhotos { get; set; }
+- public bool? AllPhotosAppearance { get; set; }
+- public bool? AllPhotosAssessment { get; set; }
+- public bool? AllPhotosElevation { get; set; }
+public bool? AllPhotosPitch { get; set; }
+public bool? AllPhotosShingle { get; set; }
+public string CollaborationSuccessfull { get; set; }
++ public bool? ContractorPresent { get; set; }
++ public bool? ContractorPresentOnRoof { get; set; }
+public DateTime CreatedOn { get; set; }
+public string DirectionNorth { get; set; }
+public bool? ElevationInspected { get; set; }
++ public bool? EagleViewProvided { get; set; }
++ public bool? InsuredPresent { get; set; }
+public bool? InteriorInspected { get; set; }
++ public bool? LaAccompanied { get; set; }
++ public bool? LaOnTime { get; set; }
+public DateTime LastModifiedOn { get; set; }
++ public bool? OutsideAdjusterOnEdge { get; set; }
++ public bool? OutsideAdjusterOnLadder { get; set; }
++ public bool? OutsideAdjusterPresent { get; set; }
++ public bool? OutsideAdjusterPresentOnRoof { get; set; }
+public double? OutsideTemp { get; set; }
+[ForeignKey("PropertyInspectionForm")]
+public int PropertyInspectionFormId { get; set; }
++ public PropertyInspectionForm PropertyInspectionForm { get; set; }
++ public bool? PublicAdjusterPresent { get; set; }
++ public bool? PublicAdjusterPresentOnRoof { get; set; }
++ public bool? RoleExplained { get; set; }
+public bool? RoofInspected { get; set; }
+- public PropertyInspectionForm PropertyInspectionForm { get; set; }
++ public bool? RopeHarness { get; set; }
++ public bool? TarpInstall { get; set; }
++ public double? TarpInstallSizeSf { get; set; }
++ public double? TarpResetSizeSf { get; set; }
+
+// PropertyInspectionFormMain.ts
+
+export class PropertyInspectionFormMain {
+    public AllPhotos: boolean | null = null;
+    - public AllPhotosPitch: boolean | null = null;
+    - public AllPhotosShingle: boolean | null = null;
+    public AllStateInspection: boolean | null = null;
+    public CollaborationSuccessfull: string = "";
+    + public ContractorPresent: boolean | null = null;
+    + public ContractorPresentOnRoof: boolean | null = null;
+    public CreatedOn: Date;
+    public DirectionNorth: string = "";
+    + public EagleViewProvided: boolean | null = null;
+    public ElevationInspected: boolean | null = null;
+    public Id: number;
+    + public InsuredPresent: boolean | null = null;
+    public InteriorInspected: boolean | null = null;
+    + public LaAccompanied: boolean | null = null;
+    + public LaOnTime: boolean | null = null;
+    public LastModifiedOn: Date;
+    + public OutsideAdjusterOnEdge: boolean | null = null;
+    + public OutsideAdjusterOnLadder: boolean | null = null;
+    + public OutsideAdjusterPresent: boolean | null = null;
+    + public OutsideAdjusterPresentOnRoof: boolean | null = null;
+    public OutsideTemp: number | null = null;
+    public PropertyInspectionFormId: number = 0;
+    + public PublicAdjusterPresent: boolean | null = null;
+    + public PublicAdjusterPresentOnRoof: boolean | null = null;
+    + public RoleExplained: boolean | null = null
+    public RoofInspected: boolean | null = null;
+    + public RopeHarness: boolean | null = null;
+    + public TarpInstall: boolean | null = null;
+    + public TarpInstallSizeSf: number | null = 0;
+    + public TarpResetSizeSf: number | null = 0;
+}
+
+##### PropertyInspectionFormElevation.ts
+
+public DownSpoutsWestLf: number | null = null;
+- public FasciaDamaged: string = "";
+- public FasciaEastDamaged: string = "";
+- public FasciaEastLf: number | null = null;
+- public FasciaNorthDamaged: string = "";
+- public FasciaNorthLf: number | null = null;
+- public FasciaSouthDamaged: string = "";
+- public FasciaSouthLf: number | null = null;
+- public FasciaWestDamaged: string = "";
+- public FasciaWestLf: number | null = null;
+- public FasciaMaterial: string = "";
+- public FasciaMaterialOther: string = "";
+- public FasciaSize: number | null = null;
+- public FasciaSizeOther: number | null = null;
+public FenceDamaged: string = "No";
+public FenceDescription: string = "";
+
+##### PropertyInspectionFormRoofDamagedItemDto.cs
+
+public short? DripEdgeRakeQtyDamaged { get; set; }
++ public bool? DryerExhaustPainted { get; set; }
++ public bool? DryerExhaustPresent { get; set; }
++ public short? DryerExhaustQty { get; set; }
++ public short? DryerExhaustQtyDamaged { get; set; }
+public bool? FlashingPainted { get; set; }
+public bool? FlashingPresent { get; set; }
+public short? FlashingQtyDamaged { get; set; }
++ public bool? FlatRoofScupperDrainPainted { get; set; }
++ public bool? FlatRoofScupperDrainPresent { get; set; }
++ public short? FlatRoofScupperDrainQty { get; set; }
++ public short? FlatRoofScupperDrainQtyDamaged { get; set; }
+public bool? GableVentPresent { get; set; }
+public short? GableVentQty { get; set; }
+public short? HvacEightQtyDamaged { get; set; }
++ public bool? HvacOtherPainted { get; set; }
++ public bool? HvacOtherPresent { get; set; }
++ public short? HvacOtherQty { get; set; }
++ public short? HvacOtherQtyDamaged { get; set; }
++ public short? HvacOtherSize { get; set; }
+public bool? IceShieldPresent { get; set; }
+public short? IceShieldQty { get; set; }
+public short? MastheadQtyDamaged { get; set; }
++ public string OffRidgeVentsMaterial { get; set; }
++ public bool? OffRidgeVentsPresent { get; set; }
++ public short? OffRidgeVentsQty { get; set; }
++ public short? OffRidgeVentsQtyDamaged { get; set; }
+public bool? OtherPresent { get; set; }
+public short? OtherQty { get; set; }
+public short? SoffitVentsQtyDamaged { get; set; }
++ public bool? SolarPanelPainted { get; set; }
++ public bool? SolarPanelPresent { get; set; }
++ public short? SolarPanelQty { get; set; }
++ public short? SolarPanelQtyDamaged { get; set; }
++ public bool? SwampCoolerPainted { get; set; }
++ public bool? SwampCoolerPresent { get; set; }
++ public short? SwampCoolerQty { get; set; }
++ public short? SwampCoolerQtyDamaged { get; set; }
+public bool? TurbinesPainted { get; set; }
+public bool? TurbinesPresent { get; set; }
+
+
+##### PropertyInspectionFormRoofDamagedItem.cs
+
+public short? DripEdgeRakeQtyDamaged { get; set; }
++ public bool? DryerExhaustPainted { get; set; }
++ public bool? DryerExhaustPresent { get; set; }
++ public short? DryerExhaustQty { get; set; }
++ public short? DryerExhaustQtyDamaged { get; set; }
+public bool? FlashingPainted { get; set; }
+public bool? FlashingPresent { get; set; }
+public short? FlashingQtyDamaged { get; set; }
++ public bool? FlatRoofScupperDrainPainted { get; set; }
++ public bool? FlatRoofScupperDrainPresent { get; set; }
++ public short? FlatRoofScupperDrainQty { get; set; }
++ public short? FlatRoofScupperDrainQtyDamaged { get; set; }
+public bool? GableVentPresent { get; set; }
+public short? GableVentQty { get; set; }
+public short? HvacEightQtyDamaged { get; set; }
++ public bool? HvacOtherPainted { get; set; }
++ public bool? HvacOtherPresent { get; set; }
++ public short? HvacOtherQty { get; set; }
++ public short? HvacOtherQtyDamaged { get; set; }
+public bool? IceShieldPresent { get; set; }
+public short? IceShieldQty { get; set; }
+public short? MastheadQtyDamaged { get; set; }
++ public bool? OffRidgeVentsPresent { get; set; }
++ public short? OffRidgeVentsQty { get; set; }
++ public short? OffRidgeVentsQtyDamaged { get; set; }
++ public string OffRidgeVentsMaterial { get; set; }
+public bool? OtherPresent { get; set; }
+public short? OtherQty { get; set; }
+public short? SoffitVentsQtyDamaged { get; set; }
++ public bool? SolarPanelPainted { get; set; }
++ public bool? SolarPanelPresent { get; set; }
++ public short? SolarPanelQty { get; set; }
++ public short? SolarPanelQtyDamaged { get; set; }
++ public bool? SwampCoolerPainted { get; set; }
++ public bool? SwampCoolerPresent { get; set; }
++ public short? SwampCoolerQty { get; set; }
++ public short? SwampCoolerQtyDamaged { get; set; }
+public bool? TurbinesPainted { get; set; }
+public bool? TurbinesPresent { get; set; }
+
+#
+
+public short? HvacOtherQtyDamaged { get; set; }
++ public short? HvacOtherSize { get; set; }
+public bool? IceShieldPresent { get; set; }
+public short? IceShieldQty { get; set; }
+public short? MastheadQtyDamaged { get; set; }
++ public string OffRidgeVentsMaterial { get; set; }
+public bool? OffRidgeVentsPresent { get; set; }
+public short? OffRidgeVentsQty { get; set; }
+public short? OffRidgeVentsQtyDamaged { get; set; }
+- public string OffRidgeVentsMaterial { get; set; }
+public bool? OtherPresent { get; set; }
+public short? OtherQty { get; set; }
+
+
+##### PropertyInspectionFormRoofDamagedItem.ts
+
+public CreatedOn: Date;
+- public DripEdgeEavePainted : boolean | null = null;
+- public DripEdgeEavePresent: boolean | null = false;
+- public DripEdgeEaveQty : number | null = null;
+- public DripEdgeEaveQtyDamaged: number | null = null;
+- public DripEdgeRakePainted: boolean | null = null;
+- public DripEdgeRakePresent: boolean | null = false;
+- public DripEdgeRakeQty: number | null = null;
+- public DripEdgeRakeQtyDamaged: number | null = null;
+public DryerExhaustPainted: boolean | null = null;
+public DryerExhaustPresent: boolean | null = false;
+public  TurbinesQty : number | null = null;
+public  TurbinesQtyDamaged : number | null = null;
+- public ValleyMetalMaterial: string = "";
+- public  ValleyMetalPainted : boolean | null = null;
+- public ValleyMetalPresent: boolean | null = false;
+- public  ValleyMetalQty : number | null = null;
+- public ValleyMetalQtyDamaged: number | null = null;
+
+#
+
+public DripEdgeRakeQtyDamaged: number | null = null;
++ public DryerExhaustPainted: boolean | null = null;
++ public DryerExhaustPresent: boolean | null = false;
++ public DryerExhaustQty: number | null = null;
++ public DryerExhaustQtyDamaged: number | null = null;
+public  FlashingPainted : boolean | null = null;
+public FlashingPresent: boolean | null = false;
+public  FlashingQty : number | null = null;
+- public  FlashingQtyDamaged : number | null = null;
++ public FlashingQtyDamaged: number | null = null;
++ public FlatRoofScupperDrainPainted: boolean | null = null;
++ public FlatRoofScupperDrainPresent: boolean | null = false;
++ public FlatRoofScupperDrainQty: number | null = null;
++ public FlatRoofScupperDrainQtyDamaged: number | null = null;
+public GableVentPresent: boolean | null = false;
+public  GableVentQty : number | null = null;
+public HvacEightQtyDamaged: number | null = null;
++ public HvacOtherPainted: boolean | null = null;
++ public HvacOtherPresent: boolean | null = false;
++ public HvacOtherQty: number | null = null;
++ public HvacOtherQtyDamaged: number | null = null;
++ public HvacOtherSize: number | null = null;
+public IceShieldPresent: boolean | null = false;
+public IceShieldQty: number | null = null;
+public  MastheadQty : number | null = null;
+- public  MastheadQtyDamaged : number | null = null;
++ public MastheadQtyDamaged: number | null = null;
++ public OffRidgeVentsMaterial: string = "";
++ public OffRidgeVentsPresent: boolean | null = false;
++ public OffRidgeVentsQty: number | null = null;
++ public OffRidgeVentsQtyDamaged: number | null = null;
+public OtherPresent: boolean | null = false;
+public  SoffitVentsQty : number | null = null;
+- public  SoffitVentsQtyDamaged : number | null = null;
++ public SoffitVentsQtyDamaged: number | null = null;
++ public SolarPanelPainted: boolean | null = null;
++ public SolarPanelPresent: boolean | null = false;
++ public SolarPanelQty: number | null = null;
++ public SolarPanelQtyDamaged: number | null = null;
++ public SwampCoolerPainted: boolean | null = null;
++ public SwampCoolerPresent: boolean | null = false;
++ public SwampCoolerQty: number | null = null;
++ public SwampCoolerQtyDamaged: number | null = null;
+public  TurbinesPainted : boolean | null = null;
+
+
+##### PropertyInspectionFormRoof.cs -->
+
+
+public string AdditionalSummary { get; set; }
++ public bool? AllPhotosPitch { get; set; }
++ public bool? AllPhotosShingle { get; set; }
+public bool? BlisterDamage { get; set; }
+public string BlistersEast { get; set; }
+
+public string DeckingRottedWest { get; set; }
++ public bool? DripEdgeEavePainted { get; set; }
++ public bool? DripEdgeEavePresent { get; set; }
++ public short? DripEdgeEaveQty { get; set; }
++ public short? DripEdgeEaveQtyDamaged { get; set; }
++ public bool? DripEdgeRakePainted { get; set; }
++ public bool? DripEdgeRakePresent { get; set; }
++ public short? DripEdgeRakeQty { get; set; }
++ public short? DripEdgeRakeQtyDamaged { get; set; }
+public bool? EagleViewProvided { get; set; }
+
+public bool? EaveStarter { get; set; }
+
+public bool? ExcessiveWeathering { get; set; }
++ public string FasciaDamaged { get; set; }
++ public string FasciaMaterial { get; set; }
++ public string FasciaMaterialOther { get; set; }
++ public short? FasciaSize { get; set; }
++ public short? FasciaSizeOther { get; set; }
+public bool? Felt { get; set; }
+public string FeltDescription { get; set; }
+
+public string FlashingNotSealedWest { get; set; }
++ public string FreeForm { get; set; }
+public bool? GranuleLossDamage { get; set; }
+public string GranuleLossEast { get; set; }
+
+public string GuttersDamage { get; set; }
++ public string GuttersDamagedNoNorth { get; set; }
++ public string GuttersDamagedNoSouth { get; set; }
++ public string GuttersDamagedNoEast { get; set; }
++ public string GuttersDamagedNoWest { get; set; }
++ public string GuttersDamagedYesNorth { get; set; }
++ public string GuttersDamagedYesSouth { get; set; }
++ public string GuttersDamagedYesEast { get; set; }
++ public string GuttersDamagedYesWest { get; set; }
+public string GutterDescription { get; set; }
+public string GutterMaterial { get; set; }
+
+
+public bool? GutterWestDamaged { get; set; }
+public double? GutterWestLf { get; set; }
+- public string HailSize { get; set; }
+public short? HailDamageNorthSf { get; set; }
+
+public bool? RopeHarness { get; set; }
++ public string ShingleExposure { get; set; }
+public string ShingleType { get; set; }
++ public string ShingleWidth { get; set; }
+public double? SoffitDepthLf { get; set; }
+
+
+public string ThermalCrackingWest { get; set; }
++ public string ValleyMetalMaterial { get; set; }
++ public bool? ValleyMetalPainted { get; set; }
++ public bool? ValleyMetalPresent { get; set; }
++ public short? ValleyMetalQty { get; set; }
++ public short? ValleyMetalQtyDamaged { get; set; }
+public string ValleyType { get; set; }
+public double? WindDamageNorthOneSqft { get; set; }
+
+
+
+
+
+
+public string GuttersDamage { get; set; }
+# public string GuttersDamagedNoNorth { get; set; }
+public bool? GuttersDamagedNoNorth { get; set; }
+# public string GuttersDamagedNoSouth { get; set; }
+public bool? GuttersDamagedNoSouth { get; set; }
+# public string GuttersDamagedNoEast { get; set; }
+public bool? GuttersDamagedNoEast { get; set; }
+# public string GuttersDamagedNoWest { get; set; }
+public bool? GuttersDamagedNoWest { get; set; }
+# public string GuttersDamagedYesNorth { get; set; }
+public bool? GuttersDamagedYesNorth { get; set; }
+# public string GuttersDamagedYesSouth { get; set; }
+public bool? GuttersDamagedYesSouth { get; set; }
+# public string GuttersDamagedYesEast { get; set; }
+public bool? GuttersDamagedYesEast { get; set; }
+# public string GuttersDamagedYesWest { get; set; }
+public bool? GuttersDamagedYesWest { get; set; }
+public string GutterDescription { get; set; }
+
+
+
+
+
+##### PropertyInspectionFormMainDto.cs
+
+public string CollaborationSuccessfull { get; set; }
+
++ public bool? ContractorPresent { get; set; }
++ public bool? ContractorPresentOnRoof { get; set; }
+public DateTime CreatedOn { get; set; }
+public string DirectionNorth { get; set; }
+public bool? ElevationInspected { get; set; }
++ public bool? EagleViewProvided { get; set; }
++ public bool? InsuredPresent { get; set; }
+public bool? InteriorInspected { get; set; }
++ public bool? LaAccompanied { get; set; }
++ public bool? LaOnTime { get; set; }
+public DateTime LastModifiedOn { get; set; }
++ public bool? OutsideAdjusterOnEdge { get; set; }
++ public bool? OutsideAdjusterOnLadder { get; set; }
++ public bool? OutsideAdjusterPresent { get; set; }
++ public bool? OutsideAdjusterPresentOnRoof { get; set; }
+public double? OutsideTemp { get; set; }
+public int PropertyInspectionFormId { get; set; }
++ public bool? PublicAdjusterPresent { get; set; }
++ public bool? PublicAdjusterPresentOnRoof { get; set; }
++ public bool? RoleExplained { get; set; }
+public bool? RoofInspected { get; set; }
++ public bool? RopeHarness { get; set; }
++ public bool? TarpInstall { get; set; }
++ public double? TarpInstallSizeSf { get; set; }
++ public double? TarpResetSizeSf { get; set; }
+
+##### PropertyInspectionFormRoofDto.cs
+
+
+public string AdditionalSummary { get; set; }
++ public bool? AllPhotosPitch { get; set; }
++ public bool? AllPhotosShingle { get; set; }
+public bool? BlisterDamage { get; set; }
+public string BlistersEast { get; set; }
+
+
+public double? DripEdgeLf { get; set; }
++ public bool? DripEdgeEavePainted { get; set; }
++ public bool? DripEdgeEavePresent { get; set; }
++ public short? DripEdgeEaveQty { get; set; }
++ public short? DripEdgeEaveQtyDamaged { get; set; }
++ public bool? DripEdgeRakePainted { get; set; }
++ public bool? DripEdgeRakePresent { get; set; }
++ public short? DripEdgeRakeQty { get; set; }
++ public short? DripEdgeRakeQtyDamaged { get; set; }
+public bool? EagleViewProvided { get; set; }
+public bool? EaveStarter { get; set; }
+
+
+public bool? ExcessiveWeathering { get; set; }
++ public string FasciaDamaged { get; set; }
++ public string FasciaMaterial { get; set; }
++ public string FasciaMaterialOther { get; set; }
++ public short? FasciaSize { get; set; }
++ public short? FasciaSizeOther { get; set; }
+public bool? Felt { get; set; }
+public string FeltDescription { get; set; }
+
+public string FlashingNotSealedWest { get; set; }
++ public string FreeForm { get; set; }
+public bool? HancockDisagreesHailDamage { get; set; }
+public bool? GranuleLossDamage { get; set; }
+
+
+public string GuttersDamage { get; set; }
++ public string GuttersDamagedNoNorth { get; set; }
++ public string GuttersDamagedNoSouth { get; set; }
++ public string GuttersDamagedNoEast { get; set; }
++ public string GuttersDamagedNoWest { get; set; }
++ public string GuttersDamagedYesNorth { get; set; }
++ public string GuttersDamagedYesSouth { get; set; }
++ public string GuttersDamagedYesEast { get; set; }
++ public string GuttersDamagedYesWest { get; set; }
+public string GutterDescription { get; set; }
+public string GutterMaterial { get; set; }
+public bool? RopeHarness { get; set; }
+public bool? ShingleExposureSf { get; set; }
+public string ShingleType { get; set; }
+public short? ShingleWidthSf { get; set; }
+public bool? SpatterMarks { get; set; }
+public double? SoffitDepthLf { get; set; }
+
+
+public string ThermalCrackingWest { get; set; }
++ public string ValleyMetalMaterial { get; set; }
++ public bool? ValleyMetalPainted { get; set; }
++ public bool? ValleyMetalPresent { get; set; }
++ public short? ValleyMetalQty { get; set; }
++ public short? ValleyMetalQtyDamaged { get; set; }
+public string ValleyType { get; set; }
+public double? WindDamageNorthOneSqft { get; set; }
+
+
+
+
+public string GuttersDamage { get; set; }
+<!-- public string GuttersDamagedNoNorth { get; set; } -->
+public bool? GuttersDamagedNoNorth { get; set; }
+<!-- public string GuttersDamagedNoSouth { get; set; } -->
+public bool? GuttersDamagedNoSouth { get; set; }
+<!-- public string GuttersDamagedNoEast { get; set; } -->
+public bool? GuttersDamagedNoEast { get; set; }
+<!-- public string GuttersDamagedNoWest { get; set; } -->
+public bool? GuttersDamagedNoWest { get; set; }
+<!-- public string GuttersDamagedYesNorth { get; set; } -->
+public bool? GuttersDamagedYesNorth { get; set; }
+<!-- public string GuttersDamagedYesSouth { get; set; } -->
+public bool? GuttersDamagedYesSouth { get; set; }
+<!-- public string GuttersDamagedYesEast { get; set; } -->
+public bool? GuttersDamagedYesEast { get; set; }
+<!-- public string GuttersDamagedYesWest { get; set; } -->
+public bool? GuttersDamagedYesWest { get; set; }
+
+public string GutterDescription { get; set; }
+
+#
+public bool? RopeHarness { get; set; }
++ public bool? ShingleExposureSf { get; set; }
+public string ShingleType { get; set; }
++ public short? ShingleWidthSf { get; set; }
+public bool? SpatterMarks { get; set; }
+public double? SoffitDepthLf { get; set; }
+
+##### PropertyInspectionFormRoof.ts
+
+
+public AdditionalSummary: string = "";
++ public AllPhotosPitch: boolean | null = null;
++ public AllPhotosShingle: boolean | null = null;
+public BlisterDamage: boolean | null = false;
+public BlistersNorth: string = "";
+
+
+public CloggedGuttersWest: string = "";
+- public ContractorPresent: boolean | null = null;
+- public ContractorPresentOnRoof: boolean | null = null;
+public CreatedOn: Date;
+public CuppedDamage: boolean | null = false;
+
+
+public DripEdgeLf: number | null = null;
+- public EagleViewProvided: boolean | null = null;
++ public DripEdgeEavePainted: boolean | null = null;
++ public DripEdgeEavePresent: boolean | null = false;
++ public DripEdgeEaveQty: number | null = null;
++ public DripEdgeEaveQtyDamaged: number | null = null;
++ public DripEdgeRakePainted: boolean | null = null;
++ public DripEdgeRakePresent: boolean | null = false;
++ public DripEdgeRakeQty: number | null = null;
++ public DripEdgeRakeQtyDamaged: number | null = null;
+public EaveStarter: boolean | null = null;
+
+public FlashingNotSealedNotes: string = "";
++ public FreeForm: string = "";
+public GranuleLossDamage: boolean | null = false;
+public GranuleLossNorth: string = "";
+
+public GuttersDamage: string = "";
++ public GuttersDamagedNoNorth: string = "";
++ public GuttersDamagedNoSouth: string = "";
++ public GuttersDamagedNoEast: string = "";
++ public GuttersDamagedNoWest: string = "";
++ public GuttersDamagedYesNorth: string = "";
++ public GuttersDamagedYesSouth: string = "";
++ public GuttersDamagedYesEast: string = "";
++ public GuttersDamagedYesWest: string = "";
+public GutterDescription: string = "";
+public GutterMaterial: string = "";
+
+
+public ExcessiveWeathering: boolean | null = false;
++ public FasciaDamaged: string = "";
++ public FasciaMaterial: string = "";
++ public FasciaMaterialOther: string = "";
++ public FasciaSize: number | null = null;
++ public FasciaSizeOther: number | null = null;
+public Felt: boolean | null = null;
+public FeltDescription: string = "";
+
+
+public InstallationErrorDescriptionOther: string = "";
+- public LaAccompanied: boolean | null = null;
+- public LaOnTime: boolean | null = null;
+public LastModifiedOn: Date;
+public LayerQty: number | null = null;
+
+public OutBuildingNotes: string = "";
+- public OutsideAdjusterOnEdge: boolean | null = null;
+- public OutsideAdjusterOnLadder: boolean | null = null;
+- public OutsideAdjusterPresent: boolean | null = null;
+- public OutsideAdjusterPresentOnRoof: boolean | null = null;
+public NailPopDamaged: boolean | null = false;
+public NailPopsNorth: string = "";
+
+
+public PropertyInspectionFormId: number | null = null;
+- public PublicAdjusterPresent: boolean | null = null;
+- public PublicAdjusterPresentOnRoof: boolean | null = null;
+- public InsuredPresent: boolean | null = null;
+public RakeStarter: boolean | null = null;
+public RodentDamage: boolean | null = false;
+- public RoleExplained: boolean | null = null;
+public RoofAgeYears: string = "";
+public RoofAgeMonths: string = "";
+
+
+public RoofTypeOther: string = "";
+- public RopeHarness: boolean | null = null;
+
+
+public ShingleExposureSf: boolean | null = false;
+public ShingleType: string = "";
+
+- public ShingleExposure: boolean | null = false;
++ public ShingleExposureSf: boolean | null = false;
+
+public ShingleType: string = "";
+
+- public ShingleWidth: number | null = null;
++ public ShingleWidthSf: number | null = null;
+
+
+public StormDamageTypeOther: string = "";
+- public TarpInstall: boolean | null = null;
+- public TarpInstallSizeSf: number | null = 0;
+- public TarpResetSizeSf: number | null = 0;
+public TarpReset: boolean | null = null;
+public ThermalCrackingDamage: boolean | null = false;
+
+
+
+public ThermalCrackingWest: string = "";
++ public ValleyMetalMaterial: string = "";
++ public ValleyMetalPainted: boolean | null = null;
++ public ValleyMetalPresent: boolean | null = false;
++ public ValleyMetalQty: number | null = null;
++ public ValleyMetalQtyDamaged: number | null = null;
+public ValleyType: string = "";
+public WindDamageNorthOneSqft: number | null = 0;
+
+
+
+<!-- public GuttersDamagedNoNorth: string = ""; -->
+public GuttersDamagedNoNorth: boolean | null = null;
+<!-- public GuttersDamagedNoSouth: string = ""; -->
+public GuttersDamagedNoSouth: boolean | null = null;
+<!-- public GuttersDamagedNoEast: string = ""; -->
+public GuttersDamagedNoEast: boolean | null = null;
+<!-- public GuttersDamagedNoWest: string = ""; -->
+public GuttersDamagedNoWest: boolean | null = null;
+<!-- public GuttersDamagedYesNorth: string = ""; -->
+public GuttersDamagedYesNorth: boolean | null = null;
+<!-- public GuttersDamagedYesSouth: string = ""; -->
+public GuttersDamagedYesSouth: boolean | null = null;
+<!-- public GuttersDamagedYesEast: string = ""; -->
+public GuttersDamagedYesEast: boolean | null = null;
+<!-- public GuttersDamagedYesWest: string = ""; -->
+public GuttersDamagedYesWest: boolean | null = null;
+public GutterDescription: string = "";
+
+#
+public RopeHarness: boolean | null = null;
++ public ShingleExposure: boolean | null = false;
+public ShingleType: string = "";
++ public ShingleWidth: number | null = null;
+public SoffitDepthLf: number | null = null;
+public SpatterMarks: boolean | null = false
+
+// <!-- ##### RoofSectionComponent.ts -->
+@Watch("model.DripEdgeEavePresent")
+private ResetDripEdgeEavePresent() {
+    if (!this.model.DripEdgeEavePresent) {
+        this.model.DripEdgeEavePainted = null;
+        this.model.DripEdgeEaveQty = null;
+        this.model.DripEdgeEaveQtyDamaged = null;
+    }
+}
+@Watch("model.DripEdgeRakePresent")
+private ResetDripEdgeRake() {
+    if (!this.model.DripEdgeRakePresent) {
+        this.model.DripEdgeRakePainted = null;
+        this.model.DripEdgeRakeQty = null;
+        this.model.DripEdgeRakeQtyDamaged = null;
+    }
+}
+
+    @Watch("model.FasciaMaterial")
+    private ResetFasciaMaterial() {
+        if (this.model.FasciaMaterial != 'Other') {
+            this.model.FasciaMaterialOther = "";
+        }
+    }
+    @Watch("model.FasciaSize")
+    private ResetFasciaSize() {
+        if (String(this.model.FasciaSize).length == 0 || this.model.FasciaSize != 0) {
+            this.model.FasciaSizeOther = null;
+        }
+    }
+
+    // @Watch("model.OutsideAdjusterPresent")
+    // private ResetOutsideAdjusterPresent() {
+    //     if (!this.model.OutsideAdjusterPresent) {
+    //         this.model.OutsideAdjusterPresentOnRoof = null;
+    //         this.model.OutsideAdjusterOnEdge = null;
+    //         this.model.OutsideAdjusterOnLadder = null;
+    //     }
+    // }
+    // @Watch("model.PublicAdjusterPresent")
+    // private ResetPublicAdjusterPresent() {
+    //     if (!this.model.PublicAdjusterPresent) {
+    //         this.model.PublicAdjusterPresentOnRoof = null;
+    //     }
+    // }
+    // @Watch("model.InsuredPresent")
+    // private ResetInsuredPresent() {
+    //    if (!this.model.InsuredPresent) {
+    //         this.model.InsuredPresent =false;
+    //     } else { this.model.InsuredPresent = true;}
+    // }
+    // @Watch("model.ContractorPresent")
+    // private ResetContractorPresent() {
+    //     if (!this.model.ContractorPresent) {
+    //         this.model.ContractorPresentOnRoof = null;
+    //     }
+    // }
+    @Watch("model.ValleyMetalPresent")
+    private ResetValleyMetalPresent() {
+        if (!this.model.ValleyMetalPresent) {
+            this.model.ValleyMetalMaterial = "";
+            this.model.ValleyMetalPainted = null;
+            this.model.ValleyMetalQty = null;
+            this.model.ValleyMetalQtyDamaged = null;
+        }
+    }
+
+masterFasciaMaterials = MasterDataBuilder.ReturnFasciaMaterial();
+masterFasciaSize = MasterDataBuilder.ReturnFasciaSize();
+masterValleyMetal = MasterDataBuilder.ReturnValleyMetalMaterial();
+
+this.model.GuttersDamagedNoNorth = null;
+this.model.GuttersDamagedNoSouth = null;
+this.model.GuttersDamagedNoEast = null;
+this.model.GuttersDamagedNoWest = null;
+this.model.GuttersDamagedYesNorth = null;
+this.model.GuttersDamagedYesSouth = null;
+this.model.GuttersDamagedYesEast = null;
+this.model.GuttersDamagedYesWest = null;
+
+// <!-- ##### RoofSectionTemplate.cshtml -->
+// <numeric-camera-wrapper-component label="Shingle Width:" decimal medium-label : disable-camera="fieldAssets.length >= 100" : field-assets="ReturnFieldAssets(assetFieldEnum.ShingleWidthSf)" : asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleWidthSf)" : validate="validate" : current-value="model.ShingleWidthSf" @@onChanged="model.ShingleWidthSf = $event" ></numeric - camera - wrapper - component >
+<numeric-camera-wrapper-component id="ShingleWidthSf" label="Shingle Width:" decimal medium-label : disable-camera="fieldAssets.length >= 100" : field-assets="ReturnFieldAssets(assetFieldEnum.ShingleWidthSf)" : asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleWidthSf, 'Shingle Width')" : validate="validate" : current-value="model.ShingleWidthSf" @@onChanged="model.ShingleWidthSf = $event" ></numeric - camera - wrapper - component >
+
+// <!-- <boolean-camera-wrapper-component id="Shingle Exposure:" : disable-camera="fieldAssets.length >= 100" : field-assets="ReturnFieldAssets(assetFieldEnum.ShingleExposureSf)" : asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleExposureSf)" : validate="validate" : current-value="model.ShingleExposureSf" @@onChanged="model.ShingleExposureSf = $event" v - bind: choices = "['Yes', 'No']" label = "Shingle Exposure:" ></boolean - camera - wrapper - component > -->
+<boolean-camera-wrapper-component id="ShingleExposureSf" : disable-camera="fieldAssets.length >= 100" : field-assets="ReturnFieldAssets(assetFieldEnum.ShingleExposureSf)" : asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleExposureSf, 'Shingle Exposure')" : validate="validate" : current-value="model.ShingleExposureSf" @@onChanged="model.ShingleExposureSf = $event" v - bind: choices = "['Yes', 'No']" label = "Shingle Exposure:" ></boolean - camera - wrapper - component >
+
+// <!-- <checkbox-camera-wrapper-component id="Shingle Exposure:" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ShingleExposureSf)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleExposureSf)" :validate="validate" :current-value="model.ShingleExposureSf" @@onChanged="model.ShingleExposureSf = $event" v-bind:choices="['Yes', 'No']" :label="Shingle Exposure:"></checkbox-camera-wrapper-component> -->
+<boolean-camera-wrapper-component id="Shingle Exposure:" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ShingleExposureSf)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleExposureSf)" :validate="validate" :current-value="model.ShingleExposureSf" @@onChanged="model.ShingleExposureSf = $event" v-bind:choices="['Yes', 'No']" label="Shingle Exposure:"></boolean-camera-wrapper-component>
+
+
+// <!-- <boolean-camera-wrapper-component id="GutterDamagedNoNorth" v-show="model.GutterPresent" hide-margin :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterDamagedNoNorth)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterDamagedNoNorth)" :current-value="model.GutterDamagedNoNorth" @@onChanged="model.GutterDamagedNoNorth = $event" v-bind:choices="['Yes', 'No']" label="Gutters North Damaged No?"></boolean-camera-wrapper-component> -->
+<boolean-camera-wrapper-component id="GuttersDamagedNoNorth" v-show="model.GutterPresent" hide-margin :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GuttersDamagedNoNorth)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GuttersDamagedNoNorth)" :current-value="model.GuttersDamagedNoNorth" @@onChanged="model.GuttersDamagedNoNorth = $event" v-bind:choices="['Yes', 'No']" label="Gutters North Damaged No?"></boolean-camera-wrapper-component>
+// <!-- <boolean-camera-wrapper-component id="GutterDamagedNoSouth" v-show="model.GutterPresent" hide-margin :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterDamagedNoSouth)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterDamagedNoSouth)" :current-value="model.GutterDamagedNoSouth" @@onChanged="model.GutterDamagedNoSouth = $event" v-bind:choices="['Yes', 'No']" label="Gutters South Damaged No?"></boolean-camera-wrapper-component> -->
+<boolean-camera-wrapper-component id="GuttersDamagedNoSouth" v-show="model.GutterPresent" hide-margin :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GuttersDamagedNoSouth)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GuttersDamagedNoSouth)" :current-value="model.GuttersDamagedNoSouth" @@onChanged="model.GuttersDamagedNoSouth = $event" v-bind:choices="['Yes', 'No']" label="Gutters South Damaged No?"></boolean-camera-wrapper-component>
+// <!-- <boolean-camera-wrapper-component id="GutterDamagedNoEast" v-show="model.GutterPresent" hide-margin :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterDamagedNoEast)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterDamagedNoEast)" :current-value="model.GutterDamagedNoEast" @@onChanged="model.GutterDamagedNoEast = $event" v-bind:choices="['Yes', 'No']" label="Gutters East Damaged No?"></boolean-camera-wrapper-component> -->
+<boolean-camera-wrapper-component id="GuttersDamagedNoEast" v-show="model.GutterPresent" hide-margin :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GuttersDamagedNoEast)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GuttersDamagedNoEast)" :current-value="model.GuttersDamagedNoEast" @@onChanged="model.GuttersDamagedNoEast = $event" v-bind:choices="['Yes', 'No']" label="Gutters East Damaged No?"></boolean-camera-wrapper-component>
+// <!-- <boolean-camera-wrapper-component id="GutterDamagedNoWest" v-show="model.GutterPresent" hide-margin :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterDamagedNoWest)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterDamagedNoWest)" :current-value="model.GutterDamagedNoWest" @@onChanged="model.GutterDamagedNoWest = $event" v-bind:choices="['Yes', 'No']" label="Gutters West Damaged No?"></boolean-camera-wrapper-component> -->
+<boolean-camera-wrapper-component id="GuttersDamagedNoWest" v-show="model.GutterPresent" hide-margin :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GuttersDamagedNoWest)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GuttersDamagedNoWest)" :current-value="model.GuttersDamagedNoWest" @@onChanged="model.GuttersDamagedNoWest = $event" v-bind:choices="['Yes', 'No']" label="Gutters West Damaged No?"></boolean-camera-wrapper-component>
+
+// <!-- <boolean-camera-wrapper-component id="GutterPresent" :validate="validate" :current-value="model.GutterPresent" @@onChanged="model.GutterPresent = $event" v-bind:choices="['Yes', 'No']" label="Gutters Present?"></boolean-camera-wrapper-component> -->
+<boolean-wrapper-component id="GutterPresent" :validate="validate" :current-value="model.GutterPresent" @@onChanged="model.GutterPresent = $event" v-bind:choices="['Yes', 'No']" label="Gutters Present?"></boolean-wrapper-component>
+
+<checkbox-wrapper-component id="RoofAgeYears" :validate="validate" :current-value="model.RoofAgeYears" @@onChanged="model.RoofAgeYears = $event" v-bind:choices="masterRoofAge" label="Roof Age (Years):"></checkbox-wrapper-component>
++ <boolean-camera-wrapper-component id="AllPhotosShingle" :disable-camera="fieldAssets.length >= 100" :current-value="model.AllPhotosShingle" :field-assets="ReturnFieldAssets(assetFieldEnum.ShingleGauge)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleGauge)" @@onChanged="model.AllPhotosShingle = $event" v-bind:choices="['Yes', 'No']" label="Shingle Gauge Photo Taken?"></boolean-camera-wrapper-component>
+<checkbox-camera-wrapper-component id="ShingleType" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ShingleType)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleType)" v-show="isAllState" :validate="isAllState" :current-value="model.ShingleType" @@onChanged="model.ShingleType = $event" v-bind:choices="masterShingleType" label="Shingle Type:"></checkbox-camera-wrapper-component>
+<boolean-camera-wrapper-component id="Felt" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.Felt)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.Felt)" :validate="validate" :current-value="model.Felt" @@onChanged="model.Felt = $event" v-bind:choices="['Yes', 'No']" label="Felt?"></boolean-camera-wrapper-component>
+
+@*Shingle Exposure:*@
+<checkbox-camera-wrapper-component id="Shingle Exposure:" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ShingleExposureSf)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleExposureSf)" :validate="validate" :current-value="model.ShingleExposureSf" @@onChanged="model.ShingleExposureSf = $event" v-bind:choices="['Yes', 'No']" :label="Shingle Exposure:"></checkbox-camera-wrapper-component>
++ <boolean-camera-wrapper-component id="AllPhotosPitch" :disable-camera="fieldAssets.length >= 100" :current-value="model.AllPhotosPitch" @@onChanged="model.AllPhotosPitch = $event" :field-assets="ReturnFieldAssets(assetFieldEnum.PitchGauge)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.PitchGauge)" v-bind:choices="['Yes', 'No']" label="Pitch Gauge Photo Taken?"></boolean-camera-wrapper-component>
+<checkbox-camera-wrapper-component id="PitchNorth" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.PitchNorth)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.PitchNorth, 'Predominant Pitch ' + north)" :validate="validate" :current-value="model.PitchNorth" @@onChanged="model.PitchNorth = $event" v-bind:choices="masterRoofPitch" :label="'Predominant Pitch (' + north +')?'"></checkbox-camera-wrapper-component>
+<textbox-wrapper-component id="PitchNorthOther" hide-margin medium-label :max-characters=10 v-show="model.PitchNorth=='Other'" :validate="model.PitchNorth=='Other'" :current-value="model.PitchNorthOther" @@onChanged="model.PitchNorthOther = $event" label="Pitch North Other:"></textbox-wrapper-component>
+
+<textbox-wrapper-component id="PitchWestOther" hide-margin medium-label :max-characters=10 v-show="model.PitchWest=='Other'" :validate="model.PitchWest=='Other'" :current-value="model.PitchWestOther" @@onChanged="model.PitchWestOther = $event" label="Pitch West Other:"></textbox-wrapper-component>
++ <checkbox-wrapper-component id="FasciaMaterial" :validate="validate" :current-value="model.FasciaMaterial" @@onChanged="model.FasciaMaterial = $event" v-bind:choices="masterFasciaMaterials" label="Fascia Material:"></checkbox-wrapper-component>
++ <textbox-wrapper-component id="FasciaMaterialOther" hide-margin :max-characters=50 :validate="model.FasciaMaterial=='Other'" v-show="model.FasciaMaterial=='Other'" :current-value="model.FasciaMaterialOther" @@onChanged="model.FasciaMaterialOther = $event" label="Fascia Material Other:"></textbox-wrapper-component>
++ <checkbox-wrapper-component id="FasciaSize" hide-margin :validate="validate" :current-value="model.FasciaSize == '0' ? 'Other': String(model.FasciaSize)" @@onChanged="model.FasciaSize = $event==='Other' ? 0 : $event" v-bind:choices="masterFasciaSize" label="Fascia Size (inches):"></checkbox-wrapper-component>
++ <numeric-wrapper-component label="Fascia Size (inches):" hide-margin decimal :validate="String(model.FasciaSize).length > 0 && model.FasciaSize==0" v-show="String(model.FasciaSize).length > 0 && model.FasciaSize==0" :current-value="model.FasciaSizeOther" @@onChanged="model.FasciaSizeOther = $event"></numeric-wrapper-component>
++ <checkbox-wrapper-component id="FasciaDamaged" hide-margin :validate="validate" :current-value="model.FasciaDamaged" @@onChanged="model.FasciaDamaged = $event" v-bind:choices="masterYesNoNa" label="Fascia Damaged?"></checkbox-wrapper-component>
+<boolean-camera-wrapper-component id="RakeStarter" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.RakeStarter)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.RakeStarter)" :validate="validate" :current-value="model.RakeStarter" @@onChanged="model.RakeStarter = $event" v-bind:choices="['Yes', 'No']" label="Rake Starter?"></boolean-camera-wrapper-component>
+
+
+
+<textbox-wrapper-component id="GutterDescription" :max-characters=8000 text-area hide-margin :validate="false" v-show="model.GutterPresent" :current-value="model.GutterDescription" @@onChanged="model.GutterDescription = $event" label="Gutter Description:"></textbox-wrapper-component>
++ <boolean-camera-wrapper-component id="DripEdgePresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.DripEdgeEavePresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.DripEdgeEavePresent)" :validate="validate" :current-value="model.DripEdgeEavePresent" @@onChanged="model.DripEdgeEavePresent = $event" v-bind:choices="['Yes', 'No']" label="Drip Edge Eaves Present?"></boolean-camera-wrapper-component>
++ <boolean-wrapper-component id="DripEdgeEavePainted" hide-margin v-show="model.DripEdgeEavePresent" :validate="model.DripEdgeEavePresent" :current-value="model.DripEdgeEavePainted" @@onChanged="model.DripEdgeEavePainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
++ <numeric-wrapper-component label="Qty:" hide-margin v-show="model.DripEdgeEavePresent" :validate="model.DripEdgeEavePresent" :current-value="model.DripEdgeEaveQty" @@onChanged="ValidateQty($event, 'DripEdgeEaveQty', 'DripEdgeEaveQtyDamaged')"></numeric-wrapper-component>
++ <numeric-camera-wrapper-component label="Qty Damaged:" hide-margin v-show="model.DripEdgeEavePresent" :validate="model.DripEdgeEavePresent" :disable-camera="fieldAssets.length >= 100" :current-value="model.DripEdgeEaveQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'DripEdgeEaveQty', 'DripEdgeEaveQtyDamaged')" :field-assets="ReturnFieldAssets(assetFieldEnum.DripEdgeEaveQtyDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.DripEdgeEaveQtyDamaged)"></numeric-camera-wrapper-component>
++ <boolean-camera-wrapper-component id="DripEdgeRakePresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.DripEdgeRakePresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.DripEdgeRakePresent)" :validate="validate" :current-value="model.DripEdgeRakePresent" @@onChanged="model.DripEdgeRakePresent = $event" v-bind:choices="['Yes', 'No']" label="Drip Edge Rake Present?"></boolean-camera-wrapper-component>
++ <boolean-wrapper-component id="DripEdgeRakePainted" hide-margin v-show="model.DripEdgeRakePresent" :validate="model.DripEdgeRakePresent" :current-value="model.DripEdgeRakePainted" @@onChanged="model.DripEdgeRakePainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
++ <numeric-wrapper-component id="DripEdgeRakeQty" label="Qty:" hide-margin v-show="model.DripEdgeRakePresent" :validate="model.DripEdgeRakePresent" :current-value="model.DripEdgeRakeQty" @@onChanged="ValidateQty($event, 'DripEdgeRakeQty', 'DripEdgeRakeQtyDamaged')"></numeric-wrapper-component>
++ <numeric-camera-wrapper-component label="Qty Damaged:" hide-margin v-show="model.DripEdgeRakePresent" :validate="model.DripEdgeRakePresent" :disable-camera="fieldAssets.length >= 100" :current-value="model.DripEdgeRakeQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'DripEdgeRakeQty', 'DripEdgeRakeQtyDamaged')" :field-assets="ReturnFieldAssets(assetFieldEnum.DripEdgeRakeQtyDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.DripEdgeRakeQtyDamaged)"></numeric-camera-wrapper-component>
+<directional-camera-wrapper-component v-show="fieldAssets.length < 100" label="Roof Overview Photos:"
+                                      :validate="false"
+                                      :disable-camera="fieldAssets.length >= 100"
+
+
+
+
+<checkbox-camera-wrapper-component id="ValleyType" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ValleyType)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ValleyType)" :validate="validate" :current-value="model.ValleyType" @@onChanged="model.ValleyType = $event" v-bind:choices="masterValleyType" label="Valley Type:"></checkbox-camera-wrapper-component>
++ <boolean-camera-wrapper-component id="ValleyMetalPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ValleyMetalPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ValleyMetalPresent)" :validate="validate" :current-value="model.ValleyMetalPresent" @@onChanged="model.ValleyMetalPresent = $event" v-bind:choices="['Yes', 'No']" label="Valley Metal Present?"></boolean-camera-wrapper-component>
++ <boolean-wrapper-component id="ValleyMetalPainted" hide-margin v-show="model.ValleyMetalPresent" :validate="model.ValleyMetalPresent" :current-value="model.ValleyMetalPainted" @@onChanged="model.ValleyMetalPainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
++ <checkbox-wrapper-component id="ValleyMetalMaterial" :max-characters=25 hide-margin v-show="model.ValleyMetalPresent" :validate="model.ValleyMetalPresent" :current-value="String(model.ValleyMetalMaterial)" @@onChanged="model.ValleyMetalMaterial = $event" v-bind:choices="masterValleyMetal" label="Valley Metal Material:"></checkbox-wrapper-component>
++ <numeric-wrapper-component label="Qty:" hide-margin v-show="model.ValleyMetalPresent" :validate="model.ValleyMetalPresent" :current-value="model.ValleyMetalQty" @@onChanged="ValidateQty($event, 'ValleyMetalQty', 'ValleyMetalQtyDamaged')"></numeric-wrapper-component>
++ <numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.ValleyMetalPresent" :validate="model.ValleyMetalPresent" :current-value="model.ValleyMetalQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'ValleyMetalQty', 'ValleyMetalQtyDamaged')"></numeric-wrapper-component>
+<checkbox-wrapper-component id="PriorRepairs" :validate="validate" :current-value="model.PriorRepairs" @@onChanged="model.PriorRepairs = $event" v-bind:choices="masterYesNoNa" label="Prior Repairs ?"></checkbox-wrapper-component>
+<checkbox-camera-wrapper-component id="PriorRepairsNorth" hide-margin v-show="model.PriorRepairs=='Yes'" :validate="model.PriorRepairs=='Yes'" :current-value="model.PriorRepairsNorth" @@onChanged="model.PriorRepairsNorth = $event" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.PriorRepairsNorth)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.PriorRepairsNorth, 'Prior Repairs ' + north)" v-bind:choices="masterYesNoNa" :label="'Prior Repairs (' + north +')?'"></checkbox-camera-wrapper-component>
+
+
+<textbox-wrapper-component id="OutBuildingNotes" :max-characters=8000 text-area v-show="model.OutBuildingDamage" hide-margin :validate="model.OutBuildingDamage" :current-value="model.OutBuildingNotes" @@onChanged="model.OutBuildingNotes = $event" label="Out Building Notes:"></textbox-wrapper-component>
+
+- @* Question will be moved to Main Section/ order has been shifted/ Just move the entire block *@
+- <boolean-wrapper-component id="EagleViewProvided" v-show="isAllState" :validate="isAllState" :current-value="model.EagleViewProvided" @@onChanged="model.EagleViewProvided = $event" v-bind:choices="['Yes', 'No']" label="Was a copy of Eagleview Provided?"></boolean-wrapper-component>
+- <boolean-wrapper-component id="RoleExplained" v-show="isAllState" :validate="isAllState" :current-value="model.RoleExplained" @@onChanged="model.RoleExplained = $event" v-bind:choices="['Yes', 'No']" label="Was Ladder Assist introduced & Role Explained?"></boolean-wrapper-component>
+- <boolean-wrapper-component id="OutsideAdjusterPresent" :validate="validate" :current-value="model.OutsideAdjusterPresent" @@onChanged="model.OutsideAdjusterPresent = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster Present During Inspection?"></boolean-wrapper-component>
+- <boolean-wrapper-component id="OutsideAdjusterPresentOnRoof" hide-margin v-show="model.OutsideAdjusterPresent" :validate="model.OutsideAdjusterPresent" :current-value="model.OutsideAdjusterPresentOnRoof" @@onChanged="model.OutsideAdjusterPresentOnRoof = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster On Roof During Inspection?"></boolean-wrapper-component>
+- <boolean-wrapper-component id="OutsideAdjusterOnEdge" v-show="isAllState && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" hide-margin :validate="isAllState && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" :current-value="model.OutsideAdjusterOnEdge" @@onChanged="model.OutsideAdjusterOnEdge = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster On Edge of Roof?"></boolean-wrapper-component>
+- <boolean-wrapper-component id="OutsideAdjusterOnLadder" v-show="isAllState && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" hide-margin :validate="isAllState && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" :current-value="model.OutsideAdjusterOnLadder" @@onChanged="model.OutsideAdjusterOnLadder = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster On Ladder During Inspection?"></boolean-wrapper-component>
+- <boolean-camera-wrapper-component id="PublicAdjusterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.PublicAdjusterPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.PublicAdjusterPresent)" :validate="validate" :current-value="model.PublicAdjusterPresent" @@onChanged="model.PublicAdjusterPresent = $event" v-bind:choices="['Yes', 'No']" label="Public Adjuster Present During Inspection?"></boolean-camera-wrapper-component>
+- <boolean-wrapper-component id="RoofPublicAdjusterOnRoof" hide-margin v-show="model.PublicAdjusterPresent" :validate="model.PublicAdjusterPresent" :current-value="model.PublicAdjusterPresentOnRoof" @@onChanged="model.PublicAdjusterPresentOnRoof = $event" v-bind:choices="['Yes', 'No']" label="Public  Adjuster On Roof During Inspection?"></boolean-wrapper-component>
+- <boolean-wrapper-component id="InsuredPresent" :validate="validate" :current-value="model.InsuredPresent" @@onChanged="model.InsuredPresent = $event" v-bind:choices="['Yes', 'No']" label="Insured Present?"></boolean-wrapper-component>
+- <boolean-camera-wrapper-component id="ContractorPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ContractorPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ContractorPresent)" :validate="validate" :current-value="model.ContractorPresent" @@onChanged="model.ContractorPresent = $event" v-bind:choices="['Yes', 'No']" label="Contractor Present During Inspection?"></boolean-camera-wrapper-component>
+- <boolean-wrapper-component id="ContractorPresentOnRoof" hide-margin v-show="model.ContractorPresent" :validate="model.ContractorPresent" :current-value="model.ContractorPresentOnRoof" @@onChanged="model.ContractorPresentOnRoof = $event" v-bind:choices="['Yes', 'No']" label="Contractor On Roof During Inspection?"></boolean-wrapper-component>
+- <boolean-wrapper-component id="LaAccompanied" v-show="isAllState" :validate="isAllState" :current-value="model.LaAccompanied" @@onChanged="model.LaAccompanied = $event" v-bind:choices="['Yes', 'No']" label="Did LA Accompanied OA on walk around - collateral inspection?"></boolean-wrapper-component>
+- <boolean-wrapper-component id="LaOnTime" v-show="isAllState" :validate="isAllState" :current-value="model.LaOnTime" @@onChanged="model.LaOnTime = $event" v-bind:choices="['Yes', 'No']" label="Did LA arrive on time to inspection?"></boolean-wrapper-component>
+- <boolean-camera-wrapper-component id="RopeHarness" :custom-validator="model.RopeHarness ? 'Photo Required' : ''" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.RopeHarness)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.RopeHarness)" :validate="validate" :current-value="model.RopeHarness" @@onChanged="model.RopeHarness = $event" v-bind:choices="['Yes', 'No']" label="Rope & Harness Used?"></boolean-camera-wrapper-component>
+- <boolean-camera-wrapper-component id="TarpInstall" :custom-validator="model.TarpInstall ? '8 Photos Required' : ''" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.TarpInstall)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.TarpInstall)" :validate="validate" :current-value="model.TarpInstall" @@onChanged="model.TarpInstall = $event" v-bind:choices="['Yes', 'No']" label="Tarp Install?"></boolean-camera-wrapper-component>
+- <numeric-wrapper-component id="TarpInstallSizeSf" decimal hide-margin v-show="model.TarpInstall" :validate="model.TarpInstall" :current-value="model.TarpInstallSizeSf" @@onChanged="model.TarpInstallSizeSf = $event" label="Tarp Install Size (SF):"></numeric-wrapper-component>
+- <numeric-wrapper-component id="TarpResetSizeSf" decimal hide-margin v-show="model.TarpInstall" :validate="model.TarpInstall" :current-value="model.TarpResetSizeSf" @@onChanged="model.TarpResetSizeSf = $event" label="Tarp Install / Remove & Reset (SF):"></numeric-wrapper-component>
+- @* End of Section that needs to be moved to Main *@
+
+<boolean-wrapper-component id="OaReview" v-show="isAllState" :validate="isAllState" :current-value="model.OaReview" @@onChanged="model.OaReview = $event" v-bind:choices="['Yes', 'No']" label="Did OA review RAF?"></boolean-wrapper-component>
+<boolean-camera-wrapper-component id="OaInitialsRequired" :field-assets="ReturnFieldAssets(assetFieldEnum.OaSignature)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.OaSignature)" v-show="isAllState" :validate="isAllState" :disable-camera="true" :current-value="model.OaInitialsRequired" @@onChanged="model.OaInitialsRequired = $event" v-bind:choices="['Yes', 'No']" label="OA Initials Required?"></boolean-camera-wrapper-component>
+
+
+
+
+<numeric-camera-wrapper-component label="Soffit Depth (Inches):" decimal medium-label :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.SoffitDepthIn)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.SoffitDepthIn)" :validate="validate" :current-value="model.SoffitDepthLf" @@onChanged="model.SoffitDepthLf = $event"></numeric-camera-wrapper-component>
+@* Conditional show if Statefarm for next two *@
+- @* Shingle Width:
++ @* Shingle Width: *@
++ <numeric-camera-wrapper-component label="Shingle Width:" decimal medium-label :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ShingleWidthSf)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleWidthSf)" :validate="validate" :current-value="model.ShingleWidthSf" @@onChanged="model.ShingleWidthSf = $event"></numeric-camera-wrapper-component>
+
+- Shingle Exposure:*@
++ @*Shingle Exposure:*@
++ <checkbox-camera-wrapper-component id="Shingle Exposure:" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ShingleExposureSf)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleExposureSf)" :validate="validate" :current-value="model.ShingleExposureSf" @@onChanged="model.ShingleExposureSf = $event" v-bind:choices="['Yes', 'No']" :label="Shingle Exposure:"></checkbox-camera-wrapper-component>
+
+<checkbox-camera-wrapper-component id="PitchNorth" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.PitchNorth)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.PitchNorth, 'Predominant Pitch ' + north)" :validate="validate" :current-value="model.PitchNorth" @@onChanged="model.PitchNorth = $event" v-bind:choices="masterRoofPitch" :label="'Predominant Pitch (' + north +')?'"></checkbox-camera-wrapper-component>
+<textbox-wrapper-component id="GutterSizeOther" :max-characters=50 hide-margin v-show="model.GutterPresent &&  model.GutterSize=='Other'" :validate="model.GutterSize=='Other'" :current-value="model.GutterSizeOther" @@onChanged="model.GutterSizeOther = $event" label="Gutter Size Other:"></textbox-wrapper-component>
+
+- @* move general gutter field *@
+- <checkbox-camera-wrapper-component id="GuttersDamage" hide-margin v-show="model.GutterPresent" :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterDamaged)" :current-value="model.GuttersDamage" @@onChanged="model.GuttersDamage = $event" v-bind:choices="masterYesNo" label="Gutters Damaged?"></checkbox-camera-wrapper-component>
++ @* remove general gutter field *@
++ @*<checkbox-camera-wrapper-component id="GuttersDamage" hide-margin v-show="model.GutterPresent" :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterDamaged)" :current-value="model.GuttersDamage" @@onChanged="model.GuttersDamage = $event" v-bind:choices="masterYesNo" label="Gutters Damaged?"></checkbox-camera-wrapper-component>*@
+
+- @* Uncomment when using gutter no and yes by direction *@
+- @*<boolean-camera-wrapper-component id="GutterDamagedNoNorth" hide-margin :validate="model.GutterDamagedNoNorth == 'Yes'" :current-value="model.GutterDamagedNoNorth" @@onChanged="model.GutterDamagedNoNorth = $event" v-bind:choices="['Yes', 'No']" label="Gutters North Damaged No?"></boolean-camera-wrapper-component>
+- <boolean-camera-wrapper-component id="GutterDamagedNoSouth" hide-margin :validate="model.GutterDamagedNoSouth == 'Yes'" :current-value="model.GutterDamagedNoSouth" @@onChanged="model.GutterDamagedNoSouth = $event" v-bind:choices="['Yes', 'No']" label="Gutters South Damaged No?"></boolean-camera-wrapper-component>
+- <boolean-camera-wrapper-component id="GutterDamagedNoEast" hide-margin :validate="model.GutterDamagedNoEast == 'Yes'" :current-value="model.GutterDamagedNoEast" @@onChanged="model.GutterDamagedNoEast = $event" v-bind:choices="['Yes', 'No']" label="Gutters East Damaged No?"></boolean-camera-wrapper-component>
+- <boolean-camera-wrapper-component id="GutterDamagedNoWest" hide-margin :validate="model.GutterDamagedNoWest == 'Yes'" :current-value="model.GutterDamagedNoWest" @@onChanged="model.GutterDamagedNoWest = $event" v-bind:choices="['Yes', 'No']" label="Gutters West Damaged No?"></boolean-camera-wrapper-component>*@
++ <boolean-camera-wrapper-component id="GutterDamagedNoNorth" v-show="model.GutterPresent" hide-margin :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterDamagedNoNorth)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterDamagedNoNorth)" :current-value="model.GutterDamagedNoNorth" @@onChanged="model.GutterDamagedNoNorth = $event" v-bind:choices="['Yes', 'No']" label="Gutters North Damaged No?"></boolean-camera-wrapper-component>
+
+- @* Addd Yes to end of question in label *@
++ <boolean-camera-wrapper-component id="GutterNorthDamaged" hide-margin :validate="model.GuttersDamage=='Yes' && model.GutterPresent" v-show="model.GuttersDamage=='Yes' && model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterNorthDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterNorthDamaged, 'Gutter Damage  ' + north)" :current-value="model.GutterNorthDamaged" @@onChanged="model.GutterNorthDamaged = $event" v-bind:choices="['Yes', 'No']" label="Gutter North Damage?"></boolean-camera-wrapper-component>
++ <boolean-camera-wrapper-component id="GutterDamagedNoSouth" v-show="model.GutterPresent" hide-margin :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterDamagedNoSouth)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterDamagedNoSouth)" :current-value="model.GutterDamagedNoSouth" @@onChanged="model.GutterDamagedNoSouth = $event" v-bind:choices="['Yes', 'No']" label="Gutters South Damaged No?"></boolean-camera-wrapper-component>
+
++ <boolean-camera-wrapper-component id="GutterDamagedNoEast" v-show="model.GutterPresent" hide-margin :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterDamagedNoEast)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterDamagedNoEast)" :current-value="model.GutterDamagedNoEast" @@onChanged="model.GutterDamagedNoEast = $event" v-bind:choices="['Yes', 'No']" label="Gutters East Damaged No?"></boolean-camera-wrapper-component>
+
++ <boolean-camera-wrapper-component id="GutterDamagedNoWest" v-show="model.GutterPresent" hide-margin :validate="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterDamagedNoWest)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterDamagedNoWest)" :current-value="model.GutterDamagedNoWest" @@onChanged="model.GutterDamagedNoWest = $event" v-bind:choices="['Yes', 'No']" label="Gutters West Damaged No?"></boolean-camera-wrapper-component>
++ <boolean-camera-wrapper-component id="GuttersDamagedYesNorth" hide-margin :validate="model.GutterPresent" v-show="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GuttersDamagedYesNorth)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GuttersDamagedYesNorth)" :current-value="model.GuttersDamagedYesNorth" @@onChanged="model.GuttersDamagedYesNorth = $event" v-bind:choices="['Yes', 'No']" label="Gutters North Damaged Yes?"></boolean-camera-wrapper-component>
+
+- <numeric-wrapper-component id="GutterNorthLf" decimal medium-label hide-margin v-show="model.GutterNorthDamaged" :validate="model.GutterNorthDamaged" :current-value="model.GutterNorthLf" @@onChanged="model.GutterNorthLf = $event" label="Gutters North Damage LF:"></numeric-wrapper-component>
++ <numeric-wrapper-component id="GutterNorthLf" decimal medium-label hide-margin v-show="model.GuttersDamagedYesNorth" :validate="model.GuttersDamagedYesNorth" :current-value="model.GutterNorthLf" @@onChanged="model.GutterNorthLf = $event" label="Gutters North Damage LF:"></numeric-wrapper-component>
+
+- <boolean-camera-wrapper-component id="GutterSouthDamaged" hide-margin :validate="model.GuttersDamage=='Yes' && model.GutterPresent" v-show="model.GuttersDamage=='Yes' && model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterSouthDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterSouthDamaged, 'Gutter Damage  ' + south)" :current-value="model.GutterSouthDamaged" @@onChanged="model.GutterSouthDamaged = $event" v-bind:choices="['Yes', 'No']" label="Gutter South Damage?"></boolean-camera-wrapper-component>
++ <boolean-camera-wrapper-component id="GuttersDamagedYesSouth" hide-margin :validate="model.GutterPresent" v-show="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GuttersDamagedYesSouth)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GuttersDamagedYesSouth)" :current-value="model.GuttersDamagedYesSouth" @@onChanged="model.GuttersDamagedYesSouth = $event" v-bind:choices="['Yes', 'No']" label="Gutters South Damaged Yes?"></boolean-camera-wrapper-component>
+
+- <numeric-wrapper-component id="GutterSouthLf" decimal medium-label hide-margin v-show="model.GutterSouthDamaged" :validate="model.GutterSouthDamaged" :current-value="model.GutterSouthLf" @@onChanged="model.GutterSouthLf = $event" label="Gutters South Damage LF:"></numeric-wrapper-component>
++ <numeric-wrapper-component id="GutterSouthLf" decimal medium-label hide-margin v-show="model.GuttersDamagedYesSouth" :validate="model.GuttersDamagedYesSouth" :current-value="model.GutterSouthLf" @@onChanged="model.GutterSouthLf = $event" label="Gutters South Damage LF:"></numeric-wrapper-component>
+
+- <boolean-camera-wrapper-component id="GutterEastDamaged" hide-margin :validate="model.GuttersDamage=='Yes' && model.GutterPresent" v-show="model.GuttersDamage=='Yes' && model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterEastDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterEastDamaged, 'Gutter Damage  ' + east)" :current-value="model.GutterEastDamaged" @@onChanged="model.GutterEastDamaged = $event" v-bind:choices="['Yes', 'No']" label="Gutter East Damage?"></boolean-camera-wrapper-component>
++ <boolean-camera-wrapper-component id="GuttersDamagedYesEast" hide-margin :validate="model.GuttersDamagedYesEast" v-show="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GuttersDamagedYesEast)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GuttersDamagedYesEast)" :current-value="model.GuttersDamagedYesEast" @@onChanged="model.GuttersDamagedYesEast = $event" v-bind:choices="['Yes', 'No']" label="Gutters East Damaged Yes?"></boolean-camera-wrapper-component>
+
+- <numeric-wrapper-component id="GutterEastLf" decimal medium-label hide-margin v-show="model.GutterEastDamaged" :validate="model.GutterEastDamaged" :current-value="model.GutterEastLf" @@onChanged="model.GutterEastLf = $event" label="Gutters East Damage LF:"></numeric-wrapper-component>
++ <numeric-wrapper-component id="GutterEastLf" decimal medium-label hide-margin v-show="model.GuttersDamagedYesEast" :validate="model.GuttersDamagedYesEast" :current-value="model.GutterEastLf" @@onChanged="model.GutterEastLf = $event" label="Gutters East Damage LF:"></numeric-wrapper-component>
+
+- <boolean-camera-wrapper-component id="GutterWestDamaged" hide-margin :validate="model.GuttersDamage=='Yes' && model.GutterPresent" v-show="model.GuttersDamage=='Yes' && model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GutterWestDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GutterWestDamaged, 'Gutter Damage  ' + west)" :current-value="model.GutterWestDamaged" @@onChanged="model.GutterWestDamaged = $event" v-bind:choices="['Yes', 'No']" label="Gutter West Damage?"></boolean-camera-wrapper-component>
++ <boolean-camera-wrapper-component id="GuttersDamagedYesWest" hide-margin :validate="model.GutterPresent" v-show="model.GutterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.GuttersDamagedYesWest)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GuttersDamagedYesWest)" :current-value="model.GuttersDamagedYesWest" @@onChanged="model.GuttersDamagedYesWest = $event" v-bind:choices="['Yes', 'No']" label="Gutters West Damaged Yes?"></boolean-camera-wrapper-component>
+
+- <numeric-wrapper-component id="GutterWestLf" decimal medium-label hide-margin v-show="model.GutterWestDamaged" :validate="model.GutterWestDamaged" :current-value="model.GutterWestLf" @@onChanged="model.GutterWestLf = $event" label="Gutters West Damage LF:"></numeric-wrapper-component>
++ <numeric-wrapper-component id="GutterWestLf" decimal medium-label hide-margin v-show="model.GuttersDamagedYesWest" :validate="model.GuttersDamagedYesWest" :current-value="model.GutterWestLf" @@onChanged="model.GutterWestLf = $event" label="Gutters West Damage LF:"></numeric-wrapper-component>
+
+<textbox-wrapper-component id="GutterDescription" :max-characters=8000 text-area hide-margin :validate="false" v-show="model.GutterPresent" :current-value="model.GutterDescription" @@onChanged="model.GutterDescription = $event" label="Gutter Description:"></textbox-wrapper-component>
+<canvas-button-component id="OaInitials" hide-margin :validate="isAllState && model.OaInitialsRequired" v-show="model.OaInitialsRequired && model.OaInitialsCaptured==null" :company-id="companyId" :project-id="projectId" :property-inspection-form-id="propertyInspectionFormId" @@onChanged="model.OaInitialsCaptured = $event" :current-value="model.OaInitialsCaptured" label="Please sign your initials in the box to the right:"> </canvas-button-component>
+
+@* Additional Summary should always be second to last field before Free form *@
+- @*<textbox-wrapper-component id="AdditionalSummary" :max-characters=8000 text-area :validate="validate" :current-value="model.AdditionalSummary" @@onChanged="model.AdditionalSummary = $event" label="Additional Summary:"></textbox-wrapper-component>*@
+- @* Remove camera component once free form field is added *@
+- <textbox-camera-wrapper-component id="AdditionalSummary" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.AdditionalSummary)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.AdditionalSummary)" :max-characters=8000 text-area :validate="validate" :current-value="model.AdditionalSummary" @@onChanged="model.AdditionalSummary = $event" label="Additional Summary:"></textbox-camera-wrapper-component>
++ <textbox-wrapper-component id="AdditionalSummary" :max-characters=8000 text-area :validate="validate" :current-value="model.AdditionalSummary" @@onChanged="model.AdditionalSummary = $event" label="Additional Summary:"></textbox-wrapper-component>
+
+- @* Free Form Label with Photo Option *@
++ <textbox-camera-wrapper-component id="FreeForm" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.FreeForm)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.FreeForm)" :max-characters=8000 text-area :validate="validate" :current-value="model.FreeForm" @@onChanged="model.FreeForm = $event" label="Free Form:"></textbox-camera-wrapper-component>
+
+
+// <!-- ###### RoofDamagedItemsSectionComponent.ts -->
+
+    // @Watch("model.DripEdgeEavePresent")
+    // private ResetDripEdgeEavePresent() {
+    //     if (!this.model.DripEdgeEavePresent) {
+    //         this.model.DripEdgeEavePainted = null;
+    //         this.model.DripEdgeEaveQty = null;
+    //         this.model.DripEdgeEaveQtyDamaged = null;
+    //     }
+    // }
+    // @Watch("model.DripEdgeRakePresent")
+    // private ResetDripEdgeRake() {
+    //     if (!this.model.DripEdgeRakePresent) {
+    //         this.model.DripEdgeRakePainted = null;
+    //         this.model.DripEdgeRakeQty = null;
+    //         this.model.DripEdgeRakeQtyDamaged = null;
+    //     }
+    // }
+    // @Watch("model.ValleyMetalPresent")
+    // private ResetValleyMetalPresent() {
+    //     if (!this.model.ValleyMetalPresent) {
+    //         this.model.ValleyMetalMaterial = "";
+    //         this.model.ValleyMetalPainted = null;
+    //         this.model.ValleyMetalQty = null;
+    //         this.model.ValleyMetalQtyDamaged = null;
+    //     }
+    // }
+
+private ResetHvacOtherPresent() {
+  // if (!this.model.HvacEightPresent) {
+  //   this.model.HvacEightPainted = null;
+    if (!this.model.HvacOtherPresent) {
+      this.model.HvacOtherPainted = null;
+      this.model.HvacOtherSize = null;
+      // this.model.HvacEightQty = null;
+      // this.model.HvacEightQtyDamaged = null;
+      this.model.HvacOtherQty = null;
+      this.model.HvacOtherQtyDamaged = null;
+    }
+}
+
+    @Watch("model.DryerExhaustPresent")
+    private ResetDryerExhaustPresent() {
+        if (!this.model.DryerExhaustPresent) {
+            this.model.DryerExhaustPainted = null;
+            this.model.DryerExhaustQty = null;
+            this.model.DryerExhaustQtyDamaged = null;
+        }
+    }
+    @Watch("model.FlashingPresent")
+    private ResetFlashingPresent() {
+        if (!this.model.FlashingPresent) {
+        }
+    }
+    @Watch("model.FlatRoofScupperDrainPresent")
+    private ResetFlatRoofScupperDrainPresent() {
+        if (!this.model.FlatRoofScupperDrainPresent) {
+            this.model.FlatRoofScupperDrainPainted = null;
+            this.model.FlatRoofScupperDrainQty = null;
+            this.model.FlatRoofScupperDrainQtyDamaged = null;
+        }
+    }
+    @Watch("model.GableVentPresent")
+    private ResetGableVentPresent() {
+        if (!this.model.GableVentPresent) {
+    private ResetHvacEightPresent() {
+        if (!this.model.HvacEightPresent) {
+            this.model.HvacEightPainted = null;
+            this.model.HvacEightQty = null;
+            this.model.HvacEightQtyDamaged = null;
+        }
+    }
+    @Watch("model.HvacOtherPresent")
+    private ResetHvacOtherPresent() {
+        if (!this.model.HvacEightPresent) {
+            this.model.HvacEightPainted = null;
+            this.model.HvacOtherSize = null;
+            this.model.HvacEightQty = null;
+            this.model.HvacEightQtyDamaged = null;
+        }
+
+
+    @Watch("model.SolarPanelPresent")
+    private ResetSolarPanelPresent() {
+        if (!this.model.SolarPanelPresent) {
+            this.model.SolarPanelPainted = null;
+            this.model.SolarPanelQty = null;
+            this.model.SolarPanelQtyDamaged = null;
+        }
+    }
+    @Watch("model.SwampCoolerPresent")
+    private ResetSwampCoolerPresent() {
+        if (!this.model.SwampCoolerPresent) {
+            this.model.SwampCoolerPainted = null;
+            this.model.SwampCoolerQty = null;
+            this.model.SwampCoolerQtyDamaged = null;
+        }
+    }
+    @Watch("model.OffRidgeVentsPresent")
+    private ResetOffRidgeVentsPresent() {
+        if (!this.model.OffRidgeVentsPresent) {
+            this.model.OffRidgeVentsMaterial = "";
+            this.model.OffRidgeVentsQty = null;
+            this.model.OffRidgeVentsQtyDamaged = null;
+        }
+    }
+
+###### _RoofDamagedItemsSectionTemplate.cshtml
+
+<numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.HvacEightPresent" :validate="model.HvacEightPresent" :current-value="model.HvacEightQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'HvacEightQty', 'HvacEightQtyDamaged')"></numeric-wrapper-component>
+
+<boolean-camera-wrapper-component id="HvacOtherPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.HvacOtherPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.HvacOtherPresent)" :validate="validate" :current-value="model.HvacOtherPresent" @@onChanged="model.HvacOtherPresent = $event" v-bind:choices="['Yes', 'No']" label="Hvac Vent Other Present?"></boolean-camera-wrapper-component>
+<!-- <numeric-wrapper-component label="Size (inches):" hide-margin decimal :validate="model.HvacOtherPresent == 'Yes'" v-show="model.HvacOtherPresent == 'Yes'" :current-value="model.HvacOtherSize" @@onChanged="model.HvacOtherSize = $event"></numeric-wrapper-component> -->
+<numeric-wrapper-component label="Size (inches):" hide-margin decimal :validate="model.HvacOtherPresent" v-show="model.HvacOtherPresent" :current-value="model.HvacOtherSize" @@onChanged="model.HvacOtherSize = $event"></numeric-wrapper-component>
+<boolean-wrapper-component id="HvacOtherPainted" hide-margin v-show="model.HvacOtherPresent" :validate="model.HvacOtherPresent" :current-value="model.HvacOtherPainted" @@onChanged="model.HvacOtherPainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
+<numeric-wrapper-component label="Qty:" hide-margin v-show="model.HvacOtherPresent" :validate="model.HvacOtherPresent" :current-value="model.HvacOtherQty" @@onChanged="ValidateQty($event, 'HvacOtherQty', 'HvacOtherQtyDamaged')"></numeric-wrapper-component>
+<numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.HvacOtherPresent" :validate="model.HvacOtherPresent" :current-value="model.HvacOtherQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'HvacOtherQty', 'HvacOtherQtyDamaged')"></numeric-wrapper-component>
+
+
+<numeric-wrapper-component label="Qty:" hide-margin v-show="model.ChimneyCapLargePresent" :validate="model.ChimneyCapLargePresent" :current-value="model.ChimneyCapLargeQty" @@onChanged="ValidateQty($event, 'ChimneyCapLargeQty', 'ChimneyCapLargeQtyDamaged')"></numeric-wrapper-component>
+<numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.ChimneyCapLargePresent" :validate="model.ChimneyCapLargePresent" :current-value="model.ChimneyCapLargeQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'ChimneyCapLargeQty', 'ChimneyCapLargeQtyDamaged')"></numeric-wrapper-component>
+- @* Move drip edge to roof section after gutters*@
+- <boolean-camera-wrapper-component id="DripEdgePresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.DripEdgeEavePresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.DripEdgeEavePresent)" :validate="validate" :current-value="model.DripEdgeEavePresent" @@onChanged="model.DripEdgeEavePresent = $event" v-bind:choices="['Yes', 'No']" label="Drip Edge Eaves Present?"></boolean-camera-wrapper-component>
+- <boolean-wrapper-component id="DripEdgeEavePainted" hide-margin v-show="model.DripEdgeEavePresent" :validate="model.DripEdgeEavePresent" :current-value="model.DripEdgeEavePainted" @@onChanged="model.DripEdgeEavePainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
+- <numeric-wrapper-component label="Qty:" hide-margin v-show="model.DripEdgeEavePresent" :validate="model.DripEdgeEavePresent" :current-value="model.DripEdgeEaveQty" @@onChanged="ValidateQty($event, 'DripEdgeEaveQty', 'DripEdgeEaveQtyDamaged')"></numeric-wrapper-component>
+- <numeric-camera-wrapper-component label="Qty Damaged:" hide-margin v-show="model.DripEdgeEavePresent" :validate="model.DripEdgeEavePresent" :disable-camera="fieldAssets.length >= 100" :current-value="model.DripEdgeEaveQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'DripEdgeEaveQty', 'DripEdgeEaveQtyDamaged')" :field-assets="ReturnFieldAssets(assetFieldEnum.DripEdgeEaveQtyDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.DripEdgeEaveQtyDamaged)"></numeric-camera-wrapper-component>
+- @* Move drip rake to roof section after drip edge*@
+- <boolean-camera-wrapper-component id="DripEdgeRakePresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.DripEdgeRakePresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.DripEdgeRakePresent)" :validate="validate" :current-value="model.DripEdgeRakePresent" @@onChanged="model.DripEdgeRakePresent = $event" v-bind:choices="['Yes', 'No']" label="Drip Edge Rake Present?"></boolean-camera-wrapper-component>
+- <boolean-wrapper-component id="DripEdgeRakePainted" hide-margin v-show="model.DripEdgeRakePresent" :validate="model.DripEdgeRakePresent" :current-value="model.DripEdgeRakePainted" @@onChanged="model.DripEdgeRakePainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
+- <numeric-wrapper-component id="DripEdgeRakeQty" label="Qty:" hide-margin v-show="model.DripEdgeRakePresent" :validate="model.DripEdgeRakePresent" :current-value="model.DripEdgeRakeQty" @@onChanged="ValidateQty($event, 'DripEdgeRakeQty', 'DripEdgeRakeQtyDamaged')"></numeric-wrapper-component>
+- <numeric-camera-wrapper-component label="Qty Damaged:" hide-margin v-show="model.DripEdgeRakePresent" :validate="model.DripEdgeRakePresent" :disable-camera="fieldAssets.length >= 100" :current-value="model.DripEdgeRakeQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'DripEdgeRakeQty', 'DripEdgeRakeQtyDamaged')" :field-assets="ReturnFieldAssets(assetFieldEnum.DripEdgeRakeQtyDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.DripEdgeRakeQtyDamaged)"></numeric-camera-wrapper-component>
+<boolean-camera-wrapper-component id="FlashingPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.FlashingPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.FlashingPresent)" :validate="validate" :current-value="model.FlashingPresent" @@onChanged="model.FlashingPresent = $event" v-bind:choices="['Yes', 'No']" label="Flashing Present?"></boolean-camera-wrapper-component>
+<boolean-wrapper-component id="FlashingPainted" hide-margin v-show="model.FlashingPresent" :validate="model.FlashingPresent" :current-value="model.FlashingPainted" @@onChanged="model.FlashingPainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
+<numeric-wrapper-component label="Qty:" hide-margin v-show="model.FlashingPresent" :validate="model.FlashingPresent" :current-value="model.FlashingQty" @@onChanged="ValidateQty($event, 'FlashingQty', 'FlashingQtyDamaged')"></numeric-wrapper-component>
+
+
+<numeric-wrapper-component label="Qty:" hide-margin v-show="model.TurbinesPresent" :validate="model.TurbinesPresent" :current-value="model.TurbinesQty" @@onChanged="ValidateQty($event, 'TurbinesQty', 'TurbinesQtyDamaged')"></numeric-wrapper-component>
+<numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.TurbinesPresent" :validate="model.TurbinesPresent" :current-value="model.TurbinesQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'TurbinesQty', 'TurbinesQtyDamaged')"></numeric-wrapper-component>
+- @* Will move to roof section after valley type; entire valley metal tags *@
+- <boolean-camera-wrapper-component id="ValleyMetalPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ValleyMetalPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ValleyMetalPresent)" :validate="validate" :current-value="model.ValleyMetalPresent" @@onChanged="model.ValleyMetalPresent = $event" v-bind:choices="['Yes', 'No']" label="Valley Metal Present?"></boolean-camera-wrapper-component>
+- <boolean-wrapper-component id="ValleyMetalPainted" hide-margin v-show="model.ValleyMetalPresent" :validate="model.ValleyMetalPresent" :current-value="model.ValleyMetalPainted" @@onChanged="model.ValleyMetalPainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
+- <checkbox-wrapper-component id="ValleyMetalMaterial" :max-characters=25 hide-margin v-show="model.ValleyMetalPresent" :validate="model.ValleyMetalPresent" :current-value="String(model.ValleyMetalMaterial)" @@onChanged="model.ValleyMetalMaterial = $event" v-bind:choices="masterValleyMetal" label="Valley Metal Material:"></checkbox-wrapper-component>
+- <numeric-wrapper-component label="Qty:" hide-margin v-show="model.ValleyMetalPresent" :validate="model.ValleyMetalPresent" :current-value="model.ValleyMetalQty" @@onChanged="ValidateQty($event, 'ValleyMetalQty', 'ValleyMetalQtyDamaged')"></numeric-wrapper-component>
+- <numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.ValleyMetalPresent" :validate="model.ValleyMetalPresent" :current-value="model.ValleyMetalQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'ValleyMetalQty', 'ValleyMetalQtyDamaged')"></numeric-wrapper-component>
+- @* Flat Roof Scupper Drain Present?  *@
+<boolean-camera-wrapper-component id="FlatRoofScupperDrainPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.FlatRoofScupperDrainPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.FlatRoofScupperDrainPresent)" :validate="validate" :current-value="model.FlatRoofScupperDrainPresent" @@onChanged="model.FlatRoofScupperDrainPresent = $event" v-bind:choices="['Yes', 'No']" label="Flat Roof Scupper Drain Present?"></boolean-camera-wrapper-component>
+<boolean-wrapper-component id="FlatRoofScupperDrainPainted" hide-margin v-show="model.FlatRoofScupperDrainPresent" :validate="model.FlatRoofScupperDrainPresent" :current-value="model.FlatRoofScupperDrainPainted" @@onChanged="model.FlatRoofScupperDrainPainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
+<numeric-wrapper-component label="Qty:" hide-margin v-show="model.FlatRoofScupperDrainPresent" :validate="model.FlatRoofScupperDrainPresent" :current-value="model.FlatRoofScupperDrainQty" @@onChanged="ValidateQty($event, 'FlatRoofScupperDrainQty', 'FlatRoofScupperDrainQtyDamaged')"></numeric-wrapper-component>
+
+
+// <!-- ####### MainSectionComponent.ts -->
+@Watch("model.OutsideAdjusterPresent")
+private ResetOutsideAdjusterPresent() {
+    if (!this.model.OutsideAdjusterPresent) {
+        this.model.OutsideAdjusterPresentOnRoof = null;
+        this.model.OutsideAdjusterOnEdge = null;
+        this.model.OutsideAdjusterOnLadder = null;
+    }
+}
+@Watch("model.PublicAdjusterPresent")
+private ResetPublicAdjusterPresent() {
+    if (!this.model.PublicAdjusterPresent) {
+        this.model.PublicAdjusterPresentOnRoof = null;
+    }
+}
+@Watch("model.InsuredPresent")
+private ResetInsuredPresent() {
+    if (!this.model.InsuredPresent) {
+        this.model.InsuredPresent = false;
+    } else { this.model.InsuredPresent = true; }
+}
+@Watch("model.ContractorPresent")
+private ResetContractorPresent() {
+    if (!this.model.ContractorPresent) {
+        this.model.ContractorPresentOnRoof = null;
+    }
+}
+IsAllstateChanged() {
+  if (!this.model.AllStateInspection) {
+    this.model.AllPhotos = null;
+    this.model.CollaborationSuccessfull = "";
+    this.model.EagleViewProvided = null;
+    this.model.RoleExplained = null;
+    this.model.OutsideAdjusterOnEdge = null;
+    this.model.OutsideAdjusterOnLadder = null;
+    this.model.LaAccompanied = null;
+    this.model.LaOnTime = null;
+  }
+}
+
+private ResetTarpInstall() {
+  if (!this.model.TarpInstall) {
+    this.model.TarpInstallSizeSf = null;
+    this.model.TarpResetSizeSf = null;
+  }
+}
+
+
+##### Main Section Template.cshtml
+
+
+<boolean-wrapper-component id="AllStateInspection" :current-value="model.AllStateInspection" @@onChanged="model.AllStateInspection = $event" v-bind:choices="['Yes', 'No']" label="Allstate Inspection?"></boolean-wrapper-component>
+<checkbox-wrapper-component id="CollaborationSuccessfull" hide-margin v-show="model.AllStateInspection" :validate="model.AllStateInspection" :current-value="model.CollaborationSuccessfull" @@onChanged="model.CollaborationSuccessfull = $event" v-bind:choices="masterYesNoNa" label="Was the virtual collaboration successful?"></checkbox-wrapper-component>
+<boolean-wrapper-component id="AllPhotos" v-show="model.AllStateInspection" :validate="model.AllStateInspection" :current-value="model.AllPhotos" @@onChanged="model.AllPhotos = $event" hide-margin v-bind:choices="['Yes', 'No']" label="Have All Photos Been Taken?"></boolean-wrapper-component>
+- @* Must move to Roof Section *@
+- <boolean-camera-wrapper-component id="AllPhotosShingle" :disable-camera="fieldAssets.length >= 100" :current-value="model.AllPhotosShingle" :field-assets="ReturnFieldAssets(assetFieldEnum.ShingleGauge)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ShingleGauge)" @@onChanged="model.AllPhotosShingle = $event" v-bind:choices="['Yes', 'No']" label="Shingle Gauge Photo Taken?"></boolean-camera-wrapper-component>
+- @* Must move to Roof Section *@
+- <boolean-camera-wrapper-component id="AllPhotosPitch" :disable-camera="fieldAssets.length >= 100" :current-value="model.AllPhotosPitch" @@onChanged="model.AllPhotosPitch = $event" :field-assets="ReturnFieldAssets(assetFieldEnum.PitchGauge)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.PitchGauge)" v-bind:choices="['Yes', 'No']" label="Pitch Gauge Photo Taken?"></boolean-camera-wrapper-component>
+
++ <boolean-wrapper-component id="EagleViewProvided" v-show="isAllState" :validate="isAllState" :current-value="model.EagleViewProvided" @@onChanged="model.EagleViewProvided = $event" v-bind:choices="['Yes', 'No']" label="Was a copy of Eagleview Provided?"></boolean-wrapper-component>
++ <boolean-wrapper-component id="RoleExplained" v-show="isAllState" :validate="isAllState" :current-value="model.RoleExplained" @@onChanged="model.RoleExplained = $event" v-bind:choices="['Yes', 'No']" label="Was Ladder Assist introduced & Role Explained?"></boolean-wrapper-component>
++ <boolean-wrapper-component id="OutsideAdjusterPresent" :validate="validate" :current-value="model.OutsideAdjusterPresent" @@onChanged="model.OutsideAdjusterPresent = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster Present During Inspection?"></boolean-wrapper-component>
++ <boolean-wrapper-component id="OutsideAdjusterPresentOnRoof" hide-margin v-show="model.OutsideAdjusterPresent" :validate="model.OutsideAdjusterPresent" :current-value="model.OutsideAdjusterPresentOnRoof" @@onChanged="model.OutsideAdjusterPresentOnRoof = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster On Roof During Inspection?"></boolean-wrapper-component>
++ <boolean-wrapper-component id="OutsideAdjusterOnEdge" v-show="isAllState && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" hide-margin :validate="isAllState && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" :current-value="model.OutsideAdjusterOnEdge" @@onChanged="model.OutsideAdjusterOnEdge = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster On Edge of Roof?"></boolean-wrapper-component>
++ <boolean-wrapper-component id="OutsideAdjusterOnLadder" v-show="isAllState && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" hide-margin :validate="isAllState && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" :current-value="model.OutsideAdjusterOnLadder" @@onChanged="model.OutsideAdjusterOnLadder = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster On Ladder During Inspection?"></boolean-wrapper-component>
++ <boolean-camera-wrapper-component id="PublicAdjusterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.PublicAdjusterPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.PublicAdjusterPresent)" :validate="validate" :current-value="model.PublicAdjusterPresent" @@onChanged="model.PublicAdjusterPresent = $event" v-bind:choices="['Yes', 'No']" label="Public Adjuster Present During Inspection?"></boolean-camera-wrapper-component>
++ <boolean-wrapper-component id="RoofPublicAdjusterOnRoof" hide-margin v-show="model.PublicAdjusterPresent" :validate="model.PublicAdjusterPresent" :current-value="model.PublicAdjusterPresentOnRoof" @@onChanged="model.PublicAdjusterPresentOnRoof = $event" v-bind:choices="['Yes', 'No']" label="Public  Adjuster On Roof During Inspection?"></boolean-wrapper-component>
++ <boolean-wrapper-component id="InsuredPresent" :validate="validate" :current-value="model.InsuredPresent" @@onChanged="model.InsuredPresent = $event" v-bind:choices="['Yes', 'No']" label="Insured Present?"></boolean-wrapper-component>
++ <boolean-camera-wrapper-component id="ContractorPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ContractorPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ContractorPresent)" :validate="validate" :current-value="model.ContractorPresent" @@onChanged="model.ContractorPresent = $event" v-bind:choices="['Yes', 'No']" label="Contractor Present During Inspection?"></boolean-camera-wrapper-component>
++ <boolean-wrapper-component id="ContractorPresentOnRoof" hide-margin v-show="model.ContractorPresent" :validate="model.ContractorPresent" :current-value="model.ContractorPresentOnRoof" @@onChanged="model.ContractorPresentOnRoof = $event" v-bind:choices="['Yes', 'No']" label="Contractor On Roof During Inspection?"></boolean-wrapper-component>
++ <boolean-wrapper-component id="LaAccompanied" v-show="isAllState" :validate="isAllState" :current-value="model.LaAccompanied" @@onChanged="model.LaAccompanied = $event" v-bind:choices="['Yes', 'No']" label="Did LA Accompanied OA on walk around - collateral inspection?"></boolean-wrapper-component>
++ <boolean-wrapper-component id="LaOnTime" v-show="isAllState" :validate="isAllState" :current-value="model.LaOnTime" @@onChanged="model.LaOnTime = $event" v-bind:choices="['Yes', 'No']" label="Did LA arrive on time to inspection?"></boolean-wrapper-component>
++ <boolean-camera-wrapper-component id="RopeHarness" :custom-validator="model.RopeHarness ? 'Photo Required' : ''" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.RopeHarness)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.RopeHarness)" :validate="validate" :current-value="model.RopeHarness" @@onChanged="model.RopeHarness = $event" v-bind:choices="['Yes', 'No']" label="Rope & Harness Used?"></boolean-camera-wrapper-component>
++ <boolean-camera-wrapper-component id="TarpInstall" :custom-validator="model.TarpInstall ? '8 Photos Required' : ''" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.TarpInstall)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.TarpInstall)" :validate="validate" :current-value="model.TarpInstall" @@onChanged="model.TarpInstall = $event" v-bind:choices="['Yes', 'No']" label="Tarp Install?"></boolean-camera-wrapper-component>
++ <numeric-wrapper-component id="TarpInstallSizeSf" decimal hide-margin v-show="model.TarpInstall" :validate="model.TarpInstall" :current-value="model.TarpInstallSizeSf" @@onChanged="model.TarpInstallSizeSf = $event" label="Tarp Install Size (SF):"></numeric-wrapper-component>
++ <numeric-wrapper-component id="TarpResetSizeSf" decimal hide-margin v-show="model.TarpInstall" :validate="model.TarpInstall" :current-value="model.TarpResetSizeSf" @@onChanged="model.TarpResetSizeSf = $event" label="Tarp Install / Remove & Reset (SF):"></numeric-wrapper-component>
+<boolean-wrapper-component id="InteriorInspected" :validate="true" :current-value="model.InteriorInspected" @@onChanged="onSectionInspectedChange('Interior',$event)" v-bind:choices="['Yes', 'No']" label="Was the Interior Inspected?"></boolean-wrapper-component>
+<boolean-wrapper-component id="ElevationInspected" :validate="true" :current-value="model.ElevationInspected" @@onChanged="onSectionInspectedChange('Elevation',$event)" v-bind:choices="['Yes', 'No']" label="Was the Elevation Inspected?"></boolean-wrapper-component>
+
+
+<!-- ####### assetFieldEnum.cs -->
+
+ContractorPresent = 212,
+ShingleWidthSf = 213,
+ShingleExposureSf = 214,
+GuttersDamagedNoNorth = 215,
+GuttersDamagedNoSouth = 216,
+GuttersDamagedNoEast = 217,
+GuttersDamagedNoWest = 218,
+GuttersDamagedYesNorth = 219,
+GuttersDamagedYesSouth = 220,
+GuttersDamagedYesEast = 221,
+GuttersDamagedYesWest = 222,
+FreeForm = 223,
+HvacOtherPresent = 224,
+OffRidgeVentsPresent = 225,
+DryerExhaustPresent = 226,
+SwampCoolerPresent = 227,
+SolarPanelPresent = 228,
+FlatRoofScupperDrainPresent = 229,
+DripEdgeEaveQtyDamaged = 230
+
+
+####### assetFieldEnum.ts
+
+// FlatRoofScupperDrainPresent = 229
+FlatRoofScupperDrainPresent = 229,
+DripEdgeEaveQtyDamaged = 230
+
+HailDamageDisagreeSouth = 209,
+HailDamageDisagreeWest = 210,
+PublicAdjusterPresent = 211,
+- ContractorPresent = 212
++ ContractorPresent = 212,
++ ShingleWidthSf = 213,
+- //Roof
+- //Roof Damaged Items New
+- //HvacOtherPresent
+- //OffRidgeVentsPresent
+- //DryerExhaustPresent
+- //SwampCoolerPresent
+- //SolarPanelPresent
+- //FlatRoofScupperDrainPresent
++ ShingleExposureSf = 214,
++ GuttersDamagedNoNorth = 215,
++ GuttersDamagedNoSouth = 216,
++ GuttersDamagedNoEast = 217,
++ GuttersDamagedNoWest = 218,
++ GuttersDamagedYesNorth = 219,
++ GuttersDamagedYesSouth = 220,
++ GuttersDamagedYesEast = 221,
++ GuttersDamagedYesWest = 222,
++ FreeForm = 223,
++ HvacOtherPresent = 224,
++ OffRidgeVentsPresent = 225,
++ DryerExhaustPresent = 226,
++ SwampCoolerPresent = 227,
++ SolarPanelPresent = 228,
++ FlatRoofScupperDrainPresent = 229
+
+HailDamageDisagreeWest = 210,
+PublicAdjusterPresent = 211,
+ContractorPresent = 212
++ //Roof
++ //Roof Damaged Items New
++ //HvacOtherPresent
++ //OffRidgeVentsPresent
++ //DryerExhaustPresent
++ //SwampCoolerPresent
++ //SolarPanelPresent
++ //FlatRoofScupperDrainPresent
+
+
+
+<!-- <boolean-wrapper-component id="EagleViewProvided" v-show="isAllState" :validate="isAllState" :current-value="model.EagleViewProvided" @@onChanged="model.EagleViewProvided = $event" v-bind:choices="['Yes', 'No']" label="Was a copy of Eagleview Provided?"></boolean-wrapper-component> -->
+<!-- <boolean-wrapper-component id="RoleExplained" v-show="isAllState" :validate="isAllState" :current-value="model.RoleExplained" @@onChanged="model.RoleExplained = $event" v-bind:choices="['Yes', 'No']" label="Was Ladder Assist introduced & Role Explained?"></boolean-wrapper-component> -->
+<!-- <boolean-wrapper-component id="OutsideAdjusterPresent" :validate="validate" :current-value="model.OutsideAdjusterPresent" @@onChanged="model.OutsideAdjusterPresent = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster Present During Inspection?"></boolean-wrapper-component> -->
+<boolean-wrapper-component id="EagleViewProvided" v-show="model.AllStateInspection" :validate="model.AllStateInspection" :current-value="model.EagleViewProvided" @@onChanged="model.EagleViewProvided = $event" v-bind:choices="['Yes', 'No']" label="Was a copy of Eagleview Provided?"></boolean-wrapper-component>
+<boolean-wrapper-component id="RoleExplained" v-show="model.AllStateInspection" :validate="model.AllStateInspection" :current-value="model.RoleExplained" @@onChanged="model.RoleExplained = $event" v-bind:choices="['Yes', 'No']" label="Was Ladder Assist introduced & Role Explained?"></boolean-wrapper-component>
+<boolean-wrapper-component id="OutsideAdjusterPresent" :validate="false" :current-value="model.OutsideAdjusterPresent" @@onChanged="model.OutsideAdjusterPresent = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster Present During Inspection?"></boolean-wrapper-component>
+<boolean-wrapper-component id="OutsideAdjusterPresentOnRoof" hide-margin v-show="model.OutsideAdjusterPresent" :validate="model.OutsideAdjusterPresent" :current-value="model.OutsideAdjusterPresentOnRoof" @@onChanged="model.OutsideAdjusterPresentOnRoof = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster On Roof During Inspection?"></boolean-wrapper-component>
+<!-- <boolean-wrapper-component id="OutsideAdjusterOnEdge" v-show="isAllState && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" hide-margin :validate="isAllState && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" :current-value="model.OutsideAdjusterOnEdge" @@onChanged="model.OutsideAdjusterOnEdge = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster On Edge of Roof?"></boolean-wrapper-component> -->
+<!-- <boolean-wrapper-component id="OutsideAdjusterOnLadder" v-show="isAllState && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" hide-margin :validate="isAllState && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" :current-value="model.OutsideAdjusterOnLadder" @@onChanged="model.OutsideAdjusterOnLadder = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster On Ladder During Inspection?"></boolean-wrapper-component> -->
+<!-- <boolean-camera-wrapper-component id="PublicAdjusterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.PublicAdjusterPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.PublicAdjusterPresent)" :validate="validate" :current-value="model.PublicAdjusterPresent" @@onChanged="model.PublicAdjusterPresent = $event" v-bind:choices="['Yes', 'No']" label="Public Adjuster Present During Inspection?"></boolean-camera-wrapper-component> -->
+<boolean-wrapper-component id="OutsideAdjusterOnEdge" v-show="model.AllStateInspection && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" hide-margin :validate="model.AllStateInspection && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" :current-value="model.OutsideAdjusterOnEdge" @@onChanged="model.OutsideAdjusterOnEdge = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster On Edge of Roof?"></boolean-wrapper-component>
+<boolean-wrapper-component id="OutsideAdjusterOnLadder" v-show="model.AllStateInspection && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" hide-margin :validate="model.AllStateInspection && model.OutsideAdjusterPresent  && !model.OutsideAdjusterPresentOnRoof" :current-value="model.OutsideAdjusterOnLadder" @@onChanged="model.OutsideAdjusterOnLadder = $event" v-bind:choices="['Yes', 'No']" label="Outside Adjuster On Ladder During Inspection?"></boolean-wrapper-component>
+<boolean-camera-wrapper-component id="PublicAdjusterPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.PublicAdjusterPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.PublicAdjusterPresent)" :validate="false" :current-value="model.PublicAdjusterPresent" @@onChanged="model.PublicAdjusterPresent = $event" v-bind:choices="['Yes', 'No']" label="Public Adjuster Present During Inspection?"></boolean-camera-wrapper-component>
+<boolean-wrapper-component id="RoofPublicAdjusterOnRoof" hide-margin v-show="model.PublicAdjusterPresent" :validate="model.PublicAdjusterPresent" :current-value="model.PublicAdjusterPresentOnRoof" @@onChanged="model.PublicAdjusterPresentOnRoof = $event" v-bind:choices="['Yes', 'No']" label="Public  Adjuster On Roof During Inspection?"></boolean-wrapper-component>
+<!-- <boolean-wrapper-component id="InsuredPresent" :validate="validate" :current-value="model.InsuredPresent" @@onChanged="model.InsuredPresent = $event" v-bind:choices="['Yes', 'No']" label="Insured Present?"></boolean-wrapper-component> -->
+<!-- <boolean-camera-wrapper-component id="ContractorPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ContractorPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ContractorPresent)" :validate="validate" :current-value="model.ContractorPresent" @@onChanged="model.ContractorPresent = $event" v-bind:choices="['Yes', 'No']" label="Contractor Present During Inspection?"></boolean-camera-wrapper-component> -->
+<boolean-wrapper-component id="InsuredPresent" :validate="false" :current-value="model.InsuredPresent" @@onChanged="model.InsuredPresent = $event" v-bind:choices="['Yes', 'No']" label="Insured Present?"></boolean-wrapper-component>
+<boolean-camera-wrapper-component id="ContractorPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.ContractorPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.ContractorPresent)" :validate="false" :current-value="model.ContractorPresent" @@onChanged="model.ContractorPresent = $event" v-bind:choices="['Yes', 'No']" label="Contractor Present During Inspection?"></boolean-camera-wrapper-component>
+<!-- <boolean-wrapper-component id="LaAccompanied" v-show="isAllState" :validate="isAllState" :current-value="model.LaAccompanied" @@onChanged="model.LaAccompanied = $event" v-bind:choices="['Yes', 'No']" label="Did LA Accompanied OA on walk around - collateral inspection?"></boolean-wrapper-component> -->
+<!-- <boolean-wrapper-component id="LaOnTime" v-show="isAllState" :validate="isAllState" :current-value="model.LaOnTime" @@onChanged="model.LaOnTime = $event" v-bind:choices="['Yes', 'No']" label="Did LA arrive on time to inspection?"></boolean-wrapper-component> -->
+<!-- <boolean-camera-wrapper-component id="RopeHarness" :custom-validator="model.RopeHarness ? 'Photo Required' : ''" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.RopeHarness)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.RopeHarness)" :validate="validate" :current-value="model.RopeHarness" @@onChanged="model.RopeHarness = $event" v-bind:choices="['Yes', 'No']" label="Rope & Harness Used?"></boolean-camera-wrapper-component> -->
+<!-- <boolean-camera-wrapper-component id="TarpInstall" :custom-validator="model.TarpInstall ? '8 Photos Required' : ''" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.TarpInstall)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.TarpInstall)" :validate="validate" :current-value="model.TarpInstall" @@onChanged="model.TarpInstall = $event" v-bind:choices="['Yes', 'No']" label="Tarp Install?"></boolean-camera-wrapper-component> -->
+<boolean-wrapper-component id="LaAccompanied" v-show="model.AllStateInspection" :validate="model.AllStateInspection" :current-value="model.LaAccompanied" @@onChanged="model.LaAccompanied = $event" v-bind:choices="['Yes', 'No']" label="Did LA Accompanied OA on walk around - collateral inspection?"></boolean-wrapper-component>
+<boolean-wrapper-component id="LaOnTime" v-show="model.AllStateInspection" :validate="model.AllStateInspection" :current-value="model.LaOnTime" @@onChanged="model.LaOnTime = $event" v-bind:choices="['Yes', 'No']" label="Did LA arrive on time to inspection?"></boolean-wrapper-component>
+<boolean-camera-wrapper-component id="RopeHarness" :custom-validator="model.RopeHarness ? 'Photo Required' : ''" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.RopeHarness)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.RopeHarness)" :validate="false" :current-value="model.RopeHarness" @@onChanged="model.RopeHarness = $event" v-bind:choices="['Yes', 'No']" label="Rope & Harness Used?"></boolean-camera-wrapper-component>
+<boolean-camera-wrapper-component id="TarpInstall" :custom-validator="model.TarpInstall ? '8 Photos Required' : ''" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.TarpInstall)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.TarpInstall)" :validate="false" :current-value="model.TarpInstall" @@onChanged="model.TarpInstall = $event" v-bind:choices="['Yes', 'No']" label="Tarp Install?"></boolean-camera-wrapper-component>
+<numeric-wrapper-component id="TarpInstallSizeSf" decimal hide-margin v-show="model.TarpInstall" :validate="model.TarpInstall" :current-value="model.TarpInstallSizeSf" @@onChanged="model.TarpInstallSizeSf = $event" label="Tarp Install Size (SF):"></numeric-wrapper-component>
+<numeric-wrapper-component id="TarpResetSizeSf" decimal hide-margin v-show="model.TarpInstall" :validate="model.TarpInstall" :current-value="model.TarpResetSizeSf" @@onChanged="model.TarpResetSizeSf = $event" label="Tarp Install / Remove & Reset (SF):"></numeric-wrapper-component>
+
+// ##### ElevationSectionComponent.ts
+
+// @Watch("model.FasciaDamaged")
+// private ResetFascia() {
+//     if (this.model.FasciaDamaged !== 'Yes') {
+//         this.model.FasciaNorthDamaged = "";
+//         this.model.FasciaEastDamaged = "";
+//         this.model.FasciaSouthDamaged = "";
+//         this.model.FasciaWestDamaged = "";
+//         this.model.FasciaNorthLf = null;
+//         this.model.FasciaEastLf = null;
+//         this.model.FasciaWestLf = null;
+//         this.model.FasciaSouthLf = null;
+//     }
+// }
+
+
+// @Watch("model.FasciaMaterial")
+// private ResetFasciaMaterial() {
+//     if (this.model.FasciaMaterial != 'Other') {
+//         this.model.FasciaMaterialOther = "";
+//     }
+// }
+// @Watch("model.FasciaSize")
+// private ResetFasciaSize() {
+//     if (String(this.model.FasciaSize).length == 0 || this.model.FasciaSize != 0) {
+//         this.model.FasciaSizeOther = null;
+//     }
+// }
+// @Watch("model.FasciaNorthDamaged")
+// private ResetFasciaNorthDamaged() {
+//     if (this.model.FasciaNorthDamaged !== 'Yes') {
+//         this.model.FasciaNorthLf = null;
+//     }
+// }
+// @Watch("model.FasciaSouthDamaged")
+// private ResetFasciaSouthDamaged() {
+//     if (this.model.FasciaSouthDamaged !== 'Yes') {
+//         this.model.FasciaSouthLf = null;
+//     }
+// }
+// @Watch("model.FasciaEastDamaged")
+// private ResetFasciaEastDamaged() {
+//     if (this.model.FasciaEastDamaged !== 'Yes') {
+//         this.model.FasciaEastLf = null;
+//     }
+// }
+// @Watch("model.FasciaWestDamaged")
+// private ResetFasciaWestDamaged() {
+//     if (this.model.FasciaWestDamaged !== 'Yes') {
+//         this.model.FasciaWestLf = null;
+//     }
+// }
+
+##### _ElevationSectionTemplate.cshtml
+
+<numeric-wrapper-component v-bind:label="'Downspouts Damaged (' + west +') (LF):'" decimal :validate="model.DownSpoutsWestDamaged=='Yes'" v-show="model.DownSpoutsWestDamaged=='Yes'" hide-margin :current-value="model.DownSpoutsWestLf" @@onChanged="model.DownSpoutsWestLf = $event"></numeric-wrapper-component>
+
+-  @* Fascia section to be moved to Roof *@
+-  <checkbox-wrapper-component id="FasciaMaterial" :validate="validate" :current-value="model.FasciaMaterial" @@onChanged="model.FasciaMaterial = $event" v-bind:choices="masterFasciaMaterials" label="Fascia Material:"></checkbox-wrapper-component>
+-  <textbox-wrapper-component id="FasciaMaterialOther" hide-margin :max-characters=50 :validate="model.FasciaMaterial=='Other'" v-show="model.FasciaMaterial=='Other'" :current-value="model.FasciaMaterialOther" @@onChanged="model.FasciaMaterialOther = $event" label="Fascia Material Other:"></textbox-wrapper-component>
+-  <checkbox-wrapper-component id="FasciaSize" hide-margin :validate="validate" :current-value="model.FasciaSize == '0' ? 'Other': String(model.FasciaSize)" @@onChanged="model.FasciaSize = $event==='Other' ? 0 : $event" v-bind:choices="masterFasciaSize" label="Fascia Size (inches):"></checkbox-wrapper-component>
+-  <numeric-wrapper-component label="Fascia Size (inches):" hide-margin decimal :validate="String(model.FasciaSize).length > 0 && model.FasciaSize==0" v-show="String(model.FasciaSize).length > 0 && model.FasciaSize==0" :current-value="model.FasciaSizeOther" @@onChanged="model.FasciaSizeOther = $event"></numeric-wrapper-component>
+-  <checkbox-wrapper-component id="FasciaDamaged" hide-margin :validate="validate" :current-value="model.FasciaDamaged" @@onChanged="model.FasciaDamaged = $event" v-bind:choices="masterYesNoNa" label="Fascia Damaged?"></checkbox-wrapper-component>
+-  @* Fascia directions to be removed after full migration update *@
+-  <checkbox-camera-wrapper-component id="FasciaNorthDamaged" v-show="model.FasciaDamaged=='Yes'" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.FasciaNorthDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.FasciaNorthDamaged, 'Fascia Damaged ' + north)" hide-margin :validate="model.FasciaDamaged=='Yes'" :current-value="model.FasciaNorthDamaged" @@onChanged="model.FasciaNorthDamaged = $event" v-bind:choices="masterYesNo" v-bind:label="'Fascia Damaged (' + north +'):'"></checkbox-camera-wrapper-component>
+-  <numeric-wrapper-component v-bind:label="'Fascia Damaged (' + north +') (LF):'" decimal :validate="model.FasciaNorthDamaged=='Yes'" v-show="model.FasciaNorthDamaged=='Yes'" hide-margin :current-value="model.FasciaNorthLf" @@onChanged="model.FasciaNorthLf = $event"></numeric-wrapper-component>
+-  <checkbox-camera-wrapper-component id="FasciaEastDamaged" v-show="model.FasciaDamaged=='Yes'" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.FasciaEastDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.FasciaEastDamaged, 'Fascia Damaged ' + east)" hide-margin :validate="model.FasciaDamaged=='Yes'" :current-value="model.FasciaEastDamaged" @@onChanged="model.FasciaEastDamaged = $event" v-bind:choices="masterYesNo" v-bind:label="'Fascia Damaged (' + east +'):'"></checkbox-camera-wrapper-component>
+-  <numeric-wrapper-component v-bind:label="'Fascia Damaged (' + east +') (LF):'" decimal :validate="model.FasciaEastDamaged=='Yes'" v-show="model.FasciaEastDamaged=='Yes'" hide-margin :current-value="model.FasciaEastLf" @@onChanged="model.FasciaEastLf = $event"></numeric-wrapper-component>
+-  <checkbox-camera-wrapper-component id="FasciaSouthDamaged" v-show="model.FasciaDamaged=='Yes'" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.FasciaSouthDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.FasciaSouthDamaged, 'Fascia Damaged ' + south)" hide-margin :validate="model.FasciaDamaged=='Yes'" :current-value="model.FasciaSouthDamaged" @@onChanged="model.FasciaSouthDamaged = $event" v-bind:choices="masterYesNo" v-bind:label="'Fascia Damaged (' + south +'):'"></checkbox-camera-wrapper-component>
+-  <numeric-wrapper-component v-bind:label="'Fascia Damaged (' + south +') (LF):'" decimal :validate="model.FasciaSouthDamaged=='Yes'" v-show="model.FasciaSouthDamaged=='Yes'" hide-margin :current-value="model.FasciaSouthLf" @@onChanged="model.FasciaSouthLf = $event"></numeric-wrapper-component>
+-  <checkbox-camera-wrapper-component id="FasciaWestDamaged" v-show="model.FasciaDamaged=='Yes'" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.FasciaWestDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.FasciaWestDamaged, 'Fascia Damaged ' + west)" hide-margin :validate="model.FasciaDamaged=='Yes'" :current-value="model.FasciaWestDamaged" @@onChanged="model.FasciaWestDamaged = $event" v-bind:choices="masterYesNo" v-bind:label="'Fascia Damaged (' + west +'):'"></checkbox-camera-wrapper-component>
+-  <numeric-wrapper-component v-bind:label="'Fascia Damaged (' + west +') (LF):'" decimal :validate="model.FasciaWestDamaged=='Yes'" v-show="model.FasciaWestDamaged=='Yes'" hide-margin :current-value="model.FasciaWestLf" @@onChanged="model.FasciaWestLf = $event"></numeric-wrapper-component>
+-  @* End of Fascia section to be moved *@
+
+<checkbox-camera-wrapper-component id="GarageDamaged" :disable-camera="fieldAssets.length >= 100" :validate="validate" :current-value="model.GarageDamaged" :field-assets="ReturnFieldAssets(assetFieldEnum.GarageDamaged)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.GarageDamaged)" @@onChanged="model.GarageDamaged = $event" v-bind:choices="masterYesNoNa" label="Garage Door Damaged:"></checkbox-camera-wrapper-component>
+<textbox-wrapper-component id="GarageDescription" text-area :max-characters="1500" hide-margin v-show="model.GarageDamaged =='Yes'" :validate="model.GarageDamaged =='Yes'" :current-value="model.GarageDescription" @@onChanged="model.GarageDescription = $event" label="Damage Description:"></textbox-wrapper-component>
+
+
+<numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.HvacEightPresent" :validate="model.HvacEightPresent" :current-value="model.HvacEightQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'HvacEightQty', 'HvacEightQtyDamaged')"></numeric-wrapper-component>
+
+@* HVAC other is an addition that needs migrations *@
+- @*<boolean-camera-wrapper-component id="HvacOtherPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.HvacOtherPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.HvacOtherPresent)" :validate="validate" :current-value="model.HvacOtherPresent" @@onChanged="model.HvacOtherPresent = $event" v-bind:choices="['Yes', 'No']" label="Hvac Vent Other Present?"></boolean-camera-wrapper-component>
+- <numeric-wrapper-component label="Size (inches):" hide-margin decimal :validate="model.HvacOtherPresent == 'Yes'" v-show="model.HvacOtherPresent == 'Yes'" :current-value="model.HvacOtherPresent" @@onChanged="model.HvacOtherPresent = $event"></numeric-wrapper-component>
++ <boolean-camera-wrapper-component id="HvacOtherPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.HvacOtherPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.HvacOtherPresent)" :validate="validate" :current-value="model.HvacOtherPresent" @@onChanged="model.HvacOtherPresent = $event" v-bind:choices="['Yes', 'No']" label="Hvac Vent Other Present?"></boolean-camera-wrapper-component>
++ <numeric-wrapper-component label="Size (inches):" hide-margin decimal :validate="model.HvacOtherPresent == 'Yes'" v-show="model.HvacOtherPresent == 'Yes'" :current-value="model.HvacOtherSize" @@onChanged="model.HvacOtherSize = $event"></numeric-wrapper-component>
+<boolean-wrapper-component id="HvacOtherPainted" hide-margin v-show="model.HvacOtherPresent" :validate="model.HvacOtherPresent" :current-value="model.HvacOtherPainted" @@onChanged="model.HvacOtherPainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
+<numeric-wrapper-component label="Qty:" hide-margin v-show="model.HvacOtherPresent" :validate="model.HvacOtherPresent" :current-value="model.HvacOtherQty" @@onChanged="ValidateQty($event, 'HvacOtherQty', 'HvacOtherQtyDamaged')"></numeric-wrapper-component>
+- <numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.HvacOtherPresent" :validate="model.HvacOtherPresent" :current-value="model.HvacOtherQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'HvacOtherQty', 'HvacOtherQtyDamaged')"></numeric-wrapper-component>*@
++<numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.HvacOtherPresent" :validate="model.HvacOtherPresent" :current-value="model.HvacOtherQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'HvacOtherQty', 'HvacOtherQtyDamaged')"></numeric-wrapper-component>
+
+<boolean-camera-wrapper-component id="PowerVentsPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.PowerVentsPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.PowerVentsPresent)" :validate="validate" :current-value="model.PowerVentsPresent" @@onChanged="model.PowerVentsPresent = $event" v-bind:choices="['Yes', 'No']" label="Power Vents Present?"></boolean-camera-wrapper-component>
+<boolean-wrapper-component id="PowerVentsPainted" hide-margin v-show="model.PowerVentsPresent" :validate="model.PowerVentsPresent" :current-value="model.PowerVentsPainted" @@onChanged="model.PowerVentsPainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
+
+<numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.RidgeVentsPresent" :validate="model.RidgeVentsPresent" :current-value="model.RidgeVentsQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'RidgeVentsQty', 'RidgeVentsQtyDamaged')"></numeric-wrapper-component>
+
+@* Off-Ridge Vent Material*@
++ <boolean-camera-wrapper-component id="OffRidgeVentsPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.OffRidgeVentsPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.OffRidgeVentsPresent)" :validate="validate" :current-value="model.OffRidgeVentsPresent" @@onChanged="model.OffRidgeVentsPresent = $event" v-bind:choices="['Yes', 'No']" label="Off-Ridge Vents Present?"></boolean-camera-wrapper-component>
++ <checkbox-wrapper-component id="OffRidgeVentsMaterial" :max-characters=25 hide-margin v-show="model.OffRidgeVentsPresent" :validate="model.OffRidgeVentsPresent" :current-value="String(model.OffRidgeVentsMaterial)" @@onChanged="model.OffRidgeVentsMaterial = $event" v-bind:choices="masterRidgeVentMaterial" label="Off-Ridge Vent Material:"></checkbox-wrapper-component>
++ <numeric-wrapper-component label="Qty:" hide-margin v-show="model.OffRidgeVentsPresent" :validate="model.OffRidgeVentsPresent" :current-value="model.OffRidgeVentsQty" @@onChanged="ValidateQty($event, 'OffRidgeVentsQty', 'OffRidgeVentsQtyDamaged')"></numeric-wrapper-component>
++ <numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.OffRidgeVentsPresent" :validate="model.OffRidgeVentsPresent" :current-value="model.OffRidgeVentsQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'OffRidgeVentsQty', 'OffRidgeVentsQtyDamaged')"></numeric-wrapper-component>
+
+@* Dryer Exhaust Present *@
++ <boolean-camera-wrapper-component id="DryerExhaustPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.DryerExhaustPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.DryerExhaustPresent)" :validate="validate" :current-value="model.DryerExhaustPresent" @@onChanged="model.DryerExhaustPresent = $event" v-bind:choices="['Yes', 'No']" label="Dryer Exhaust Present?"></boolean-camera-wrapper-component>
++ <boolean-wrapper-component id="DryerExhaustPainted" hide-margin v-show="model.DryerExhaustPresent" :validate="model.DryerExhaustPresent" :current-value="model.DryerExhaustPainted" @@onChanged="model.DryerExhaustPainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
++ <numeric-wrapper-component label="Qty:" hide-margin v-show="model.DryerExhaustPresent" :validate="model.DryerExhaustPresent" :current-value="model.DryerExhaustQty" @@onChanged="ValidateQty($event, 'DryerExhaustQty', 'DryerExhaustQtyDamaged')"></numeric-wrapper-component>
++ <numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.DryerExhaustPresent" :validate="model.DryerExhaustPresent" :current-value="model.DryerExhaustQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'DryerExhaustQty', 'DryerExhaustQtyDamaged')"></numeric-wrapper-component>
+
+@* Swamp Cooler Present? *@
++ <boolean-camera-wrapper-component id="SwampCoolerPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.SwampCoolerPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.SwampCoolerPresent)" :validate="validate" :current-value="model.SwampCoolerPresent" @@onChanged="model.SwampCoolerPresent = $event" v-bind:choices="['Yes', 'No']" label="Swamp Cooler Present?"></boolean-camera-wrapper-component>
++ <boolean-wrapper-component id="SwampCoolerPainted" hide-margin v-show="model.SwampCoolerPresent" :validate="model.SwampCoolerPresent" :current-value="model.SwampCoolerPainted" @@onChanged="model.SwampCoolerPainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
++ <numeric-wrapper-component label="Qty:" hide-margin v-show="model.SwampCoolerPresent" :validate="model.SwampCoolerPresent" :current-value="model.SwampCoolerQty" @@onChanged="ValidateQty($event, 'SwampCoolerQty', 'SwampCoolerQtyDamaged')"></numeric-wrapper-component>
++ <numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.SwampCoolerPresent" :validate="model.SwampCoolerPresent" :current-value="model.SwampCoolerQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'SwampCoolerQty', 'SwampCoolerQtyDamaged')"></numeric-wrapper-component>
+@* Solar Panel Present? *@
++ <boolean-camera-wrapper-component id="SolarPanelPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.SolarPanelPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.SolarPanelPresent)" :validate="validate" :current-value="model.SolarPanelPresent" @@onChanged="model.SolarPanelPresent = $event" v-bind:choices="['Yes', 'No']" label="Solar Panel Present?"></boolean-camera-wrapper-component>
++ <boolean-wrapper-component id="SolarPanelPainted" hide-margin v-show="model.SolarPanelPresent" :validate="model.SolarPanelPresent" :current-value="model.SolarPanelPainted" @@onChanged="model.SolarPanelPainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
++ <numeric-wrapper-component label="Qty:" hide-margin v-show="model.SolarPanelPresent" :validate="model.SolarPanelPresent" :current-value="model.SolarPanelQty" @@onChanged="ValidateQty($event, 'SolarPanelQty', 'SolarPanelQtyDamaged')"></numeric-wrapper-component>
++ <numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.SolarPanelPresent" :validate="model.SolarPanelPresent" :current-value="model.SolarPanelQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'SolarPanelQty', 'SolarPanelQtyDamaged')"></numeric-wrapper-component>
+
+<boolean-camera-wrapper-component id="SkylightsPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.SkylightsPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.SkylightsPresent)" :validate="validate" :current-value="model.SkylightsPresent" @@onChanged="model.SkylightsPresent = $event" v-bind:choices="['Yes', 'No']" label="Skylight Present?"></boolean-camera-wrapper-component>
+<boolean-wrapper-component id="SkylightsPainted" hide-margin v-show="model.SkylightsPresent" :validate="model.SkylightsPresent" :current-value="model.SkylightsPainted" @@onChanged="model.SkylightsPainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
+<numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.ValleyMetalPresent" :validate="model.ValleyMetalPresent" :current-value="model.ValleyMetalQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'ValleyMetalQty', 'ValleyMetalQtyDamaged')"></numeric-wrapper-component>
+
+@* Flat Roof Scupper Drain Present?  *@
++ <boolean-camera-wrapper-component id="FlatRoofScupperDrainPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.FlatRoofScupperDrainPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.FlatRoofScupperDrainPresent)" :validate="validate" :current-value="model.FlatRoofScupperDrainPresent" @@onChanged="model.FlatRoofScupperDrainPresent = $event" v-bind:choices="['Yes', 'No']" label="Flat Roof Scupper Drain Present?"></boolean-camera-wrapper-component>
++ <boolean-wrapper-component id="FlatRoofScupperDrainPainted" hide-margin v-show="model.FlatRoofScupperDrainPresent" :validate="model.FlatRoofScupperDrainPresent" :current-value="model.FlatRoofScupperDrainPainted" @@onChanged="model.FlatRoofScupperDrainPainted = $event" v-bind:choices="['Yes', 'No']" label="Painted?"></boolean-wrapper-component>
++ <numeric-wrapper-component label="Qty:" hide-margin v-show="model.FlatRoofScupperDrainPresent" :validate="model.FlatRoofScupperDrainPresent" :current-value="model.FlatRoofScupperDrainQty" @@onChanged="ValidateQty($event, 'FlatRoofScupperDrainQty', 'FlatRoofScupperDrainQtyDamaged')"></numeric-wrapper-component>
++ <numeric-wrapper-component label="Qty Damaged:" hide-margin v-show="model.FlatRoofScupperDrainPresent" :validate="model.FlatRoofScupperDrainPresent" :current-value="model.FlatRoofScupperDrainQtyDamaged" @@onChanged="ValidateQtyDamaged($event, 'FlatRoofScupperDrainQty', 'FlatRoofScupperDrainQtyDamaged')"></numeric-wrapper-component>
+
+<boolean-camera-wrapper-component id="RainDivertersPresent" :disable-camera="fieldAssets.length >= 100" :field-assets="ReturnFieldAssets(assetFieldEnum.RainDivertersPresent)" :asset-upload-model="ReturnAssetModel(assetFieldEnum.RainDivertersPresent)" :validate="validate" :current-value="model.RainDivertersPresent" @@onChanged="model.RainDivertersPresent = $event" v-bind:choices="['Yes', 'No']" label="Rain Diverter Present?"></boolean-camera-wrapper-component>
+<numeric-wrapper-component label="Qty:" hide-margin v-show="model.RainDivertersPresent" :validate="model.RainDivertersPresent" :current-value="model.RainDivertersQty" @@onChanged="ValidateQty($event, 'RainDivertersQty', 'RainDivertersQtyDamaged')"></numeric-wrapper-component>

@@ -1,0 +1,21 @@
+@model List<Exemplar.Web.Areas.PropertyInspection.Models.ReportViewModels.SectionViewModels.InteriorItem>
+
+<div id="InteriorContainer" style="width:50%">
+  <div class="TableLabel">Interior Summary</div>
+  <table class="TableData" id="Interior" cellspacing="0">
+    <tr>
+      <th>Location</th>
+      <th>SF</th>
+      <th>Description</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+      <tr>
+        <td style="width:30%">@item.Location</td>
+        <td style="width:10%">@item.Size</td>
+        <td style="width:60%; text-align:left; padding-left:4px">@item.Description</td>
+      </tr>
+    }
+  </table>
+</div>

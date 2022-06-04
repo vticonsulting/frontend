@@ -1,0 +1,224 @@
+@using Exemplar.Web.Areas.PropertyInspection.Models
+@model Exemplar.Web.Areas.PropertyInspection.Models.ReportViewModels.SectionViewModels.RoofObservationSection
+
+<h2 class="mt-4 font-semibold text-lg">Roof Observations</h2>
+
+<section id="RoofObservationsContainer" class="Section">
+
+    <p class="mt-2">
+        The risk assessed consists of a <span class="font-bold">@Model.Stories</span> story structure with a <span class="font-bold">@Model.RoofType</span> style roof with the
+        following predominant pitches:
+    </p
+
+    <ul class="mt-2 pl-8 list-disc">
+        <li>Front Pitch: @(Model.PitchFront != null && Model.PitchFront.Length > 0 ? Model.PitchFront : "NA") </li>
+        <li>Left Pitch: @(Model.PitchLeft != null && Model.PitchLeft.Length > 0 ? Model.PitchLeft : "NA") </li>
+        <li>Back Pitch:  @(Model.PitchBack != null && Model.PitchBack.Length > 0 ? Model.PitchBack : "NA") </li>
+        <li>Right Pitch:  @(Model.PitchRight != null && Model.PitchRight.Length > 0 ? Model.PitchRight : "NA") </li>
+    </ul>
+
+    @{
+        var hasFelt = @Model.FeltDescription != null && @Model.FeltDescription.Length > 0 ? true : false;
+        var hasDripEdge = @Model.DripEdge == "Yes" ? true : false;
+        var hasIceWaterShield = @Model.IceWaterShield == "Yes" ? true : false;
+    }
+
+
+    @if (@hasFelt || @hasDripEdge || @hasIceWaterShield || @Model.RoofAccessories.Count > 0)
+    {
+        <text>The roof was comprised of a @Model.RoofMaterial shingle system with </text>
+    }
+    else
+    {
+        <text>The roof was comprised of a @Model.RoofMaterial shingle system. </text>
+    }
+
+
+    @if (@hasFelt)
+    {
+
+        @if (@hasDripEdge || @hasIceWaterShield || @Model.RoofAccessories.Count > 0)
+        {
+
+            @Model.FeltDescription <text> felt,</text>
+        }
+        else
+        {
+            @Model.FeltDescription <text>felt.</text>
+        }
+    }
+    @if (@hasDripEdge)
+    {
+        @if (@hasIceWaterShield || @Model.RoofAccessories.Count > 0)
+        {
+
+            <text> drip edge,</text>
+        }
+        else
+        {
+            <text>and drip edge.</text>
+        }
+    }
+    @if (@hasIceWaterShield)
+    {
+        @if (@Model.RoofAccessories.Count == 0)
+        {
+
+            <text> and an ice and water shield.</text>
+        }
+        else
+        {
+            <text>ice and water shield, </text>
+        }
+    }
+
+    @if (@Model.RoofAccessories.Count > 0)
+    {
+
+        <text> and the following roof accessories:<br />
+
+        </text>
+
+        <ul class="mt-2 pl-8 list-disc">
+            @foreach (var accessory in Model.RoofAccessories)
+            {
+                <li>@accessory.Accessory</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <br />
+    }
+
+    A walk-around of the structure was conducted examining the siding, windows, window screens,
+    fascia, gutters, and downspouts.
+    @if (@Model.SidingDamage == "Yes" || @Model.WindowDamage == "Yes" || @Model.WindowScreenDamage == "Yes" || @Model.FasciaDamage == "Yes" || @Model.GutterDamage == "Yes" || @Model.DownspoutDamage == "Yes")
+    {
+        <text> This examination yielded the following damage: <br /> <br /></text>
+        <ul class="mt-2 pl-8 list-disc">
+            @if (@Model.SidingDamage == "Yes")
+            {
+                <li>Siding Damage</li>
+            }
+            @if (@Model.WindowDamage == "Yes")
+            {
+                <li>Window Damage</li>
+            }
+            @if (@Model.WindowScreenDamage == "Yes")
+            {
+                <li>Window Screen Damage</li>
+            }
+            @if (@Model.FasciaDamage == "Yes")
+            {
+                <li>Fascia Damage</li>
+            }
+            @if (@Model.GutterDamage == "Yes")
+            {
+                <li>Gutter Damage</li>
+            }
+            @if (@Model.DownspoutDamage == "Yes")
+            {
+                <li>Downspout Damage</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <text> No sudden loss created damages.</text>
+
+    }
+    The entirety of the roof system was inspected for wind related damages finding
+    @if (@Model.WindDamage != "Yes")
+    {
+        <text>no damages.</text>
+    }
+    else
+    {
+        <text> the following damages: <br /> <br /></text>
+
+        <ul class="mt-2 pl-8 list-disc">
+            <li>Front Slope: @(Model.WindDamageFront != null && Model.WindDamageFront.Length > 0 ? Model.WindDamageFront : "NA") </li>
+            <li>Left Slope: @(Model.WindDamageLeft != null && Model.WindDamageLeft.Length > 0 ? Model.WindDamageLeft : "NA") </li>
+            <li>Back Slope:  @(Model.WindDamageBack != null && Model.WindDamageBack.Length > 0 ? Model.WindDamageBack : "NA") </li>
+            <li>Right Slope:  @(Model.WindDamageRight != null && Model.WindDamageRight.Length > 0 ? Model.WindDamageRight : "NA") </li>
+        </ul>
+
+    }
+    @if (@Model.BrittlenessTestConducted == "Yes")
+    {
+        <text>Repairability Assessments were conducted on the affected directional slopes yielding the following results: <br /> <br /></text>
+
+        <ul class="mt-2 pl-8 list-disc">
+
+            <li>
+                Front Elevation: @Model.BrittlenessTestFrontPass
+            </li>
+
+            <li>
+                Back Elevation: @Model.BrittlenessTestBackPass
+            </li>
+
+            <li>
+                Left Elevation: @Model.BrittlenessTestLeftPass
+            </li>
+
+            <li>
+                Right Elevation: @Model.BrittlenessTestRightPass
+            </li>
+
+        </ul>
+    }
+
+    @if (@Model.ReportType != ReportType.DirectInspectionCAStateAutoAssociation)
+    {
+
+        <text>Hail test squares were conducted on each directional slope finding </text>
+
+        @if (@Model.HailDamage != "Yes")
+        {
+            <text>no hail strikes within nor to any other field shingles.</text>
+        }
+        else
+        {
+            <text>the following damages: <br /> <br /></text>
+
+            <ul class="mt-2 pl-8 list-disc">
+                <li>Front Elevation: @(Model.HailDamageFront != null && Model.HailDamageFront.Length > 0 ? Model.HailDamageFront : "NA") </li>
+                <li>Back Elevation: @(Model.HailDamageBack != null && Model.HailDamageBack.Length > 0 ? Model.HailDamageBack : "NA") </li>
+                <li>Left Elevation:  @(Model.HailDamageLeft != null && Model.HailDamageLeft.Length > 0 ? Model.HailDamageLeft : "NA") </li>
+                <li>Right Elevation:  @(Model.HailDamageRight != null && Model.HailDamageRight.Length > 0 ? Model.HailDamageRight : "NA") </li>
+            </ul>
+        }
+    }
+
+    @if (@Model.PriorRepairsFront != null && @Model.PriorRepairsFront == "Yes" || @Model.PriorRepairsBack != null && @Model.PriorRepairsBack == "Yes" || @Model.PriorRepairsLeft != null && @Model.PriorRepairsLeft == "Yes" || @Model.PriorRepairsRight != null && @Model.PriorRepairsRight == "Yes")
+    {
+        <text>Prior Repairs were observed on the following elevations:</text>
+
+        <ul class="mt-2 pl-8 list-disc">
+            @if (@Model.PriorRepairsFront == "Yes")
+            {
+                <li>Front Elevation</li>
+            }
+            @if (@Model.PriorRepairsBack == "Yes")
+            {
+                <li>Back Elevation</li>
+            }
+            @if (@Model.PriorRepairsLeft == "Yes")
+            {
+                <li>Left Elevation</li>
+            }
+            @if (@Model.PriorRepairsRight == "Yes")
+            {
+                <li>Right Elevation</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <text> No prior repairs were observed.</text>
+    }
+    Other areas of concern if any are noted in the additional summary.
+
+</section>

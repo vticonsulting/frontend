@@ -1,0 +1,99 @@
+@model Exemplar.Web.Areas.PropertyInspection.Models.ReportViewModels.SectionViewModels.RoofSummarySection
+
+<div id="RoofSummaryContainer">
+  <h2 class="table-label text-lg font-medium mt-8">Roof Summary</h2>
+
+  <table class="TableData" id="RoofSummary" cellspacing="0">
+    <tr>
+      <th>Category</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>Roof Type</td>
+      <td>@Model.RoofType</td>
+    </tr>
+
+    <tr>
+      <td>Roof Material</td>
+      <td>@Model.RoofMaterial</td>
+    </tr>
+
+    <tr>
+      <td>Ice and Water</td>
+      <td>@Model.IceWaterShield</td>
+    </tr>
+
+    <tr>
+      <td>Pitch 0/12-6/12</td>
+      <td>@Model.RoofPitchZeroSqft</td>
+    </tr>
+
+    <tr>
+      <td>Pitch 7/12-9/12</td>
+      <td>@Model.RoofPitchSevenSqft</td>
+    </tr>
+
+    <tr>
+      <td>Pitch 10/12-12/12</td>
+      <td>@Model.RoofPitchTenSqft</td>
+    </tr>
+
+    <tr>
+      <td>Stories</td>
+      <td>@Model.Stories</td>
+    </tr>
+
+    <tr>
+      <td>One Story</td>
+      <td>@Model.RoofStoryOneSqft</td>
+    </tr>
+
+    <tr>
+      <td>Two Story</td>
+      <td>@Model.RoofStoryTwoSqft</td>
+    </tr>
+
+    <tr>
+      <td>Valley Type</td>
+      <td>@Model.ValleyType</td>
+    </tr>
+
+    <tr>
+      <td>Universal Starter</td>
+      <td>@Model.UniversalStarter</td>
+    </tr>
+
+    <tr>
+      <td>Rake</td>
+      <td>@Model.Rake</td>
+    </tr>
+
+    <tr>
+      <td>Layers</td>
+      <td>@Model.LayerQty</td>
+    </tr>
+
+    <tr>
+      <td>Felt Paper</td>
+      <td>@Model.FeltDescription</td>
+    </tr>
+
+    <tr>
+      <td>Soffit Depth</td>
+      <td>@Model.SoffitDepth (in)</td>
+    </tr>
+
+    <tr>
+      <td>Public Adjuster Present</td>
+      <td>@Model.PublicAdjusterPresent</td>
+    </tr>
+    <tr>
+      <td>Insured Present</td>
+      <td>@Model.InsuredPresent</td>
+    </tr>
+    <tr>
+      <td>Contractor Present</td>
+      <td>@Model.ContractorPresent</td>
+    </tr>
+  </table>
+</div>

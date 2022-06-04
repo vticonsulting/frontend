@@ -1,0 +1,48 @@
+@forward 'variables';
+@forward 'colors';
+@forward 'type';
+@forward 'functions';
+@forward 'breakpoints';
+@forward 'mixins';
+
+$value: 42;
+$length: $value * 1px;
+$base-color: #c6538c;
+$columns: 12;
+$primary: #81899b;
+$accent: #302e24;
+$warn: #dfa612;
+$rounded-corners: false;
+$border-dark: rgba($base-color, 0.88);
+
+$accent-color: #fbbc04;
+$primary-color: #036;
+
+$theme-colors: (
+  "success": #28a745,
+  "info": #17a2b8,
+  "warning": #ffc107,
+);
+
+$br-small: 45rem;
+
+$breakpoints: (small: 40em,
+  medium: 65em,
+  large: 90em,
+);
+
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+// $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas;
+$font-family-monospace: Menlo, Consolas, "Courier New", monospace;
+
+$font-weights: (
+  "thin": 100,
+  "extra-light": 200,
+  "light": 300,
+  "normal": 400,
+  "medium": 500,
+  "semi-bold": 600,
+  "bold": 700,
+  "extra-bold": 800,
+  "black": 900,
+);
